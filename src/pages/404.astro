@@ -1,0 +1,20 @@
+---
+import Base from "@layouts/Base.astro";
+---
+
+<Base
+  title="Page not found · Build Space"
+  description="The page you are looking for does not exist on the Build Space site."
+  noIndex
+>
+  <main id="main" class="container-page section-pad-lg" style="min-height: 70vh; display: grid; align-content: center;">
+    <p class="eyebrow">404</p>
+    <h1 class="mt-4" style={`font-size: var(--text-4xl);`}>This page is not here.</h1>
+    <p class="mt-6 max-w-prose" style={`color: var(--color-ink-soft); font-size: var(--text-lg);`}>
+      The link you followed is wrong, or the page has moved. Head back to the home page and start there.
+    </p>
+    <div class="mt-8">
+      <a href="/" class="btn btn-primary">Back to Build Space</a>
+    </div>
+  </main>
+</Base>

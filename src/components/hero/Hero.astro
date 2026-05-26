@@ -1,0 +1,219 @@
+---
+import { COHORT } from "@lib/data/cohort";
+import PayDemoButton from "@components/payment/PayDemoButton";
+
+// Three outcome chips that sit at the bottom of the hero — the
+// "what your child walks out with" question, answered in one breath.
+const outcomes = [
+  { label: "A working AI agent", note: "Built from scratch, in Python" },
+  { label: "A live URL", note: "Their project, online, anyone can visit" },
+  { label: "A GitHub repo", note: "Their code, theirs to keep" },
+];
+---
+
+<section
+  id="top"
+  aria-labelledby="hero-headline"
+  class="relative overflow-hidden"
+  style="background: var(--color-paper);"
+>
+  <!-- Soft warm-light wash behind the hero copy. Pure decoration. -->
+  <div
+    aria-hidden="true"
+    class="pointer-events-none absolute inset-0 -z-0"
+    style="background:
+      radial-gradient(60% 80% at 100% 0%, color-mix(in oklch, var(--color-accent) 18%, transparent) 0%, transparent 60%),
+      radial-gradient(70% 90% at -10% 100%, color-mix(in oklch, var(--color-warn) 14%, transparent) 0%, transparent 55%);"
+  ></div>
+
+  <!-- Faint grid that fades out as you scroll. Adds depth without noise. -->
+  <div
+    aria-hidden="true"
+    class="pointer-events-none absolute inset-0 -z-0"
+    style="background-image:
+      linear-gradient(color-mix(in oklch, var(--color-ink) 6%, transparent) 1px, transparent 1px),
+      linear-gradient(90deg, color-mix(in oklch, var(--color-ink) 6%, transparent) 1px, transparent 1px);
+      background-size: 56px 56px;
+      mask-image: linear-gradient(180deg, black 0%, black 55%, transparent 100%);"
+  ></div>
+
+  <div
+    class="container-page relative grid items-center gap-10 md:gap-16 lg:gap-20 lg:grid-cols-12"
+    style="min-height: calc(100vh - 64px); padding-block: clamp(3rem, 2rem + 4vw, 6rem);"
+  >
+    <!-- LEFT: copy column -->
+    <div class="lg:col-span-7">
+      <p class="eyebrow reveal" style="color: var(--color-accent-deep);">
+        <span
+          aria-hidden="true"
+          class="mr-2 inline-block h-1.5 w-1.5 rounded-full align-middle"
+          style="background: var(--color-accent);"
+        ></span>
+        {COHORT.cohort} · Starts {COHORT.startDateReadable}
+      </p>
+
+      <h1
+        id="hero-headline"
+        class="reveal mt-5"
+        style={`font-family: var(--font-display); font-size: var(--text-hero); line-height: 0.98; letter-spacing: -0.04em; font-weight: 600; --reveal-delay: 80ms;`}
+      >
+        Your child can build AI.
+        <span
+          style="display: block; color: var(--color-ink-soft); font-weight: 500;"
+        >
+          Not just use it.
+        </span>
+      </h1>
+
+      <p
+        class="reveal mt-7 max-w-xl"
+        style={`font-size: var(--text-lg); color: var(--color-ink-soft); line-height: 1.55; --reveal-delay: 160ms;`}
+      >
+        Four weekends. Five students. One AI engineer as the instructor. By the end your child has shipped a working agent, with a live URL and a GitHub repo, and presents it to you on demo day.
+      </p>
+
+      <div
+        class="reveal mt-9 flex flex-wrap items-center gap-3"
+        style="--reveal-delay: 240ms;"
+      >
+        <PayDemoButton client:idle label="Book the demo class · ₹99" variant="accent" fontSize="var(--text-sm)" />
+        <a href="#curriculum" class="btn btn-secondary" style="font-size: var(--text-sm);">
+          See what they build
+          <span aria-hidden="true" style="display: inline-block; transform: translateX(0); transition: transform 200ms var(--ease-out-quart);">→</span>
+        </a>
+      </div>
+
+      <p
+        class="reveal mt-5"
+        style={`color: var(--color-ink-mute); font-size: var(--text-sm); --reveal-delay: 300ms;`}
+      >
+        First class is ₹99. A live look before you commit to ₹19,999.
+      </p>
+
+      <!-- Outcome chips — the answer to "what does my child walk out with?" -->
+      <dl
+        class="reveal mt-12 grid gap-4 sm:grid-cols-3"
+        style="--reveal-delay: 380ms;"
+      >
+        {outcomes.map((o) => (
+          <div
+            class="rounded-[var(--radius-md)] border p-4"
+            style="background: color-mix(in oklch, var(--color-paper-card) 92%, transparent); border-color: var(--color-rule); backdrop-filter: blur(4px);"
+          >
+            <dt
+              style={`font-family: var(--font-display); font-size: var(--text-base); font-weight: 600; color: var(--color-ink);`}
+            >
+              {o.label}
+            </dt>
+            <dd
+              class="mt-1"
+              style={`color: var(--color-ink-mute); font-size: var(--text-xs);`}
+            >
+              {o.note}
+            </dd>
+          </div>
+        ))}
+      </dl>
+    </div>
+
+    <!-- RIGHT: photographic column with parallax + floating tags -->
+    <div class="relative lg:col-span-5">
+      <figure
+        class="reveal relative"
+        style="--reveal-delay: 200ms;"
+      >
+        <div
+          data-parallax="0.35"
+          class="relative overflow-hidden"
+          style="
+            border-radius: var(--radius-xl);
+            border: 1px solid var(--color-rule);
+            aspect-ratio: 4/5;
+            box-shadow: 0 30px 80px -30px color-mix(in oklch, var(--color-ink) 30%, transparent),
+                        0 8px 24px -12px color-mix(in oklch, var(--color-ink) 20%, transparent);
+            transform: translate3d(0, var(--py, 0), 0);
+            will-change: transform;
+          "
+        >
+          <picture>
+            <source srcset="/images/student-building.avif" type="image/avif" />
+            <source srcset="/images/student-building.webp" type="image/webp" />
+            <img
+              src="/images/student-building.webp"
+              alt="A fifteen-year-old student in a sunlit Indian home, focused on a laptop, typing the first lines of an AI agent."
+              width="1800"
+              height="2250"
+              fetchpriority="high"
+              decoding="async"
+              style="width: 100%; height: 100%; object-fit: cover; object-position: center;"
+            />
+          </picture>
+
+          <!-- Soft warm gradient inside the photo card to harmonise it with the page -->
+          <div
+            aria-hidden="true"
+            class="pointer-events-none absolute inset-0"
+            style="background: linear-gradient(160deg, transparent 50%, color-mix(in oklch, var(--color-ink) 28%, transparent) 100%);"
+          ></div>
+        </div>
+
+        <!-- Floating credibility chips — small, restrained, parent-readable -->
+        <div
+          aria-hidden="true"
+          class="absolute -left-4 top-6 hidden rounded-[var(--radius-pill)] border px-3 py-2 sm:flex"
+          style="background: var(--color-paper); border-color: var(--color-rule); box-shadow: 0 8px 24px -12px color-mix(in oklch, var(--color-ink) 22%, transparent); font-size: var(--text-xs); color: var(--color-ink); font-weight: 500;"
+        >
+          <span
+            class="mr-2 inline-block h-2 w-2 rounded-full"
+            style="background: var(--color-good);"
+          ></span>
+          Class 9 to 12 · India
+        </div>
+
+        <div
+          aria-hidden="true"
+          class="absolute -right-3 bottom-10 hidden rounded-[var(--radius-md)] border p-3 sm:block"
+          style="background: var(--color-paper); border-color: var(--color-rule); box-shadow: 0 8px 24px -12px color-mix(in oklch, var(--color-ink) 22%, transparent);"
+        >
+          <span
+            style={`font-family: var(--font-display); font-size: var(--text-xl); font-weight: 600; color: var(--color-accent-deep); letter-spacing: -0.02em; line-height: 1; display: block;`}
+          >
+            5
+          </span>
+          <span
+            style={`font-size: var(--text-2xs); color: var(--color-ink-mute); letter-spacing: 0.08em; text-transform: uppercase;`}
+          >
+            students per cohort
+          </span>
+        </div>
+      </figure>
+    </div>
+  </div>
+
+  <!-- Quiet "scroll" affordance at the bottom -->
+  <div
+    aria-hidden="true"
+    class="absolute inset-x-0 bottom-5 flex justify-center"
+  >
+    <span
+      class="inline-flex items-center gap-2 text-[10px] uppercase tracking-[0.2em]"
+      style="color: var(--color-ink-mute);"
+    >
+      Scroll
+      <span
+        style="display: inline-block; width: 1px; height: 28px; background: linear-gradient(180deg, var(--color-ink-mute) 0%, transparent 100%); animation: scrollHint 1.8s var(--ease-out-quart) infinite;"
+      ></span>
+    </span>
+  </div>
+</section>
+
+<style>
+  @keyframes scrollHint {
+    0%   { transform: translateY(-6px); opacity: 0; }
+    35%  { opacity: 1; }
+    100% { transform: translateY(8px);  opacity: 0; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    @keyframes scrollHint { 0%, 100% { transform: none; opacity: 0.6; } }
+  }
+</style>

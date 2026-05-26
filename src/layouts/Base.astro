@@ -1,0 +1,121 @@
+---
+import SEO from "@components/seo/SEO.astro";
+import "@styles/global.css";
+
+interface Props {
+  title: string;
+  description: string;
+  ogImage?: string;
+  noIndex?: boolean;
+}
+
+const { title, description, ogImage, noIndex } = Astro.props;
+---
+
+<!doctype html>
+<html lang="en-IN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <meta name="generator" content={Astro.generator} />
+    <SEO {title} {description} {ogImage} {noIndex} />
+    <script is:inline async src="https://checkout.razorpay.com/v1/checkout.js"></script>
+  </head>
+  <body>
+    <a
+      href="#main"
+      class="absolute left-3 top-3 z-50 -translate-y-20 rounded-md px-3 py-2 text-sm font-medium focus:translate-y-0"
+      style="background: var(--color-ink); color: var(--color-paper);"
+    >
+      Skip to content
+    </a>
+
+    <slot />
+
+    <script>
+      import Lenis from "lenis";
+
+      const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+      // --- Smooth scroll (gentle), exposes window.lenis and a --scroll-y CSS var.
+      if (!reduced) {
+        const lenis = new Lenis({
+          duration: 1.05,
+          easing: (t: number) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+          smoothWheel: true,
+          touchMultiplier: 1.4,
+        });
+
+        (window as unknown as { lenis: Lenis }).lenis = lenis;
+
+        const html = document.documentElement;
+        lenis.on("scroll", ({ scroll }: { scroll: number }) => {
+          html.style.setProperty("--scroll-y", `${scroll}px`);
+        });
+
+        const raf = (time: number) => {
+          lenis.raf(time);
+          requestAnimationFrame(raf);
+        };
+        requestAnimationFrame(raf);
+
+        // In-page anchor links: hand them to Lenis for smooth-scroll behaviour
+        document.querySelectorAll<HTMLAnchorElement>('a[href^="#"]').forEach((a) => {
+          a.addEventListener("click", (e) => {
+            const id = a.getAttribute("href")?.slice(1);
+            if (!id) return;
+            const target = document.getElementById(id);
+            if (!target) return;
+            e.preventDefault();
+            lenis.scrollTo(target, { offset: -64, duration: 1.1 });
+          });
+        });
+      }
+
+      // --- Reveal-on-view choreography
+      const targets = document.querySelectorAll<HTMLElement>(".reveal");
+      if (!reduced && targets.length && "IntersectionObserver" in window) {
+        const io = new IntersectionObserver(
+          (entries) => {
+            for (const e of entries) {
+              if (e.isIntersecting) {
+                e.target.classList.add("is-visible");
+                io.unobserve(e.target);
+              }
+            }
+          },
+          { rootMargin: "0px 0px -8% 0px", threshold: 0.08 }
+        );
+        targets.forEach((t) => io.observe(t));
+      } else {
+        targets.forEach((t) => t.classList.add("is-visible"));
+      }
+
+      // --- Cheap parallax: read --scroll-y, apply translateY to [data-parallax] elements.
+      // Uses rAF + CSS variables; no layout-property animation, no GSAP needed.
+      if (!reduced) {
+        const items = Array.from(
+          document.querySelectorAll<HTMLElement>("[data-parallax]")
+        ).map((el) => ({
+          el,
+          speed: parseFloat(el.dataset.parallax || "0.1"),
+        }));
+
+        if (items.length) {
+          let raf2 = 0;
+          const tick = () => {
+            for (const { el, speed } of items) {
+              const rect = el.getBoundingClientRect();
+              const center = rect.top + rect.height / 2 - window.innerHeight / 2;
+              const offset = -center * speed * 0.18;
+              el.style.setProperty("--py", `${offset.toFixed(2)}px`);
+            }
+            raf2 = requestAnimationFrame(tick);
+          };
+          raf2 = requestAnimationFrame(tick);
+          window.addEventListener("beforeunload", () => cancelAnimationFrame(raf2), { once: true });
+        }
+      }
+    </script>
+  </body>
+</html>

@@ -1,0 +1,81 @@
+---
+import { COHORT } from "@lib/data/cohort";
+import PayDemoButton from "@components/payment/PayDemoButton";
+---
+
+<section
+  id="apply"
+  aria-labelledby="apply-heading"
+  class="section-pad-lg relative overflow-hidden"
+  style="background: var(--color-ink); color: var(--color-paper);"
+>
+  <!-- Cinematic demo-day still as the section backdrop -->
+  <picture aria-hidden="true">
+    <source srcset="/images/demo-day.avif" type="image/avif" />
+    <source srcset="/images/demo-day.webp" type="image/webp" />
+    <img
+      src="/images/demo-day.webp"
+      alt=""
+      width="1800"
+      height="1200"
+      loading="lazy"
+      decoding="async"
+      class="pointer-events-none absolute inset-0 h-full w-full object-cover"
+      style="opacity: 0.18; filter: saturate(0.85) contrast(1.05);"
+    />
+  </picture>
+  <div
+    aria-hidden="true"
+    class="pointer-events-none absolute inset-0"
+    style="background: linear-gradient(180deg, color-mix(in oklch, var(--color-ink) 92%, transparent) 0%, color-mix(in oklch, var(--color-ink) 78%, transparent) 100%);"
+  ></div>
+  <div
+    aria-hidden="true"
+    class="pointer-events-none absolute -bottom-40 left-1/2 -translate-x-1/2"
+    style="width: 700px; height: 700px; background: radial-gradient(circle, color-mix(in oklch, var(--color-accent) 24%, transparent) 0%, transparent 60%); filter: blur(8px);"
+  ></div>
+
+  <div class="container-page relative">
+    <div class="mx-auto max-w-3xl text-center">
+      <p
+        class="eyebrow reveal"
+        style="color: color-mix(in oklch, var(--color-paper) 70%, transparent);"
+      >
+        {COHORT.cohort} · {COHORT.startDateReadable}
+      </p>
+
+      <h2
+        id="apply-heading"
+        class="reveal mt-6"
+        style={`font-family: var(--font-display); font-size: var(--text-4xl); line-height: 1.04; letter-spacing: -0.03em; --reveal-delay: 80ms;`}
+      >
+        Book the ₹99 demo class.<br />Decide after.
+      </h2>
+
+      <p
+        class="reveal mx-auto mt-6 max-w-xl"
+        style={`color: color-mix(in oklch, var(--color-paper) 78%, transparent); font-size: var(--text-lg); --reveal-delay: 140ms;`}
+      >
+        Two hours. Your child meets the instructor, builds something small, and takes a short live test. You watch from the next room or join. If it is not for your child, you have spent nothing.
+      </p>
+
+      <div class="reveal mt-10 flex flex-wrap justify-center gap-3" style="--reveal-delay: 200ms;">
+        <PayDemoButton client:idle label="Book the demo class · ₹99" variant="accent" />
+        <a
+          href={`mailto:${COHORT.contact.email}`}
+          class="btn"
+          style="color: var(--color-paper); border: 1px solid color-mix(in oklch, var(--color-paper) 28%, transparent);"
+        >
+          Talk to the instructor
+        </a>
+      </div>
+
+      <p
+        class="reveal mt-6 text-sm"
+        style={`color: color-mix(in oklch, var(--color-paper) 60%, transparent); --reveal-delay: 260ms;`}
+      >
+        {COHORT.batchSize} students, hard limit. Class 9 to 12, India. Cohort 01 starts {COHORT.startDateReadable}.
+      </p>
+    </div>
+  </div>
+</section>

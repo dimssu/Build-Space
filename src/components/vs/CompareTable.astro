@@ -1,0 +1,82 @@
+---
+import { COHORT } from "@lib/data/cohort";
+---
+
+<section
+  id="compare-table"
+  aria-labelledby="compare-table-heading"
+  class="section-pad"
+  style="background: var(--color-paper-soft); border-block: 1px solid var(--color-rule);"
+>
+  <div class="container-page">
+    <div class="max-w-3xl">
+      <p class="eyebrow reveal">If you are comparing</p>
+      <h2
+        id="compare-table-heading"
+        class="reveal mt-4"
+        style={`font-size: var(--text-3xl); --reveal-delay: 80ms;`}
+      >
+        How Logic Labs stacks up.
+      </h2>
+      <p
+        class="reveal mt-5"
+        style={`color: var(--color-ink-soft); font-size: var(--text-lg); --reveal-delay: 140ms;`}
+      >
+        Parents comparison-shop. We expect that. Here is the difference, on the things that matter.
+      </p>
+    </div>
+
+    <div
+      class="reveal mt-12 overflow-hidden rounded-[var(--radius-lg)] border"
+      style="background: var(--color-paper); border-color: var(--color-rule); --reveal-delay: 200ms;"
+    >
+      <div role="table" aria-label="Logic Labs compared to other AI courses for school students">
+        <div
+          role="row"
+          class="grid grid-cols-12 border-b text-xs uppercase tracking-[0.12em]"
+          style="border-color: var(--color-rule); color: var(--color-ink-mute);"
+        >
+          <div role="columnheader" class="col-span-12 px-5 py-4 sm:col-span-5">Feature</div>
+          <div role="columnheader" class="col-span-6 px-5 py-4 sm:col-span-3 border-l" style="border-color: var(--color-rule);">Most AI courses for kids</div>
+          <div
+            role="columnheader"
+            class="col-span-6 px-5 py-4 sm:col-span-4 border-l"
+            style={`border-color: var(--color-rule); background: var(--color-accent-soft); color: var(--color-accent-deep);`}
+          >
+            Logic Labs
+          </div>
+        </div>
+
+        {COHORT.compare.map((r, i) => (
+          <div
+            role="row"
+            class="grid grid-cols-12 items-start"
+            style={i === COHORT.compare.length - 1 ? "" : "border-bottom: 1px solid var(--color-rule);"}
+          >
+            <div
+              role="cell"
+              class="col-span-12 px-5 py-5 sm:col-span-5"
+              style={`font-size: var(--text-base); color: var(--color-ink); font-weight: 500;`}
+            >
+              {r.label}
+            </div>
+            <div
+              role="cell"
+              class="col-span-6 px-5 py-5 sm:col-span-3 border-l"
+              style={`border-color: var(--color-rule); font-size: var(--text-sm); color: var(--color-ink-mute);`}
+            >
+              {r.them}
+            </div>
+            <div
+              role="cell"
+              class="col-span-6 px-5 py-5 sm:col-span-4 border-l"
+              style={`border-color: var(--color-rule); background: color-mix(in oklch, var(--color-accent-soft) 50%, transparent); font-size: var(--text-sm); color: var(--color-ink); font-weight: 500;`}
+            >
+              {r.us}
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </div>
+</section>

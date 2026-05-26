@@ -1,0 +1,37 @@
+---
+import Base from "@layouts/Base.astro";
+import Nav from "@components/nav/Nav.astro";
+import Hero from "@components/hero/Hero.astro";
+import Promise from "@components/promise/Promise.astro";
+import Compare from "@components/compare/Compare.astro";
+import Curriculum from "@components/curriculum/Curriculum.astro";
+import Instructor from "@components/instructor/Instructor.astro";
+import HowItWorks from "@components/how/HowItWorks.astro";
+import CompareTable from "@components/vs/CompareTable.astro";
+import Pricing from "@components/pricing/Pricing.astro";
+import FAQ from "@components/faq/FAQ.astro";
+import ClosingCTA from "@components/cta/ClosingCTA.astro";
+import Footer from "@components/footer/Footer.astro";
+
+const title = "Build Space — Live AI Cohort for Class 9 to 12 Students in India";
+const description = "A four-week live cohort for Indian Class 9 to 12 students. Build and deploy a working AI agent in Python. Five students per batch, one practitioner instructor. Cohort 01 starts June 13, 2026.";
+---
+
+<Base {title} {description}>
+  <Nav />
+
+  <main id="main">
+    <Hero />
+    <Promise />
+    <Compare />
+    <Curriculum />
+    <Instructor />
+    <HowItWorks />
+    <CompareTable />
+    <Pricing />
+    <FAQ />
+    <ClosingCTA />
+  </main>
+
+  <Footer />
+</Base>

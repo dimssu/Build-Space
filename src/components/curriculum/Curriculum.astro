@@ -1,0 +1,94 @@
+---
+import { COHORT } from "@lib/data/cohort";
+---
+
+<section
+  id="curriculum"
+  aria-labelledby="curriculum-heading"
+  class="section-pad"
+  style="background: var(--color-paper);"
+>
+  <div class="container-page">
+    <figure
+      class="reveal relative overflow-hidden"
+      style="border-radius: var(--radius-lg); border: 1px solid var(--color-rule); aspect-ratio: 21/9; background: var(--color-paper-soft); margin-bottom: clamp(3rem, 2rem + 3vw, 5rem);"
+    >
+      <picture>
+        <source srcset="/images/code-closeup.avif" type="image/avif" />
+        <source srcset="/images/code-closeup.webp" type="image/webp" />
+        <img
+          src="/images/code-closeup.webp"
+          alt="A Python editor and terminal sit on a wooden desk, lit by warm afternoon sunlight; the terminal is mid-way through printing the first lines of an AI agent's output."
+          width="1920"
+          height="822"
+          loading="lazy"
+          decoding="async"
+          data-parallax="0.15"
+          style="width: 100%; height: 110%; object-fit: cover; transform: translate3d(0, var(--py, 0), 0); will-change: transform;"
+        />
+      </picture>
+    </figure>
+  </div>
+
+  <div class="container-page grid gap-14 md:grid-cols-12">
+    <div class="md:col-span-4">
+      <p class="eyebrow reveal">What your child builds</p>
+      <h2
+        id="curriculum-heading"
+        class="reveal mt-4"
+        style={`font-size: var(--text-3xl); --reveal-delay: 80ms; line-height: 1.04;`}
+      >
+        Four weeks.<br />
+        <span style="color: var(--color-ink-soft); font-weight: 500;">Something working every week.</span>
+      </h2>
+      <p
+        class="reveal mt-5"
+        style={`font-size: var(--text-lg); color: var(--color-ink-soft); --reveal-delay: 140ms;`}
+      >
+        No slide decks. No concept maps. Every Sunday, your child closes the laptop with something they can run and show you.
+      </p>
+    </div>
+
+    <ol class="md:col-span-8" style="list-style: none; padding: 0; margin: 0;">
+      {COHORT.weeks.map((w, i) => (
+        <li
+          class="reveal grid grid-cols-12 gap-6 border-t py-10"
+          style={`border-color: var(--color-rule); --reveal-delay: ${i * 70}ms;`}
+        >
+          <div class="col-span-12 md:col-span-3">
+            <span
+              class="text-xs uppercase tracking-[0.14em] font-medium"
+              style="color: var(--color-accent-deep);"
+            >
+              {w.label}
+            </span>
+          </div>
+          <div class="col-span-12 md:col-span-9">
+            <h3
+              style={`font-family: var(--font-display); font-size: var(--text-xl); font-weight: 600; letter-spacing: -0.01em; line-height: 1.2;`}
+            >
+              {w.title}
+            </h3>
+
+            <p
+              class="mt-4 inline-flex items-start gap-2 rounded-md px-4 py-3"
+              style="background: var(--color-accent-soft); color: var(--color-accent-deep); font-size: var(--text-sm); max-width: 100%;"
+            >
+              <span aria-hidden="true" style="margin-top: 2px;">↳</span>
+              <span>
+                <strong style="font-weight: 600;">By Sunday night:</strong> {w.outcome}
+              </span>
+            </p>
+
+            <p
+              class="mt-4 max-w-2xl"
+              style={`color: var(--color-ink-soft); font-size: var(--text-base); line-height: 1.6;`}
+            >
+              {w.desc}
+            </p>
+          </div>
+        </li>
+      ))}
+    </ol>
+  </div>
+</section>

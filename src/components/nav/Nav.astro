@@ -1,0 +1,36 @@
+---
+import PayDemoButton from "@components/payment/PayDemoButton";
+
+const links = [
+  { href: "#promise", label: "The promise" },
+  { href: "#curriculum", label: "Curriculum" },
+  { href: "#instructor", label: "Instructor" },
+  { href: "#pricing", label: "Pricing" },
+  { href: "#faq", label: "FAQ" },
+];
+---
+
+<header class="sticky top-0 z-40">
+  <div
+    class="border-b"
+    style="background: color-mix(in oklch, var(--color-paper) 88%, transparent); backdrop-filter: saturate(180%) blur(12px); border-color: var(--color-rule);"
+  >
+    <nav class="container-page flex h-16 items-center justify-between">
+      <a href="/" class="flex items-baseline gap-1 text-[15px] font-medium tracking-tight" style="font-family: var(--font-display);">
+        <span style="color: var(--color-accent);">{'{'}</span>
+        <span>buildspace</span>
+        <span style="color: var(--color-accent);">{'}'}</span>
+      </a>
+
+      <ul class="hidden items-center gap-7 md:flex" style="font-size: var(--text-sm); color: var(--color-ink-soft);">
+        {links.map((l) => (
+          <li>
+            <a href={l.href} class="transition-colors hover:text-[color:var(--color-ink)]">{l.label}</a>
+          </li>
+        ))}
+      </ul>
+
+      <PayDemoButton client:idle label="Book demo · ₹99" variant="primary" />
+    </nav>
+  </div>
+</header>

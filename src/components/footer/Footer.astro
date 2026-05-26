@@ -1,0 +1,52 @@
+---
+import { COHORT } from "@lib/data/cohort";
+const year = new Date().getFullYear();
+---
+
+<footer
+  class="border-t"
+  style="background: var(--color-paper); border-color: var(--color-rule); padding-block: 4rem 3rem;"
+  aria-labelledby="footer-heading"
+>
+  <h2 id="footer-heading" class="sr-only" style="position: absolute; clip-path: inset(50%); width: 1px; height: 1px; overflow: hidden;">
+    Build Space contact and legal
+  </h2>
+
+  <div class="container-page grid gap-10 md:grid-cols-12">
+    <div class="md:col-span-5">
+      <a href="/" class="flex items-baseline gap-1 text-[18px] font-medium tracking-tight" style="font-family: var(--font-display);">
+        <span style="color: var(--color-accent);">{'{'}</span>
+        <span>buildspace</span>
+        <span style="color: var(--color-accent);">{'}'}</span>
+      </a>
+      <p class="mt-4 max-w-sm" style={`color: var(--color-ink-soft); font-size: var(--text-sm);`}>
+        Build AI. Not just use it. A live cohort for Class 9 to 12 students in India.
+      </p>
+    </div>
+
+    <div class="md:col-span-3">
+      <p class="text-xs uppercase tracking-[0.14em]" style="color: var(--color-ink-mute);">Contact</p>
+      <ul class="mt-3 grid gap-2" style="list-style: none; padding: 0; font-size: var(--text-sm);">
+        <li>
+          <a href={`mailto:${COHORT.contact.email}`} style="color: var(--color-ink-soft);" class="hover:underline">{COHORT.contact.email}</a>
+        </li>
+        <li style="color: var(--color-ink-soft);">{COHORT.contact.whatsapp} (WhatsApp for parents)</li>
+      </ul>
+    </div>
+
+    <div class="md:col-span-4">
+      <p class="text-xs uppercase tracking-[0.14em]" style="color: var(--color-ink-mute);">Cohort</p>
+      <ul class="mt-3 grid gap-2" style="list-style: none; padding: 0; font-size: var(--text-sm); color: var(--color-ink-soft);">
+        <li>{COHORT.cohort}</li>
+        <li>Starts {COHORT.startDateReadable}</li>
+        <li>{COHORT.batchSize} students, weekends only</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="container-page mt-10 border-t pt-6" style="border-color: var(--color-rule);">
+    <p style={`color: var(--color-ink-mute); font-size: var(--text-xs);`}>
+      © {year} Build Space LLP. Registered in India. All rights reserved.
+    </p>
+  </div>
+</footer>

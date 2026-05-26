@@ -1,0 +1,90 @@
+---
+import { COHORT } from "@lib/data/cohort";
+---
+
+<section
+  id="how"
+  aria-labelledby="how-heading"
+  class="section-pad"
+  style="background: var(--color-paper);"
+>
+  <div class="container-page">
+    <div class="max-w-3xl">
+      <p class="eyebrow reveal">How it works</p>
+      <h2
+        id="how-heading"
+        class="reveal mt-4"
+        style={`font-size: var(--text-3xl); --reveal-delay: 80ms;`}
+      >
+        Five steps. The first one is free.
+      </h2>
+    </div>
+
+    <div class="mt-14 grid gap-14 md:grid-cols-12">
+      <ol class="md:col-span-7" style="list-style: none; padding: 0; margin: 0;">
+        {COHORT.howSteps.map((s, i) => (
+          <li
+            class="reveal grid grid-cols-12 items-start gap-5 border-t py-8"
+            style={`border-color: var(--color-rule); --reveal-delay: ${i * 70}ms;`}
+          >
+            <div class="col-span-2">
+              <span
+                style={`font-family: var(--font-display); font-size: var(--text-xl); color: var(--color-accent-deep); font-weight: 500;`}
+              >
+                {s.num}
+              </span>
+            </div>
+            <div class="col-span-10">
+              <h3 style={`font-size: var(--text-lg); font-weight: 600;`}>{s.title}</h3>
+              <p
+                class="mt-2 max-w-prose"
+                style={`color: var(--color-ink-soft); font-size: var(--text-base);`}
+              >
+                {s.desc}
+              </p>
+            </div>
+          </li>
+        ))}
+      </ol>
+
+      <aside
+        class="reveal md:col-span-5"
+        style="--reveal-delay: 200ms;"
+        aria-label="Cohort logistics"
+      >
+        <div
+          class="rounded-[var(--radius-lg)] border p-7"
+          style="background: var(--color-paper-soft); border-color: var(--color-rule);"
+        >
+          <p
+            class="text-xs uppercase tracking-[0.14em]"
+            style="color: var(--color-ink-mute);"
+          >
+            Cohort 01 logistics
+          </p>
+          <dl class="mt-2">
+            {COHORT.logistics.map((l, i) => (
+              <div
+                class="grid grid-cols-12 gap-3 py-4"
+                style={i === 0 ? "" : "border-top: 1px solid var(--color-rule);"}
+              >
+                <dt
+                  class="col-span-12 sm:col-span-4 text-xs uppercase tracking-[0.1em]"
+                  style="color: var(--color-ink-mute);"
+                >
+                  {l.label}
+                </dt>
+                <dd class="col-span-12 sm:col-span-8">
+                  <p style={`font-family: var(--font-display); font-size: var(--text-lg); font-weight: 600; color: var(--color-ink);`}>
+                    {l.value}
+                  </p>
+                  <p style={`font-size: var(--text-sm); color: var(--color-ink-soft); margin-top: 2px;`}>{l.note}</p>
+                </dd>
+              </div>
+            ))}
+          </dl>
+        </div>
+      </aside>
+    </div>
+  </div>
+</section>

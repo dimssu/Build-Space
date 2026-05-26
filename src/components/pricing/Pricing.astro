@@ -1,0 +1,95 @@
+---
+import { COHORT } from "@lib/data/cohort";
+import PayDemoButton from "@components/payment/PayDemoButton";
+---
+
+<section
+  id="pricing"
+  aria-labelledby="pricing-heading"
+  class="section-pad"
+  style="background: var(--color-paper);"
+>
+  <div class="container-page">
+    <div class="max-w-3xl">
+      <p class="eyebrow reveal">Pricing</p>
+      <h2
+        id="pricing-heading"
+        class="reveal mt-4"
+        style={`font-size: var(--text-3xl); --reveal-delay: 80ms;`}
+      >
+        One price. No surprises.
+      </h2>
+      <p
+        class="reveal mt-5"
+        style={`color: var(--color-ink-soft); font-size: var(--text-lg); --reveal-delay: 140ms;`}
+      >
+        Scholarships are decided in the ₹99 demo class, on performance, not financial paperwork. A strong student gets in regardless of full-fee capacity.
+      </p>
+    </div>
+
+    <div
+      class="reveal mx-auto mt-14 max-w-3xl overflow-hidden rounded-[var(--radius-xl)] border"
+      style="background: var(--color-paper-card); border-color: var(--color-rule-strong); --reveal-delay: 200ms;"
+    >
+      <div class="grid items-stretch gap-0 md:grid-cols-12">
+        <div
+          class="p-8 md:col-span-7 md:border-r"
+          style="border-color: var(--color-rule);"
+        >
+          <p
+            class="text-xs uppercase tracking-[0.14em]"
+            style="color: var(--color-accent-deep);"
+          >
+            Founding cohort price
+          </p>
+          <p class="mt-3" style={`font-family: var(--font-display); font-size: var(--text-xl); font-weight: 600;`}>
+            Full cohort access
+          </p>
+
+          <div class="mt-6 flex items-baseline gap-2">
+            <span style={`font-family: var(--font-display); font-size: var(--text-4xl); letter-spacing: -0.04em; font-weight: 600;`}>
+              {COHORT.priceDisplay}
+            </span>
+            <span style={`color: var(--color-ink-mute); font-size: var(--text-base);`}>one-time</span>
+          </div>
+          <p class="mt-3" style={`color: var(--color-ink-soft); font-size: var(--text-sm);`}>
+            UPI accepted. No EMI yet. No hidden charges. The fee is non-refundable once your child enrols, because the cost of live instruction is committed.
+          </p>
+
+          <div class="mt-7 flex flex-wrap gap-3">
+            <PayDemoButton client:idle label="Book the demo class · ₹99" variant="primary" />
+            <a href="#faq" class="btn btn-secondary">Read the FAQ first</a>
+          </div>
+
+          <p
+            class="mt-7 flex items-start gap-3 rounded-[var(--radius-md)] p-4"
+            style={`background: var(--color-good-soft); color: color-mix(in oklch, var(--color-good) 80%, black); font-size: var(--text-sm);`}
+          >
+            <span aria-hidden="true">→</span>
+            <span>Scholarships are awarded based on the live demo-class assessment. Capacity to pay does not decide who gets in.</span>
+          </p>
+        </div>
+
+        <div
+          class="p-8 md:col-span-5"
+          style="background: var(--color-paper-soft);"
+        >
+          <p
+            class="text-xs uppercase tracking-[0.14em]"
+            style="color: var(--color-ink-mute);"
+          >
+            What is included
+          </p>
+          <ul class="mt-4 grid gap-3" style="list-style: none; padding: 0;">
+            {COHORT.pricingIncludes.map((it) => (
+              <li class="flex gap-3" style={`color: var(--color-ink); font-size: var(--text-sm);`}>
+                <span aria-hidden="true" style="color: var(--color-accent-deep); margin-top: 2px;">→</span>
+                <span>{it}</span>
+              </li>
+            ))}
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

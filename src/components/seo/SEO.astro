@@ -1,0 +1,78 @@
+---
+import { buildLandingJsonLd } from "@lib/seo/structured-data";
+
+interface Props {
+  title: string;
+  description: string;
+  canonical?: string;
+  ogImage?: string;
+  noIndex?: boolean;
+  jsonLd?: object;
+}
+
+const {
+  title,
+  description,
+  canonical,
+  ogImage = "/og-cover.png",
+  noIndex = false,
+  jsonLd,
+} = Astro.props;
+
+const site = Astro.site?.toString().replace(/\/$/, "") ?? "https://buildspace.in";
+const canonicalUrl = canonical ?? new URL(Astro.url.pathname, site).toString();
+const ogImageUrl = ogImage.startsWith("http") ? ogImage : `${site}${ogImage}`;
+const ld = jsonLd ?? buildLandingJsonLd(site);
+---
+
+<title>{title}</title>
+<meta name="description" content={description} />
+<meta name="theme-color" content="#fbf9f4" />
+<meta name="format-detection" content="telephone=no" />
+<link rel="canonical" href={canonicalUrl} />
+
+{noIndex && <meta name="robots" content="noindex,nofollow" />}
+{!noIndex && <meta name="robots" content="index,follow,max-image-preview:large,max-snippet:-1" />}
+
+<!-- Open Graph -->
+<meta property="og:type" content="website" />
+<meta property="og:site_name" content="Build Space" />
+<meta property="og:title" content={title} />
+<meta property="og:description" content={description} />
+<meta property="og:url" content={canonicalUrl} />
+<meta property="og:image" content={ogImageUrl} />
+<meta property="og:image:width" content="1200" />
+<meta property="og:image:height" content="630" />
+<meta property="og:locale" content="en_IN" />
+
+<!-- Twitter -->
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content={title} />
+<meta name="twitter:description" content={description} />
+<meta name="twitter:image" content={ogImageUrl} />
+
+<!-- Icons -->
+<link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+<link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+<link rel="manifest" href="/site.webmanifest" />
+
+<!-- Fonts: preconnect for performance, swap for non-blocking paint -->
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link rel="preconnect" href="https://api.fontshare.com" crossorigin />
+<link
+  rel="preload"
+  as="style"
+  href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,500;12..96,600;12..96,700&display=swap"
+/>
+<link
+  rel="stylesheet"
+  href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,500;12..96,600;12..96,700&display=swap"
+/>
+<link
+  rel="stylesheet"
+  href="https://api.fontshare.com/v2/css?f[]=general-sans@400,500,600&display=swap"
+/>
+
+<!-- JSON-LD -->
+<script is:inline type="application/ld+json" set:html={JSON.stringify(ld)} />
