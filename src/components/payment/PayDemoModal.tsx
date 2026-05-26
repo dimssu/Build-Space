@@ -10,10 +10,11 @@ const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 const PHONE_RE = /^[6-9]\d{9}$/;
 
 export default function PayDemoModal({ open, onClose }: Props) {
-  const dialogRef = useRef<HTMLDialogElement | null>(null);
   const nameId = useId();
   const emailId = useId();
   const phoneId = useId();
+  const titleId = `${nameId}-title`;
+  const firstFieldRef = useRef<HTMLInputElement | null>(null);
 
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
@@ -22,41 +23,45 @@ export default function PayDemoModal({ open, onClose }: Props) {
   const [phase, setPhase] = useState<PaymentPhase>("idle");
   const [statusMsg, setStatusMsg] = useState<string | null>(null);
 
+  // Lock body scroll + autofocus the first field when the overlay is visible.
+  // Hidden during "checkout" (Razorpay's own modal owns the screen) and "verifying".
+  const visible = open && phase !== "checkout" && phase !== "verifying";
+
   useEffect(() => {
-    const dlg = dialogRef.current;
-    if (!dlg) return;
-    if (open && !dlg.open) {
-      dlg.showModal();
+    if (!visible) return;
+    const prev = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+    const t = window.setTimeout(() => firstFieldRef.current?.focus(), 30);
+    return () => {
+      document.body.style.overflow = prev;
+      window.clearTimeout(t);
+    };
+  }, [visible]);
+
+  useEffect(() => {
+    if (!visible) return;
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === "Escape" && phase === "idle") onClose();
+    };
+    window.addEventListener("keydown", onKey);
+    return () => window.removeEventListener("keydown", onKey);
+  }, [visible, phase, onClose]);
+
+  // Reset transient state when the modal closes fully.
+  useEffect(() => {
+    if (!open) {
       setStatusMsg(null);
-    } else if (!open && dlg.open) {
-      dlg.close();
+      setErrors({});
+      setPhase("idle");
     }
   }, [open]);
 
-  useEffect(() => {
-    const dlg = dialogRef.current;
-    if (!dlg) return;
-    const onCancel = (e: Event) => {
-      if (phase !== "idle") {
-        e.preventDefault();
-        return;
-      }
-      onClose();
-    };
-    const onClickBackdrop = (e: MouseEvent) => {
-      if (e.target === dlg && phase === "idle") onClose();
-    };
-    dlg.addEventListener("cancel", onCancel);
-    dlg.addEventListener("click", onClickBackdrop);
-    return () => {
-      dlg.removeEventListener("cancel", onCancel);
-      dlg.removeEventListener("click", onClickBackdrop);
-    };
-  }, [onClose, phase]);
+  if (!open) return null;
 
   const busy = phase !== "idle";
   const buttonLabel =
     phase === "ordering" ? "Creating order…"
+    : phase === "checkout" ? "Opening checkout…"
     : phase === "verifying" ? "Confirming payment…"
     : "Pay ₹99";
 
@@ -85,42 +90,59 @@ export default function PayDemoModal({ open, onClose }: Props) {
     });
   }
 
+  function onBackdropClick(e: React.MouseEvent<HTMLDivElement>) {
+    if (e.target === e.currentTarget && phase === "idle") onClose();
+  }
+
   return (
-    <dialog
-      ref={dialogRef}
-      className="pay-demo-dialog"
-      aria-labelledby={`${nameId}-title`}
+    <div
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby={titleId}
+      onClick={onBackdropClick}
       style={{
-        border: "none",
-        padding: 0,
-        background: "transparent",
-        maxWidth: "min(440px, calc(100vw - 2rem))",
-        width: "100%",
+        position: "fixed",
+        inset: 0,
+        zIndex: 100,
+        display: visible ? "flex" : "none",
+        alignItems: "center",
+        justifyContent: "center",
+        padding: "1rem",
+        background: "color-mix(in oklch, var(--color-ink) 55%, transparent)",
+        backdropFilter: "blur(4px)",
+        WebkitBackdropFilter: "blur(4px)",
+        animation: "pay-demo-fade 160ms ease-out",
       }}
     >
       <form
-        method="dialog"
         onSubmit={onSubmit}
+        onClick={(e) => e.stopPropagation()}
         style={{
+          width: "100%",
+          maxWidth: 440,
+          maxHeight: "calc(100dvh - 2rem)",
+          overflowY: "auto",
           background: "var(--color-paper)",
           color: "var(--color-ink)",
           borderRadius: "var(--radius-xl)",
           border: "1px solid var(--color-rule)",
           padding: "1.75rem",
           boxShadow:
-            "0 30px 80px -30px color-mix(in oklch, var(--color-ink) 50%, transparent), 0 8px 24px -12px color-mix(in oklch, var(--color-ink) 30%, transparent)",
+            "0 30px 80px -30px color-mix(in oklch, var(--color-ink) 55%, transparent), 0 8px 24px -12px color-mix(in oklch, var(--color-ink) 30%, transparent)",
           fontFamily: "var(--font-body)",
+          animation: "pay-demo-pop 200ms cubic-bezier(0.22, 1, 0.36, 1)",
         }}
       >
-        <div className="flex items-start justify-between gap-4">
+        <div style={{ display: "flex", alignItems: "flex-start", justifyContent: "space-between", gap: "1rem" }}>
           <h2
-            id={`${nameId}-title`}
+            id={titleId}
             style={{
               fontFamily: "var(--font-display)",
               fontSize: "var(--text-2xl)",
               letterSpacing: "-0.02em",
               fontWeight: 600,
               margin: 0,
+              lineHeight: 1.15,
             }}
           >
             Book the demo class
@@ -145,6 +167,7 @@ export default function PayDemoModal({ open, onClose }: Props) {
               color: "var(--color-ink-mute)",
               fontSize: 18,
               lineHeight: 1,
+              flexShrink: 0,
             }}
           >
             ×
@@ -159,7 +182,7 @@ export default function PayDemoModal({ open, onClose }: Props) {
             lineHeight: 1.55,
           }}
         >
-          ₹99 · A live look at the cohort before you commit to the full ₹19,999.
+          ₹99 · A live look at the cohort before you commit to ₹19,999.
         </p>
 
         <div style={{ marginTop: "1.25rem", display: "grid", gap: "0.9rem" }}>
@@ -171,6 +194,7 @@ export default function PayDemoModal({ open, onClose }: Props) {
             error={errors.name}
             disabled={busy}
             autoComplete="name"
+            inputRef={firstFieldRef}
           />
           <Field
             id={emailId}
@@ -240,7 +264,22 @@ export default function PayDemoModal({ open, onClose }: Props) {
           Payments are secured by Razorpay. Card, UPI, and netbanking accepted.
         </p>
       </form>
-    </dialog>
+
+      <style>{`
+        @keyframes pay-demo-fade {
+          from { opacity: 0; }
+          to   { opacity: 1; }
+        }
+        @keyframes pay-demo-pop {
+          from { opacity: 0; transform: translateY(8px) scale(0.985); }
+          to   { opacity: 1; transform: translateY(0)   scale(1); }
+        }
+        @media (prefers-reduced-motion: reduce) {
+          @keyframes pay-demo-fade { from, to { opacity: 1; } }
+          @keyframes pay-demo-pop  { from, to { opacity: 1; transform: none; } }
+        }
+      `}</style>
+    </div>
   );
 }
 
@@ -255,6 +294,7 @@ interface FieldProps {
   autoComplete?: string;
   inputMode?: "numeric" | "text" | "email" | "tel";
   placeholder?: string;
+  inputRef?: React.Ref<HTMLInputElement>;
 }
 
 function Field({
@@ -268,6 +308,7 @@ function Field({
   autoComplete,
   inputMode,
   placeholder,
+  inputRef,
 }: FieldProps) {
   return (
     <div>
@@ -286,6 +327,7 @@ function Field({
         {label}
       </label>
       <input
+        ref={inputRef}
         id={id}
         type={type}
         value={value}
@@ -306,6 +348,7 @@ function Field({
           fontSize: "var(--text-base)",
           fontFamily: "inherit",
           outline: "none",
+          boxSizing: "border-box",
         }}
       />
       {error && (

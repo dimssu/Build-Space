@@ -37,7 +37,7 @@ interface CreateOrderResponse {
   source_id: string;
 }
 
-export type PaymentPhase = "idle" | "ordering" | "verifying";
+export type PaymentPhase = "idle" | "ordering" | "checkout" | "verifying";
 
 export interface StartPaymentInput {
   amount: number;
@@ -159,5 +159,6 @@ export async function startPayment(input: StartPaymentInput): Promise<void> {
     onError?.(e.error.description || "Payment failed. Please try again.");
   });
 
+  onPhaseChange?.("checkout");
   rzp.open();
 }
