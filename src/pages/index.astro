@@ -1,4 +1,6 @@
 ---
+export const prerender = false;
+
 import Base from "@layouts/Base.astro";
 import Nav from "@components/nav/Nav.astro";
 import Hero from "@components/hero/Hero.astro";
@@ -12,26 +14,38 @@ import Pricing from "@components/pricing/Pricing.astro";
 import FAQ from "@components/faq/FAQ.astro";
 import ClosingCTA from "@components/cta/ClosingCTA.astro";
 import Footer from "@components/footer/Footer.astro";
+import { getVariant } from "@lib/data/variants";
 
-const title = "Build Space — Live AI Cohort for Class 9 to 12 Students in India";
-const description = "A four-week live cohort for Indian Class 9 to 12 students. Build and deploy a working AI agent in Python. Five students per batch, one practitioner instructor. Cohort 01 starts June 13, 2026.";
+// Resolve the variant from the `?ad=` query param. `getVariant()` accepts
+// `string | null | undefined` and falls back to the default variant when the
+// slug is missing or unknown — so paid traffic that lands without a param
+// (or with a stale one) still renders cleanly.
+const adParam = Astro.url.searchParams.get("ad");
+const variant = getVariant(adParam);
+const title = variant.seo.title;
+const description = variant.seo.description;
+
+// Per-variant cache: short s-maxage so paid traffic gets fresh content,
+// but the CDN can still cache hot ad URLs for the duration of a campaign burst.
+Astro.response.headers.set("Cache-Control", "public, max-age=0, s-maxage=300, stale-while-revalidate=60");
+Astro.response.headers.set("Vary", "Accept-Encoding");
 ---
 
-<Base {title} {description}>
-  <Nav />
+<Base {title} {description} variant={variant}>
+  <Nav variant={variant} />
 
   <main id="main">
-    <Hero />
-    <Promise />
-    <Compare />
-    <Curriculum />
-    <Instructor />
-    <HowItWorks />
-    <CompareTable />
-    <Pricing />
-    <FAQ />
-    <ClosingCTA />
+    <Hero variant={variant} />
+    <Promise variant={variant} />
+    <Compare variant={variant} />
+    <Curriculum variant={variant} />
+    <Instructor variant={variant} />
+    <HowItWorks variant={variant} />
+    <CompareTable variant={variant} />
+    <Pricing variant={variant} />
+    <FAQ variant={variant} />
+    <ClosingCTA variant={variant} />
   </main>
 
-  <Footer />
+  <Footer variant={variant} />
 </Base>

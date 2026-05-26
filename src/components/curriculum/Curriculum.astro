@@ -1,5 +1,12 @@
 ---
 import { COHORT } from "@lib/data/cohort";
+import type { Variant } from "@lib/data/variants";
+
+interface Props {
+  variant: Variant;
+}
+
+const { variant } = Astro.props;
 ---
 
 <section
@@ -32,20 +39,19 @@ import { COHORT } from "@lib/data/cohort";
 
   <div class="container-page grid gap-14 md:grid-cols-12">
     <div class="md:col-span-4">
-      <p class="eyebrow reveal">What your child builds</p>
+      <p class="eyebrow reveal">{variant.curriculum.eyebrow}</p>
       <h2
         id="curriculum-heading"
         class="reveal mt-4"
         style={`font-size: var(--text-3xl); --reveal-delay: 80ms; line-height: 1.04;`}
       >
-        Four weeks.<br />
-        <span style="color: var(--color-ink-soft); font-weight: 500;">Something working every week.</span>
+        {variant.curriculum.headline}
       </h2>
       <p
         class="reveal mt-5"
         style={`font-size: var(--text-lg); color: var(--color-ink-soft); --reveal-delay: 140ms;`}
       >
-        No slide decks. No concept maps. Every Sunday, your child closes the laptop with something they can run and show you.
+        {variant.curriculum.lead}
       </p>
     </div>
 

@@ -1,16 +1,19 @@
 import { useEffect, useId, useRef, useState, type FormEvent } from "react";
 import { createPortal } from "react-dom";
 import { startPayment, type PaymentPhase } from "@lib/payments";
+import { getVariant } from "@lib/data/variants";
 
 interface Props {
   open: boolean;
   onClose: () => void;
+  variantSlug?: string;
 }
 
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 const PHONE_RE = /^[6-9]\d{9}$/;
 
-export default function PayDemoModal({ open, onClose }: Props) {
+export default function PayDemoModal({ open, onClose, variantSlug = "default" }: Props) {
+  const variant = getVariant(variantSlug);
   const nameId = useId();
   const emailId = useId();
   const phoneId = useId();
@@ -64,7 +67,7 @@ export default function PayDemoModal({ open, onClose }: Props) {
     phase === "ordering" ? "Creating order…"
     : phase === "checkout" ? "Opening checkout…"
     : phase === "verifying" ? "Confirming payment…"
-    : "Pay ₹99";
+    : variant.payModal.ctaLabel;
 
   function validate() {
     const next: typeof errors = {};
@@ -85,7 +88,7 @@ export default function PayDemoModal({ open, onClose }: Props) {
       amount: 99,
       customer: { name: name.trim(), email: email.trim(), contact: ok.digits },
       description: "Demo class — Logic Labs Cohort 01",
-      metadata: { product: "demo-class", cohort: "logic-labs-01" },
+      metadata: { product: "demo-class", cohort: "logic-labs-01", ad_variant: variantSlug },
       onPhaseChange: setPhase,
       onError: setStatusMsg,
     });
@@ -146,7 +149,7 @@ export default function PayDemoModal({ open, onClose }: Props) {
               lineHeight: 1.15,
             }}
           >
-            Book the demo class
+            {variant.payModal.title}
           </h2>
           <button
             type="button"
@@ -183,7 +186,7 @@ export default function PayDemoModal({ open, onClose }: Props) {
             lineHeight: 1.55,
           }}
         >
-          ₹99 · A live look at the cohort before you commit to ₹19,999.
+          {variant.payModal.subtitle}
         </p>
 
         <div style={{ marginTop: "1.25rem", display: "grid", gap: "0.9rem" }}>

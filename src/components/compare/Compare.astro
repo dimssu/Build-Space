@@ -1,4 +1,14 @@
 ---
+import type { Variant } from "@lib/data/variants";
+
+interface Props {
+  variant: Variant;
+}
+
+// The Variant type doesn't yet expose the four-question setup. Accept the
+// prop for phase-2 use and leave the existing copy intact.
+const { variant: _variant } = Astro.props;
+
 // Four side-by-side comparisons, the highest-leverage differences for a parent
 // trying to figure out whether this is different from the other AI courses
 // they have seen advertised. Said plainly, no names.

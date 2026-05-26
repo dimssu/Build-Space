@@ -1,14 +1,12 @@
 ---
-import { COHORT } from "@lib/data/cohort";
 import PayDemoButton from "@components/payment/PayDemoButton";
+import type { Variant } from "@lib/data/variants";
 
-// Three outcome chips that sit at the bottom of the hero — the
-// "what your child walks out with" question, answered in one breath.
-const outcomes = [
-  { label: "A working AI agent", note: "Built from scratch, in Python" },
-  { label: "A live URL", note: "Their project, online, anyone can visit" },
-  { label: "A GitHub repo", note: "Their code, theirs to keep" },
-];
+interface Props {
+  variant: Variant;
+}
+
+const { variant } = Astro.props;
 ---
 
 <section
@@ -49,7 +47,7 @@ const outcomes = [
           class="mr-2 inline-block h-1.5 w-1.5 rounded-full align-middle"
           style="background: var(--color-accent);"
         ></span>
-        {COHORT.cohort} · Starts {COHORT.startDateReadable}
+        {variant.eyebrow}
       </p>
 
       <h1
@@ -57,11 +55,11 @@ const outcomes = [
         class="reveal mt-5"
         style={`font-family: var(--font-display); font-size: var(--text-hero); line-height: 0.98; letter-spacing: -0.04em; font-weight: 600; --reveal-delay: 80ms;`}
       >
-        Your child can build AI.
+        {variant.hero.headline}
         <span
           style="display: block; color: var(--color-ink-soft); font-weight: 500;"
         >
-          Not just use it.
+          {variant.hero.headlineRest}
         </span>
       </h1>
 
@@ -69,16 +67,16 @@ const outcomes = [
         class="reveal mt-7 max-w-xl"
         style={`font-size: var(--text-lg); color: var(--color-ink-soft); line-height: 1.55; --reveal-delay: 160ms;`}
       >
-        Four weekends. Five students. One AI engineer as the instructor. By the end your child has shipped a working agent, with a live URL and a GitHub repo, and presents it to you on demo day.
+        {variant.hero.subhead}
       </p>
 
       <div
         class="reveal mt-9 flex flex-wrap items-center gap-3"
         style="--reveal-delay: 240ms;"
       >
-        <PayDemoButton client:idle label="Book the demo class · ₹99" variant="accent" fontSize="var(--text-sm)" />
+        <PayDemoButton client:idle label={variant.hero.primaryCta} kind="accent" fontSize="var(--text-sm)" variant={variant.slug} />
         <a href="#curriculum" class="btn btn-secondary" style="font-size: var(--text-sm);">
-          See what they build
+          {variant.hero.secondaryCta}
           <span aria-hidden="true" style="display: inline-block; transform: translateX(0); transition: transform 200ms var(--ease-out-quart);">→</span>
         </a>
       </div>
@@ -87,7 +85,7 @@ const outcomes = [
         class="reveal mt-5"
         style={`color: var(--color-ink-mute); font-size: var(--text-sm); --reveal-delay: 300ms;`}
       >
-        First class is ₹99. A live look before you commit to ₹19,999.
+        {variant.hero.footnote}
       </p>
 
       <!-- Outcome chips — the answer to "what does my child walk out with?" -->
@@ -95,7 +93,7 @@ const outcomes = [
         class="reveal mt-12 grid gap-4 sm:grid-cols-3"
         style="--reveal-delay: 380ms;"
       >
-        {outcomes.map((o) => (
+        {variant.hero.outcomes.map((o) => (
           <div
             class="rounded-[var(--radius-md)] border p-4"
             style="background: color-mix(in oklch, var(--color-paper-card) 92%, transparent); border-color: var(--color-rule); backdrop-filter: blur(4px);"

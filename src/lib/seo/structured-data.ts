@@ -1,14 +1,22 @@
 import { COHORT } from "@lib/data/cohort";
+import type { Variant } from "@lib/data/variants/types";
 
 /**
  * Build a combined JSON-LD graph for the landing page.
  * Includes: Organization, Course, FAQPage, BreadcrumbList, WebSite.
  * Validate against https://validator.schema.org/ before launch.
+ *
+ * When a `variant` is supplied, the human-readable framing fields
+ * (Organization.description, Course.description) swap to the variant's
+ * SEO description. Factual properties — cohort dates, prices, instructor —
+ * stay sourced from `COHORT` because they are facts, not framing.
  */
-export function buildLandingJsonLd(siteUrl: string) {
+export function buildLandingJsonLd(siteUrl: string, variant?: Variant) {
   const orgId = `${siteUrl}#organization`;
   const courseId = `${siteUrl}#course`;
   const websiteId = `${siteUrl}#website`;
+
+  const variantDescription = variant?.seo.description;
 
   const organization = {
     "@type": "EducationalOrganization",
@@ -18,6 +26,7 @@ export function buildLandingJsonLd(siteUrl: string) {
     url: siteUrl,
     logo: `${siteUrl}/logo.svg`,
     description:
+      variantDescription ??
       "Build Space runs Logic Labs, a 4-week live cohort for Indian Class 9 to 12 students to design, build and deploy real AI agents. Five students per cohort. One AI practitioner as the instructor.",
     address: {
       "@type": "PostalAddress",
@@ -40,6 +49,7 @@ export function buildLandingJsonLd(siteUrl: string) {
     "@id": courseId,
     name: "Logic Labs Cohort 01 — Build an AI Agent in 4 Weeks",
     description:
+      variantDescription ??
       "A four-week live cohort for Indian Class 9 to 12 students. Build and deploy a working AI agent in Python. Five students per batch, one practitioner instructor, weekends only.",
     provider: { "@id": orgId },
     educationalLevel: "Secondary School (Class 9-12)",

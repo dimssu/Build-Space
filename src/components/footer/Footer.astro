@@ -1,5 +1,16 @@
 ---
 import { COHORT } from "@lib/data/cohort";
+import type { Variant } from "@lib/data/variants";
+
+interface Props {
+  variant: Variant;
+}
+
+// `variant.brandTag.text` is "Build Space" by default. The visual wordmark in
+// the footer logo uses "buildspace" (the brand mark) — left as-is. We accept
+// the prop so the footer is wired for future copy variants.
+const { variant: _variant } = Astro.props;
+
 const year = new Date().getFullYear();
 ---
 

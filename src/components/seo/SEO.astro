@@ -1,44 +1,69 @@
 ---
 import { buildLandingJsonLd } from "@lib/seo/structured-data";
+import type { Variant } from "@lib/data/variants";
 
 interface Props {
-  title: string;
-  description: string;
+  // Page-level overrides. When unset we fall back to `variant.seo.*` and
+  // finally to the hard-coded Build Space defaults. This lets the
+  // `index.astro` call site stay unchanged while variant-driven pages
+  // (resolved at request time) automatically pick up their own copy.
+  title?: string;
+  description?: string;
   canonical?: string;
   ogImage?: string;
   noIndex?: boolean;
   jsonLd?: object;
+  // Active variant. Drives the default title/description/og image and
+  // controls whether non-default variant URLs are excluded from search.
+  variant?: Variant;
 }
 
 const {
   title,
   description,
   canonical,
-  ogImage = "/og-cover.png",
-  noIndex = false,
+  ogImage,
+  noIndex,
   jsonLd,
+  variant,
 } = Astro.props;
 
 const site = Astro.site?.toString().replace(/\/$/, "") ?? "https://buildspace.in";
-const canonicalUrl = canonical ?? new URL(Astro.url.pathname, site).toString();
-const ogImageUrl = ogImage.startsWith("http") ? ogImage : `${site}${ogImage}`;
-const ld = jsonLd ?? buildLandingJsonLd(site);
+
+const finalTitle =
+  title ?? variant?.seo.title ?? "Build Space — Live AI Cohort for Class 9 to 12 Students in India";
+const finalDescription =
+  description ??
+  variant?.seo.description ??
+  "A four-week live cohort for Indian Class 9 to 12 students. Build and deploy a working AI agent in Python.";
+const finalOgImage = ogImage ?? variant?.seo.ogImage ?? "/og-cover.png";
+
+// Variant URLs must canonical-tag back to the bare homepage so they do not
+// compete with `/` in search results. Explicit `canonical` prop still wins.
+const canonicalUrl = canonical ?? new URL("/", site).toString();
+const ogImageUrl = finalOgImage.startsWith("http") ? finalOgImage : `${site}${finalOgImage}`;
+
+// Non-default variants are excluded from indexing — same canonical, but
+// search engines should never surface the `?ad=...` URL directly.
+const shouldNoIndex = noIndex === true || (variant !== undefined && variant.slug !== "default");
+
+const ld = jsonLd ?? buildLandingJsonLd(site, variant);
 ---
 
-<title>{title}</title>
-<meta name="description" content={description} />
+<title>{finalTitle}</title>
+<meta name="description" content={finalDescription} />
 <meta name="theme-color" content="#fbf9f4" />
 <meta name="format-detection" content="telephone=no" />
 <link rel="canonical" href={canonicalUrl} />
 
-{noIndex && <meta name="robots" content="noindex,nofollow" />}
-{!noIndex && <meta name="robots" content="index,follow,max-image-preview:large,max-snippet:-1" />}
+{shouldNoIndex && <meta name="robots" content="noindex,nofollow" />}
+{!shouldNoIndex && <meta name="robots" content="index,follow,max-image-preview:large,max-snippet:-1" />}
 
 <!-- Open Graph -->
 <meta property="og:type" content="website" />
 <meta property="og:site_name" content="Build Space" />
-<meta property="og:title" content={title} />
-<meta property="og:description" content={description} />
+<meta property="og:title" content={finalTitle} />
+<meta property="og:description" content={finalDescription} />
 <meta property="og:url" content={canonicalUrl} />
 <meta property="og:image" content={ogImageUrl} />
 <meta property="og:image:width" content="1200" />
@@ -47,8 +72,8 @@ const ld = jsonLd ?? buildLandingJsonLd(site);
 
 <!-- Twitter -->
 <meta name="twitter:card" content="summary_large_image" />
-<meta name="twitter:title" content={title} />
-<meta name="twitter:description" content={description} />
+<meta name="twitter:title" content={finalTitle} />
+<meta name="twitter:description" content={finalDescription} />
 <meta name="twitter:image" content={ogImageUrl} />
 
 <!-- Icons -->

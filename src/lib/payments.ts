@@ -43,7 +43,7 @@ export interface StartPaymentInput {
   amount: number;
   customer: { name: string; email: string; contact: string };
   description?: string;
-  metadata?: Record<string, unknown>;
+  metadata?: Record<string, unknown> & { ad_variant?: string };
   onPhaseChange?: (phase: PaymentPhase) => void;
   onError?: (message: string) => void;
 }

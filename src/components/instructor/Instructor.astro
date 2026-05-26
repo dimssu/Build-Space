@@ -1,5 +1,12 @@
 ---
 import { COHORT } from "@lib/data/cohort";
+import type { Variant } from "@lib/data/variants";
+
+interface Props {
+  variant: Variant;
+}
+
+const { variant } = Astro.props;
 
 const points = [
   {
@@ -29,13 +36,13 @@ const points = [
 >
   <div class="container-page">
     <div class="max-w-3xl">
-      <p class="eyebrow reveal">The instructor</p>
+      <p class="eyebrow reveal">{variant.instructor.eyebrow}</p>
       <h2
         id="instructor-heading"
         class="reveal mt-4"
         style={`font-size: var(--text-3xl); --reveal-delay: 80ms;`}
       >
-        Not a teacher who learned AI. A practitioner who showed up.
+        {variant.instructor.headline}
       </h2>
     </div>
 
@@ -88,7 +95,7 @@ const points = [
           <p
             style={`font-family: var(--font-display); font-size: var(--text-2xl); line-height: 1.25; color: var(--color-ink); font-weight: 500;`}
           >
-            "I build AI systems for a living. I looked at what was being taught to school students in India and realised nobody was showing them the real thing. So I started Logic Labs."
+            {variant.instructor.lead}
           </p>
         </blockquote>
 

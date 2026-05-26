@@ -1,10 +1,25 @@
 ---
-import { COHORT } from "@lib/data/cohort";
+import { COHORT, type Faq } from "@lib/data/cohort";
 import FAQItem from "./FAQItem.tsx";
+import type { Variant } from "@lib/data/variants";
 
-// Parent-coded questions surface first; student-coded ones follow.
-const parentFaqs = COHORT.faqs.filter((f) => f.forParent);
-const studentFaqs = COHORT.faqs.filter((f) => !f.forParent);
+interface Props {
+  variant: Variant;
+}
+
+const { variant } = Astro.props;
+
+// Filter by audience. Render-order is then decided by `variant.faqPriority`:
+// the first entry's group comes first, the second's comes second.
+const parentFaqs: Faq[] = COHORT.faqs.filter((f) => f.forParent);
+const studentFaqs: Faq[] = COHORT.faqs.filter((f) => !f.forParent);
+
+const groups: Record<"parent" | "student", { label: string; items: Faq[] }> = {
+  parent: { label: "For parents", items: parentFaqs },
+  student: { label: "For students", items: studentFaqs },
+};
+
+const order = variant.faqPriority;
 ---
 
 <section
@@ -34,33 +49,21 @@ const studentFaqs = COHORT.faqs.filter((f) => !f.forParent);
     </div>
 
     <div class="mt-14 grid gap-12 md:grid-cols-2">
-      <div class="reveal" style="--reveal-delay: 200ms;">
-        <p
-          class="text-xs uppercase tracking-[0.14em]"
-          style="color: var(--color-ink-mute);"
-        >
-          For parents
-        </p>
-        <div class="mt-4 border-t" style="border-color: var(--color-rule);">
-          {parentFaqs.map((f, i) => (
-            <FAQItem client:visible question={f.q} answer={f.a} defaultOpen={i === 0} />
-          ))}
+      {order.map((key, idx) => (
+        <div class="reveal" style={`--reveal-delay: ${200 + idx * 60}ms;`}>
+          <p
+            class="text-xs uppercase tracking-[0.14em]"
+            style="color: var(--color-ink-mute);"
+          >
+            {groups[key].label}
+          </p>
+          <div class="mt-4 border-t" style="border-color: var(--color-rule);">
+            {groups[key].items.map((f, i) => (
+              <FAQItem client:visible question={f.q} answer={f.a} defaultOpen={idx === 0 && i === 0} />
+            ))}
+          </div>
         </div>
-      </div>
-
-      <div class="reveal" style="--reveal-delay: 260ms;">
-        <p
-          class="text-xs uppercase tracking-[0.14em]"
-          style="color: var(--color-ink-mute);"
-        >
-          For students
-        </p>
-        <div class="mt-4 border-t" style="border-color: var(--color-rule);">
-          {studentFaqs.map((f) => (
-            <FAQItem client:visible question={f.q} answer={f.a} />
-          ))}
-        </div>
-      </div>
+      ))}
     </div>
   </div>
 </section>

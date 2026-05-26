@@ -1,15 +1,18 @@
 ---
 import SEO from "@components/seo/SEO.astro";
 import "@styles/global.css";
+import type { Variant } from "@lib/data/variants";
 
 interface Props {
   title: string;
   description: string;
   ogImage?: string;
   noIndex?: boolean;
+  variant?: Variant;
 }
 
-const { title, description, ogImage, noIndex } = Astro.props;
+const { title, description, ogImage, noIndex, variant } = Astro.props;
+const variantSlug = variant?.slug ?? "default";
 ---
 
 <!doctype html>
@@ -18,7 +21,8 @@ const { title, description, ogImage, noIndex } = Astro.props;
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
     <meta name="generator" content={Astro.generator} />
-    <SEO {title} {description} {ogImage} {noIndex} />
+    <meta name="ad-variant" content={variantSlug} />
+    <SEO {title} {description} {ogImage} {noIndex} variant={variant} />
     <script is:inline async src="https://checkout.razorpay.com/v1/checkout.js"></script>
   </head>
   <body>

@@ -1,5 +1,12 @@
 ---
 import PayDemoButton from "@components/payment/PayDemoButton";
+import type { Variant } from "@lib/data/variants";
+
+interface Props {
+  variant: Variant;
+}
+
+const { variant } = Astro.props;
 
 const links = [
   { href: "#promise", label: "The promise" },
@@ -30,7 +37,7 @@ const links = [
         ))}
       </ul>
 
-      <PayDemoButton client:idle label="Book demo · ₹99" variant="primary" />
+      <PayDemoButton client:idle label="Book demo · ₹99" kind="primary" variant={variant.slug} />
     </nav>
   </div>
 </header>

@@ -1,5 +1,14 @@
 ---
 import { COHORT } from "@lib/data/cohort";
+import type { Variant } from "@lib/data/variants";
+
+interface Props {
+  variant: Variant;
+}
+
+// The "Logic Labs" brand label in this table is a hardcoded brand line that
+// the variant doesn't currently expose. Accept the prop for phase-2 use.
+const { variant: _variant } = Astro.props;
 ---
 
 <section

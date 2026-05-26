@@ -1,5 +1,14 @@
 ---
 import { COHORT } from "@lib/data/cohort";
+import type { Variant } from "@lib/data/variants";
+
+interface Props {
+  variant: Variant;
+}
+
+// `variant` is threaded for the future. The Variant type does not yet expose
+// dedicated copy fields for this section, so we leave the markup untouched.
+const { variant: _variant } = Astro.props;
 ---
 
 <section

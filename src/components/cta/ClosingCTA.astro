@@ -1,6 +1,17 @@
 ---
 import { COHORT } from "@lib/data/cohort";
 import PayDemoButton from "@components/payment/PayDemoButton";
+import type { Variant } from "@lib/data/variants";
+
+interface Props {
+  variant: Variant;
+}
+
+const { variant } = Astro.props;
+
+// Convert literal "\n" line breaks in the variant headline into <br /> so an
+// ad variant can author multi-line CTAs without authoring HTML.
+const closingHeadlineHtml = variant.closing.headline.replace(/\n/g, "<br />");
 ---
 
 <section
@@ -41,26 +52,25 @@ import PayDemoButton from "@components/payment/PayDemoButton";
         class="eyebrow reveal"
         style="color: color-mix(in oklch, var(--color-paper) 70%, transparent);"
       >
-        {COHORT.cohort} · {COHORT.startDateReadable}
+        {variant.closing.eyebrow}
       </p>
 
       <h2
         id="apply-heading"
         class="reveal mt-6"
         style={`font-family: var(--font-display); font-size: var(--text-4xl); line-height: 1.04; letter-spacing: -0.03em; --reveal-delay: 80ms;`}
-      >
-        Book the ₹99 demo class.<br />Decide after.
-      </h2>
+        set:html={closingHeadlineHtml}
+      />
 
       <p
         class="reveal mx-auto mt-6 max-w-xl"
         style={`color: color-mix(in oklch, var(--color-paper) 78%, transparent); font-size: var(--text-lg); --reveal-delay: 140ms;`}
       >
-        Two hours. Your child meets the instructor, builds something small, and takes a short live test. You watch from the next room or join. If it is not for your child, you have spent nothing.
+        {variant.closing.body}
       </p>
 
       <div class="reveal mt-10 flex flex-wrap justify-center gap-3" style="--reveal-delay: 200ms;">
-        <PayDemoButton client:idle label="Book the demo class · ₹99" variant="accent" />
+        <PayDemoButton client:idle label={variant.hero.primaryCta} kind="accent" variant={variant.slug} />
         <a
           href={`mailto:${COHORT.contact.email}`}
           class="btn"

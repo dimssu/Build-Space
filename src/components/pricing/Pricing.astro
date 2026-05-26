@@ -1,6 +1,13 @@
 ---
 import { COHORT } from "@lib/data/cohort";
 import PayDemoButton from "@components/payment/PayDemoButton";
+import type { Variant } from "@lib/data/variants";
+
+interface Props {
+  variant: Variant;
+}
+
+const { variant } = Astro.props;
 ---
 
 <section
@@ -17,13 +24,13 @@ import PayDemoButton from "@components/payment/PayDemoButton";
         class="reveal mt-4"
         style={`font-size: var(--text-3xl); --reveal-delay: 80ms;`}
       >
-        One price. No surprises.
+        {variant.pricing.headline}
       </h2>
       <p
         class="reveal mt-5"
         style={`color: var(--color-ink-soft); font-size: var(--text-lg); --reveal-delay: 140ms;`}
       >
-        Scholarships are decided in the ₹99 demo class, on performance, not financial paperwork. A strong student gets in regardless of full-fee capacity.
+        {variant.pricing.scholarshipLine}
       </p>
     </div>
 
@@ -57,7 +64,7 @@ import PayDemoButton from "@components/payment/PayDemoButton";
           </p>
 
           <div class="mt-7 flex flex-wrap gap-3">
-            <PayDemoButton client:idle label="Book the demo class · ₹99" variant="primary" />
+            <PayDemoButton client:idle label="Book the demo class · ₹99" kind="primary" variant={variant.slug} />
             <a href="#faq" class="btn btn-secondary">Read the FAQ first</a>
           </div>
 
