@@ -1,4 +1,5 @@
 import { useEffect, useId, useRef, useState, type FormEvent } from "react";
+import { createPortal } from "react-dom";
 import { startPayment, type PaymentPhase } from "@lib/payments";
 
 interface Props {
@@ -56,7 +57,7 @@ export default function PayDemoModal({ open, onClose }: Props) {
     }
   }, [open]);
 
-  if (!open) return null;
+  if (!open || typeof document === "undefined") return null;
 
   const busy = phase !== "idle";
   const buttonLabel =
@@ -94,7 +95,7 @@ export default function PayDemoModal({ open, onClose }: Props) {
     if (e.target === e.currentTarget && phase === "idle") onClose();
   }
 
-  return (
+  return createPortal(
     <div
       role="dialog"
       aria-modal="true"
@@ -103,7 +104,7 @@ export default function PayDemoModal({ open, onClose }: Props) {
       style={{
         position: "fixed",
         inset: 0,
-        zIndex: 100,
+        zIndex: 2147483000,
         display: visible ? "flex" : "none",
         alignItems: "center",
         justifyContent: "center",
@@ -279,7 +280,8 @@ export default function PayDemoModal({ open, onClose }: Props) {
           @keyframes pay-demo-pop  { from, to { opacity: 1; transform: none; } }
         }
       `}</style>
-    </div>
+    </div>,
+    document.body
   );
 }
 
