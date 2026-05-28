@@ -50,25 +50,11 @@ const { variant } = Astro.props;
         {variant.eyebrow}
       </p>
 
-      {variant.cohortBadge && (
-        <span
-          class="reveal mt-4 inline-flex items-center gap-2"
-          style={`--reveal-delay: 60ms; padding: 0.4rem 0.75rem; border-radius: var(--radius-pill); border: 1px solid ${variant.cohortBadge.tone === "accent" ? "var(--color-accent)" : "var(--color-rule-strong)"}; background: var(--color-paper); font-size: var(--text-2xs); letter-spacing: 0.06em; text-transform: uppercase; color: ${variant.cohortBadge.tone === "accent" ? "var(--color-accent-deep)" : "var(--color-ink-soft)"}; font-weight: 600;`}
-        >
-          <span
-            aria-hidden="true"
-            class="inline-block h-1.5 w-1.5 rounded-full"
-            style={`background: ${variant.cohortBadge.tone === "accent" ? "var(--color-accent)" : "var(--color-good)"};`}
-          ></span>
-          {variant.cohortBadge.text}
-        </span>
-      )}
-
       {variant.hero.lines && variant.hero.lines.length > 0 ? (
         <h1
           id="hero-headline"
-          class="mt-5"
-          style={`font-family: var(--font-display); font-size: var(--text-hero); line-height: 1.02; letter-spacing: -0.04em; font-weight: 600;`}
+          class="hero-lines mt-6"
+          style={`font-family: var(--font-display); line-height: 1.05; letter-spacing: -0.03em; font-weight: 600;`}
         >
           {variant.hero.lines.map((line, i) => (
             <span
@@ -255,27 +241,43 @@ const { variant } = Astro.props;
     @keyframes scrollHint { 0%, 100% { transform: none; opacity: 0.6; } }
   }
 
+  /* Multi-line hero font sizing. Each line in `hero.lines` renders as its own
+     row (display: block via inline style), so the overall block is tall. We
+     use a tighter clamp than --text-hero so a 4-line stack fits within one
+     viewport on phones and laptops without each line wrapping. */
+  .hero-lines {
+    font-size: clamp(2.1rem, 1.2rem + 4.2vw, 4.25rem);
+  }
+  @media (min-width: 1024px) {
+    .hero-lines {
+      font-size: clamp(2.5rem, 1rem + 3.6vw, 4.5rem);
+    }
+  }
+
   /* Animated strikethrough used inside .hero-line for "closed the tab"-style
-     lines. The line draws across the text after a configurable delay, giving
-     the visceral "this happened to me" beat. */
+     lines. inline-block bounds the ::after to the actual text width so the
+     strike doesn't drift when the line is the only content of the row. */
   .hero-strike {
     position: relative;
-    display: inline;
+    display: inline-block;
+    max-width: 100%;
   }
   .hero-strike::after {
     content: "";
     position: absolute;
     left: 0;
     right: 0;
-    top: 56%;
-    height: 0.12em;
+    top: 50%;
+    height: 0.07em;
+    margin-top: 0.02em;
     background: currentColor;
     transform-origin: left center;
     transform: scaleX(0);
     animation: heroStrike 600ms var(--ease-out-quart) forwards;
     animation-delay: var(--strike-delay, 700ms);
     border-radius: 999px;
-    opacity: 0.85;
+    opacity: 0.95;
+    pointer-events: none;
   }
   @keyframes heroStrike {
     from { transform: scaleX(0); }

@@ -10,6 +10,7 @@ const { variant } = Astro.props;
 // Render nothing when the variant has no validation block.
 // This keeps the section purely opt-in per ad.
 const v = variant.validation;
+const badge = variant.cohortBadge;
 ---
 
 {v && (
@@ -30,18 +31,35 @@ const v = variant.validation;
 
     <div class="container-page relative">
       <div class="max-w-3xl">
-        {v.eyebrow && (
-          <p
-            class="eyebrow reveal"
-            style="color: var(--color-accent-deep);"
-          >
-            <span
-              aria-hidden="true"
-              class="mr-2 inline-block h-1.5 w-1.5 rounded-full align-middle"
-              style="background: var(--color-accent);"
-            ></span>
-            {v.eyebrow}
-          </p>
+        {(v.eyebrow || badge) && (
+          <div class="reveal flex flex-wrap items-center gap-3">
+            {v.eyebrow && (
+              <p
+                class="eyebrow"
+                style="color: var(--color-accent-deep); margin: 0;"
+              >
+                <span
+                  aria-hidden="true"
+                  class="mr-2 inline-block h-1.5 w-1.5 rounded-full align-middle"
+                  style="background: var(--color-accent);"
+                ></span>
+                {v.eyebrow}
+              </p>
+            )}
+            {badge && (
+              <span
+                class="inline-flex items-center gap-2"
+                style={`padding: 0.35rem 0.7rem; border-radius: var(--radius-pill); border: 1px solid ${badge.tone === "accent" ? "var(--color-accent)" : "var(--color-rule-strong)"}; background: var(--color-paper); font-size: var(--text-2xs); letter-spacing: 0.06em; text-transform: uppercase; color: ${badge.tone === "accent" ? "var(--color-accent-deep)" : "var(--color-ink-soft)"}; font-weight: 600;`}
+              >
+                <span
+                  aria-hidden="true"
+                  class="inline-block h-1.5 w-1.5 rounded-full"
+                  style={`background: ${badge.tone === "accent" ? "var(--color-accent)" : "var(--color-good)"};`}
+                ></span>
+                {badge.text}
+              </span>
+            )}
+          </div>
         )}
 
         <p

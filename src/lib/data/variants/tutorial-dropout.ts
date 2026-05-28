@@ -14,7 +14,7 @@ export const tutorialDropoutVariant: PartialVariant = {
   eyebrow: "Opened Python tutorial. Closed it. Us.",
 
   cohortBadge: {
-    text: "Cohort 01 · No alumni yet — everyone starts from the same place",
+    text: "Cohort 01 · No alumni yet",
     tone: "neutral",
   },
 
