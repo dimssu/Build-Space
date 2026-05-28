@@ -1,73 +1,110 @@
 import type { PartialVariant } from "./types";
 
-// Ad 3 — English, peer voice for class 10 students. Choice framing:
-// 2 years of tutorials vs 4 weekends building.
+// Ad 3 — Class 10 students who are curious about AI but haven't found a way in.
+// The brief reframes the hero from defeatist ("no idea what to learn next") to
+// aspirational ("here is where that goes"), softens the Python intimidation
+// (Class 9 maths + curiosity is the only requirement), names the tutorial
+// dropout experience without making the reader feel called out, and frames
+// the scholarship as a meritocracy a curious kid can win.
 export const class10CuriousVariant: PartialVariant = {
   slug: "class10-curious",
   audience: "student",
   language: "en",
   brandTag: { text: "{ buildspace }", mark: "buildspace" },
 
-  eyebrow: "Build working AI agents in 4 weeks · Cohort 01",
+  // Keep the ad chip's continuity at the top of the hero. The new cohort
+  // framing ("no alumni yet") moves into the validation row below.
+  eyebrow: "Build working AI agents in 4 weeks",
+
+  cohortBadge: {
+    text: "Cohort 01 · No alumni yet",
+    tone: "neutral",
+  },
 
   hero: {
-    headline: "You're in class 10. You know coding matters.",
-    headlineRest: "You have no idea what to learn next.",
+    // Compact sizing — the new aspirational headline is one long sentence
+    // that wraps past the fold at --text-hero.
+    size: "compact",
+    headline: "You've been curious about AI for a while.",
+    headlineRest: "Here is where that goes.",
     subhead:
-      "Four weekends. Five students. One AI engineer who builds in production today. By week four you have a deployed agent — not a tutorial finished, an actual thing that runs on the internet and is yours.",
-    primaryCta: "Book your demo class · ₹99",
+      "Four weekends. Five students. By the end you have a deployed AI agent on the internet — built by you, in Python, with a URL you can send anyone.",
+    primaryCta: "₹99 — first class",
     secondaryCta: "See what you'll build",
-    footnote: "First class is ₹99. The full cohort is ₹19,999 — decide after.",
+    footnote: "Saturday, June 13, 2026 · Two hours. If it's not for you, you've spent ₹99.",
     outcomes: [
-      { label: "A working AI agent", note: "Built from scratch, in Python, by you" },
-      { label: "A live URL", note: "Something you can send to anyone, anywhere" },
-      { label: "A GitHub repo", note: "Real code on your name, from class 10 onward" },
+      { label: "An AI agent you built", note: "Python, from scratch — no copy-paste" },
+      { label: "A real URL", note: "Send the link to anyone, they can use it" },
+      { label: "A GitHub repo", note: "Your code, with your name on it" },
     ],
   },
 
+  validation: {
+    eyebrow: "If you've tried tutorials",
+    headline: "Tutorials are free. They leave you stuck at hour two.",
+    body: "This is different. Five students per cohort — everyone gets seen, nobody hides. The instructor knows your name. When you get stuck on a Tuesday night, you can ask. Class 9 maths and curiosity. That's the only requirement.",
+  },
+
   promise: {
-    eyebrow: "For class 10 students",
-    headline: "Two years of tutorials, or four weekends of building. Pick one.",
-    lead: "Most class 10 students will spend the next two years watching AI tutorials on YouTube and never finish one. You could spend four weekends in a live cohort and walk out with a deployed agent that has your name on it.",
+    eyebrow: "The five-student room",
+    headline: "Five students. Everyone gets seen. Nobody hides.",
+    lead: "Not a class of 200 where you ask a comment section. Not a YouTube playlist where you cope alone. A live room with five students, one instructor, two hours twice a weekend. The whole shape of the class is small enough that asking the question is not scary.",
     supporting:
-      "No course completion badge. No certificate PDF. Something that runs. Something that's yours. Something you can show a teacher, a senior, a college, a friend — for the rest of your life.",
+      "By week two you have a working agent on your laptop. By week four you have a deployed one — on a real URL, that anyone you send the link to can use. Not a course completion badge. Something that runs.",
   },
 
   curriculum: {
-    eyebrow: "What you'll build",
-    headline: "Four weeks. Something that runs every week.",
-    lead: "No slide decks. No concept maps. Every Sunday you close the laptop with something you can run — building, week over week, toward a deployed AI agent of your own.",
+    eyebrow: "What you'll actually build",
+    headline: "Four weekends. Something that runs every week.",
+    lead: "No 12-hour playlists. No slide decks. Every Sunday you close the laptop with something running — small at first, then bigger, until a deployed AI agent is yours. The maths underneath connects to what you already know from Class 9.",
   },
 
   instructor: {
-    eyebrow: "Your instructor",
-    headline: "Someone shipping AI systems in production. Same person every session.",
-    lead: "\"I build AI systems for a living. I looked at what was being taught to class 9–12 students in India and realised nobody was showing them the real thing. So I started Logic Labs.\"",
+    eyebrow: "Who's actually teaching",
+    headline: "Not a teacher who learned AI. An engineer who shows up every weekend.",
+    lead: "\"I build AI systems for a living. I looked at what students were being asked to watch and realised nobody was showing them the real thing. So I started Logic Labs. If you're curious and you ask, I'm the person you ask.\"",
+    showLinks: true,
   },
 
   closing: {
-    eyebrow: "Logic Labs · Cohort 01 · Saturday, June 13, 2026",
-    headline: "Spend two hours.\nDecide after.",
-    body: "Two hours. You meet the instructor, build something small, and take a short live test. If it isn't for you, you've spent ₹99. If it is, you start class 11 already shipping things most engineers don't.",
+    eyebrow: "Cohort 01 · Saturday, June 13, 2026",
+    headline: "₹99.\nCome and see.",
+    body: "Two hours. You meet the instructor, build something small, take a short live test. If it isn't for you, you've spent ₹99. If it is, you finally have somewhere your curiosity goes.",
   },
 
   pricing: {
-    headline: "One price. No surprises.",
+    headline: "One price. A scholarship you can earn.",
     scholarshipLine:
-      "Scholarships are decided in the ₹99 demo class, on performance, not paperwork. If you can build, you get in — regardless of what the full fee looks like at home.",
+      "Scholarships are decided live inside the ₹99 demo class — based on how you perform, nothing else. No essays. No financial form. Show up curious, build, and you have a real shot.",
   },
 
   payModal: {
-    title: "Book your demo class",
-    subtitle: "₹99 · A live look at Logic Labs before you commit to ₹19,999.",
+    title: "Try the demo class",
+    subtitle: "₹99 · Two hours, live. The instructor is in the room.",
     ctaLabel: "Pay ₹99",
   },
 
   seo: {
-    title: "Class 10? Build an AI Agent in 4 Weekends — Logic Labs",
+    title: "Class 10? Curious about AI? Try a live cohort — Logic Labs",
     description:
-      "A live four-week AI cohort for class 9–12 students in India. Five students per batch, one practitioner instructor, a deployed agent in Python by week four. Cohort 01 starts June 13, 2026.",
+      "A live four-week AI cohort for class 9–12 students in India who are curious about building. Five students, one instructor, ₹99 demo class on June 13. No alumni yet — everyone starts here.",
   },
 
   faqPriority: ["student", "parent"],
+
+  // Warm flow: validation (tutorial pain + belonging + Python softening) →
+  // curriculum (what you build — the curious-kid hook) → instructor (named,
+  // linked, so a curious kid can google before paying) → promise → logistics
+  // → pricing → comparison sections later.
+  sectionOrder: [
+    "validation",
+    "curriculum",
+    "instructor",
+    "promise",
+    "howItWorks",
+    "pricing",
+    "compare",
+    "compareTable",
+    "faq",
+  ],
 };
