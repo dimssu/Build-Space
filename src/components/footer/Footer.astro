@@ -25,13 +25,24 @@ const year = new Date().getFullYear();
 
   <div class="container-page grid gap-10 md:grid-cols-12">
     <div class="md:col-span-5">
-      <a href="/" class="flex items-baseline gap-1 text-[18px] font-medium tracking-tight" style="font-family: var(--font-display);">
-        <span style="color: var(--color-accent);">{'{'}</span>
-        <span>buildspace</span>
-        <span style="color: var(--color-accent);">{'}'}</span>
+      <a href="/" class="flex items-center gap-2.5" aria-label="Build Space — Logic Labs home">
+        <span class="flex items-baseline gap-1 text-[18px] font-medium tracking-tight" style="font-family: var(--font-display);">
+          <span style="color: var(--color-accent);">{'{'}</span>
+          <span>buildspace</span>
+          <span style="color: var(--color-accent);">{'}'}</span>
+        </span>
+        <span aria-hidden="true" style="width: 1px; height: 16px; background: var(--color-rule-strong);"></span>
+        <span class="text-[11px] uppercase tracking-[0.14em]" style="color: var(--color-ink-mute);">Logic Labs</span>
       </a>
       <p class="mt-4 max-w-sm" style={`color: var(--color-ink-soft); font-size: var(--text-sm);`}>
-        Build AI. Not just use it. A live cohort for Class 9 to 12 students in India.
+        Build AI. Not just use it. A live cohort by Logic Labs for Class 9 to 12 students in India.
+      </p>
+      <p
+        class="mt-4 inline-flex items-center gap-2 rounded-[var(--radius-pill)] px-3 py-1.5"
+        style={`background: var(--color-accent-soft); color: var(--color-accent-deep); font-size: var(--text-xs); font-weight: 500;`}
+      >
+        <span aria-hidden="true">★</span>
+        Merit scholarships in the ₹99 demo class
       </p>
     </div>
 
@@ -51,6 +62,7 @@ const year = new Date().getFullYear();
         <li>{COHORT.cohort}</li>
         <li>Starts {COHORT.startDateReadable}</li>
         <li>{COHORT.batchSize} students, weekends only</li>
+        <li><a href="/#scholarship" style="color: var(--color-accent-deep);" class="hover:underline">Scholarships decided on merit</a></li>
       </ul>
     </div>
   </div>

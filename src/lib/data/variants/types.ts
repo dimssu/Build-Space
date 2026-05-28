@@ -61,6 +61,26 @@ export type FaqItem = {
   forParent: boolean;
 };
 
+// Scholarship framing, surfaced in several places at once so the "you can earn
+// a seat" message repeats across the page (the brand's strongest equaliser).
+// `defaultVariant` always supplies a complete object, so the shallow-merge in
+// getVariant() guarantees every variant has scholarship copy even if it only
+// overrides a field or two. Each ad variant rewrites these in its own voice
+// (Hinglish for class11-hi, parent pronouns for parent variants, etc.).
+export type Scholarship = {
+  // Compact one-liner reused in the nav chip + hero pill. Keep it short.
+  pill: string;
+  // Single sentence reused in the hero sub-area + closing-CTA reassurance.
+  line: string;
+  // Dedicated banner section (the centrepiece scholarship callout).
+  bannerEyebrow: string;
+  bannerHeadline: string;
+  bannerBody: string;
+  bannerCta: string;
+  // Short merit chips rendered under the banner headline.
+  points: string[];
+};
+
 // All sections rendered inside <main>, between the (always-first) Hero and the
 // (always-last) ClosingCTA. When a variant sets `sectionOrder`, these are
 // rendered in that order — useful for warm/cool flow tuning (e.g. an emotional
@@ -72,6 +92,7 @@ export type SectionKey =
   | "compare"
   | "curriculum"
   | "instructor"
+  | "scholarship"
   | "howItWorks"
   | "compareTable"
   | "pricing"
@@ -132,6 +153,10 @@ export type Variant = {
     headline: string;
     scholarshipLine: string;
   };
+  // Scholarship framing surfaced in multiple places (nav, hero, dedicated
+  // banner, closing CTA). Required so defaultVariant always carries copy and
+  // the merge guarantees every variant inherits it.
+  scholarship: Scholarship;
   payModal: {
     title: string;
     subtitle: string;

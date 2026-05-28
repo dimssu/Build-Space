@@ -63,6 +63,21 @@ export const defaultVariant: Variant = {
       "Scholarships are decided in the ₹99 demo class, on performance, not financial paperwork. A strong student gets in regardless of full-fee capacity.",
   },
 
+  scholarship: {
+    pill: "Merit scholarships — decided on talent, not money",
+    line: "Scholarships are decided live in the ₹99 demo class — on merit, never on financial paperwork.",
+    bannerEyebrow: "Logic Labs Scholarships",
+    bannerHeadline: "A seat your child earns. Not one you just pay for.",
+    bannerBody:
+      "Every Cohort 01 seat is open to a scholarship — and they are decided live in the ₹99 demo class, on how your child performs. No essays, no income proof, no waiting on a committee. A strong student gets in regardless of your capacity to pay the full ₹19,999.",
+    bannerCta: "Earn the scholarship · ₹99",
+    points: [
+      "Decided on merit, not money",
+      "No essays, no financial proof",
+      "Awarded in the ₹99 demo class",
+    ],
+  },
+
   payModal: {
     title: "Book the demo class",
     subtitle: "₹99 · A live look at the cohort before you commit to ₹19,999.",

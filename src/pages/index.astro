@@ -9,6 +9,7 @@ import Promise from "@components/promise/Promise.astro";
 import Compare from "@components/compare/Compare.astro";
 import Curriculum from "@components/curriculum/Curriculum.astro";
 import Instructor from "@components/instructor/Instructor.astro";
+import ScholarshipBanner from "@components/scholarship/ScholarshipBanner.astro";
 import HowItWorks from "@components/how/HowItWorks.astro";
 import CompareTable from "@components/vs/CompareTable.astro";
 import Pricing from "@components/pricing/Pricing.astro";
@@ -41,6 +42,7 @@ const SECTIONS = {
   compare: Compare,
   curriculum: Curriculum,
   instructor: Instructor,
+  scholarship: ScholarshipBanner,
   howItWorks: HowItWorks,
   compareTable: CompareTable,
   pricing: Pricing,
@@ -54,6 +56,7 @@ const DEFAULT_ORDER: SectionKey[] = [
   "compare",
   "curriculum",
   "instructor",
+  "scholarship",
   "howItWorks",
   "compareTable",
   "pricing",

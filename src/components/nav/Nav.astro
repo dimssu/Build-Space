@@ -9,9 +9,9 @@ interface Props {
 const { variant } = Astro.props;
 
 const links = [
-  { href: "#promise", label: "The promise" },
   { href: "#curriculum", label: "Curriculum" },
   { href: "#instructor", label: "Instructor" },
+  { href: "#scholarship", label: "Scholarships" },
   { href: "#pricing", label: "Pricing" },
   { href: "#faq", label: "FAQ" },
 ];
@@ -23,16 +23,26 @@ const links = [
     style="background: color-mix(in oklch, var(--color-paper) 88%, transparent); backdrop-filter: saturate(180%) blur(12px); border-color: var(--color-rule);"
   >
     <nav class="container-page flex h-16 items-center justify-between">
-      <a href="/" class="flex items-baseline gap-1 text-[15px] font-medium tracking-tight" style="font-family: var(--font-display);">
-        <span style="color: var(--color-accent);">{'{'}</span>
-        <span>buildspace</span>
-        <span style="color: var(--color-accent);">{'}'}</span>
+      <a href="/" class="flex items-center gap-2.5" aria-label="Build Space — Logic Labs home">
+        <span class="flex items-baseline gap-1 text-[15px] font-medium tracking-tight" style="font-family: var(--font-display);">
+          <span style="color: var(--color-accent);">{'{'}</span>
+          <span>buildspace</span>
+          <span style="color: var(--color-accent);">{'}'}</span>
+        </span>
+        <span aria-hidden="true" class="hidden sm:inline-block" style="width: 1px; height: 14px; background: var(--color-rule-strong);"></span>
+        <span class="hidden sm:inline text-[11px] uppercase tracking-[0.14em]" style="color: var(--color-ink-mute);">Logic Labs</span>
       </a>
 
       <ul class="hidden items-center gap-7 md:flex" style="font-size: var(--text-sm); color: var(--color-ink-soft);">
         {links.map((l) => (
           <li>
-            <a href={l.href} class="transition-colors hover:text-[color:var(--color-ink)]">{l.label}</a>
+            <a
+              href={l.href}
+              class="transition-colors hover:text-[color:var(--color-ink)]"
+              style={l.href === "#scholarship" ? "color: var(--color-accent-deep); font-weight: 500;" : ""}
+            >
+              {l.label}
+            </a>
           </li>
         ))}
       </ul>

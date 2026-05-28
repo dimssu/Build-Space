@@ -81,6 +81,21 @@ export const tutorialDropoutVariant: PartialVariant = {
       "Scholarships are decided live in the ₹99 demo class on performance, not paperwork. You don't need a prior track record — show up, build, and the scholarship is on the table.",
   },
 
+  scholarship: {
+    pill: "Open scholarship — earned by showing up and building",
+    line: "Scholarships are decided live in the ₹99 demo class — on what you build, not your track record.",
+    bannerEyebrow: "Logic Labs Scholarships",
+    bannerHeadline: "No track record needed. Just show up and build.",
+    bannerBody:
+      "Every Cohort 01 seat is open to a scholarship, decided live in the ₹99 demo class — on what you build that day, not on what you've finished before. No essays, no paperwork, no proof of a perfect past. Show up, build, and the scholarship is on the table.",
+    bannerCta: "Try it · ₹99",
+    points: [
+      "No prior track record",
+      "No essays or paperwork",
+      "Decided in the ₹99 demo class",
+    ],
+  },
+
   payModal: {
     title: "Try the demo class",
     subtitle: "₹99 · Two hours, live. The instructor is in the room.",

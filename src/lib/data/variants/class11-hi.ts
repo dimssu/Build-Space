@@ -116,6 +116,21 @@ export const class11HiVariant: PartialVariant = {
       "Scholarship demo class mein decide hoti hai — teri performance pe, kisi form pe nahi. Essays nahi. Financial proof nahi. Aaja, code likh, aur seat ka real chance hai.",
   },
 
+  scholarship: {
+    pill: "Scholarship demo class mein milti hai — form pe nahi",
+    line: "Scholarship ₹99 wali demo class mein decide hoti hai — teri performance pe, kisi form pe nahi.",
+    bannerEyebrow: "Logic Labs Scholarship",
+    bannerHeadline: "Seat kamayi jaati hai. Sirf kharidi nahi jaati.",
+    bannerBody:
+      "Har Cohort 01 seat pe scholarship mil sakti hai — aur woh ₹99 wali demo class mein decide hoti hai, teri performance pe. Na essay, na financial proof, na kisi committee ka wait. Strong student hai toh seat pakki — chahe full ₹19,999 fee ghar mein affordable ho ya na ho.",
+    bannerCta: "Scholarship kama · ₹99",
+    points: [
+      "Performance pe decide hoti hai",
+      "Na essay, na financial proof",
+      "₹99 demo class mein milti hai",
+    ],
+  },
+
   payModal: {
     title: "Demo class book kar",
     subtitle: "₹99 · Do ghante, live. Instructor room mein hota hai.",
@@ -182,6 +197,7 @@ export const class11HiVariant: PartialVariant = {
     "validation",
     "curriculum",
     "instructor",
+    "scholarship",
     "promise",
     "howItWorks",
     "pricing",

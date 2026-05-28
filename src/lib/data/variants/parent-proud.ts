@@ -74,6 +74,21 @@ export const parentProudVariant: PartialVariant = {
       "Scholarships are decided live inside the ₹99 demo class, on how your child performs — not on a financial form. A strong child earns their seat. Financial capacity is not the filter.",
   },
 
+  scholarship: {
+    pill: "Merit scholarships — your child earns the seat",
+    line: "Scholarships are decided live in the ₹99 demo class — on how your child performs, not on a financial form.",
+    bannerEyebrow: "Logic Labs Scholarships",
+    bannerHeadline: "A seat your child earns. Something to be proud of.",
+    bannerBody:
+      "Every Cohort 01 seat is open to a scholarship, decided live in the ₹99 demo class — on how your child performs, not on a financial form. A strong child earns their place. Financial capacity is never the filter.",
+    bannerCta: "Book the ₹99 demo class",
+    points: [
+      "Earned on merit, not money",
+      "No essays, no financial proof",
+      "Awarded in the ₹99 demo class",
+    ],
+  },
+
   payModal: {
     title: "Book the demo class",
     subtitle: "₹99 · You and your child see Logic Labs live before you commit to ₹19,999.",
@@ -95,6 +110,7 @@ export const parentProudVariant: PartialVariant = {
     "validation",
     "curriculum",
     "instructor",
+    "scholarship",
     "promise",
     "howItWorks",
     "pricing",

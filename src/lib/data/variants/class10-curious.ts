@@ -78,6 +78,21 @@ export const class10CuriousVariant: PartialVariant = {
       "Scholarships are decided live inside the ₹99 demo class — based on how you perform, nothing else. No essays. No financial form. Show up curious, build, and you have a real shot.",
   },
 
+  scholarship: {
+    pill: "Scholarships you earn by building — not by paperwork",
+    line: "Scholarships are decided live in the ₹99 demo class — on how you build, not on any form.",
+    bannerEyebrow: "Logic Labs Scholarships",
+    bannerHeadline: "A seat you can earn. Not just buy.",
+    bannerBody:
+      "Every Cohort 01 seat is open to a scholarship, and it's decided live in the ₹99 demo class — on how you perform, nothing else. No essays. No financial form. Show up curious, build something, and you've got a real shot, regardless of who can pay the full fee.",
+    bannerCta: "Earn your seat · ₹99",
+    points: [
+      "Decided on how you build",
+      "No essays, no forms",
+      "Won in the ₹99 demo class",
+    ],
+  },
+
   payModal: {
     title: "Try the demo class",
     subtitle: "₹99 · Two hours, live. The instructor is in the room.",
@@ -100,6 +115,7 @@ export const class10CuriousVariant: PartialVariant = {
     "validation",
     "curriculum",
     "instructor",
+    "scholarship",
     "promise",
     "howItWorks",
     "pricing",

@@ -119,6 +119,16 @@ const { variant } = Astro.props;
         {variant.hero.footnote}
       </p>
 
+      <!-- Scholarship pill — the merit-not-money message, surfaced above the fold -->
+      <a
+        href="#scholarship"
+        class="reveal mt-4 inline-flex items-center gap-2 rounded-[var(--radius-pill)] px-3.5 py-1.5 transition-colors"
+        style={`background: var(--color-accent-soft); color: var(--color-accent-deep); font-size: var(--text-xs); font-weight: 500; --reveal-delay: 340ms;`}
+      >
+        <span aria-hidden="true">★</span>
+        {variant.scholarship.pill}
+      </a>
+
       <!-- Outcome chips — the answer to "what does my child walk out with?" -->
       <dl
         class="reveal mt-12 grid gap-4 sm:grid-cols-3"
