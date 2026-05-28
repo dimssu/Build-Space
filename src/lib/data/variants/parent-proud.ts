@@ -16,13 +16,18 @@ export const parentProudVariant: PartialVariant = {
   eyebrow: "My kid built something I can't explain.",
 
   hero: {
+    // Long emotional sentence — use compact sizing so the whole hero fits
+    // one viewport without the headline wrapping past the fold.
+    size: "compact",
     headline: "My child built something last weekend that I still don't fully understand.",
     headlineRest: "And I've never been more proud.",
+    // Subhead verbatim from the brief — the extra "by the end" clause has
+    // moved into the outcome chips below where it carries less vertical cost.
     subhead:
-      "A live AI cohort. Four weekends. Five students. One instructor who does this for a living. By the end your child has a deployed AI agent — a link, a real URL, something that runs.",
+      "A live AI cohort. Four weekends. Five students. One instructor who does this for a living.",
     primaryCta: "Book the ₹99 demo class",
     secondaryCta: "See what they'll build",
-    footnote: "Saturday, June 13, 2026 · Two hours. If it's not for your child, you've spent ₹99.",
+    footnote: "Saturday, June 13, 2026 · Two hours. ₹99 if it's not for them.",
     outcomes: [
       { label: "A live AI agent", note: "On a real URL, anyone can visit" },
       { label: "A GitHub repo", note: "Their code, with their name on it" },

@@ -77,8 +77,13 @@ const { variant } = Astro.props;
       ) : (
         <h1
           id="hero-headline"
-          class="reveal mt-5"
-          style={`font-family: var(--font-display); font-size: var(--text-hero); line-height: 0.98; letter-spacing: -0.04em; font-weight: 600; --reveal-delay: 80ms;`}
+          class:list={[
+            "reveal mt-5",
+            variant.hero.size === "compact" && "hero-compact",
+          ]}
+          style={variant.hero.size === "compact"
+            ? `font-family: var(--font-display); line-height: 1.08; letter-spacing: -0.03em; font-weight: 600; --reveal-delay: 80ms;`
+            : `font-family: var(--font-display); font-size: var(--text-hero); line-height: 0.98; letter-spacing: -0.04em; font-weight: 600; --reveal-delay: 80ms;`}
         >
           {variant.hero.headline}
           <span
@@ -245,11 +250,13 @@ const { variant } = Astro.props;
      row (display: block via inline style), so the overall block is tall. We
      use a tighter clamp than --text-hero so a 4-line stack fits within one
      viewport on phones and laptops without each line wrapping. */
-  .hero-lines {
+  .hero-lines,
+  .hero-compact {
     font-size: clamp(2.1rem, 1.2rem + 4.2vw, 4.25rem);
   }
   @media (min-width: 1024px) {
-    .hero-lines {
+    .hero-lines,
+    .hero-compact {
       font-size: clamp(2.5rem, 1rem + 3.6vw, 4.5rem);
     }
   }

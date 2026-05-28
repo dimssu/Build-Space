@@ -71,6 +71,12 @@ export type Variant = {
     footnote: string;
     outcomes: HeroOutcome[];
     lines?: HeroLine[]; // when set, supersedes headline/headlineRest
+    // "display" (default) keeps the punchy --text-hero sizing — works for
+    // short 2-part headlines like "Your child can build AI. / Not just use it."
+    // "compact" applies the same smaller clamp() as multi-line heros, so a
+    // long single-sentence headline (e.g. parent-proud's emotional opener)
+    // fits one viewport without wrapping past the fold.
+    size?: "display" | "compact";
   };
   cohortBadge?: CohortBadge;
   validation?: ValidationBlock;
