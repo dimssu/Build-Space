@@ -7,6 +7,10 @@ interface Props {
 }
 
 const { variant } = Astro.props;
+
+// Per-variant week override (e.g. Hinglish for class11-hi). When unset,
+// renders the canonical English weeks from cohort.ts.
+const weeks = variant.weeks ?? COHORT.weeks;
 ---
 
 <section
@@ -56,7 +60,7 @@ const { variant } = Astro.props;
     </div>
 
     <ol class="md:col-span-8" style="list-style: none; padding: 0; margin: 0;">
-      {COHORT.weeks.map((w, i) => (
+      {weeks.map((w, i) => (
         <li
           class="reveal grid grid-cols-12 gap-6 border-t py-10"
           style={`border-color: var(--color-rule); --reveal-delay: ${i * 70}ms;`}
@@ -82,7 +86,7 @@ const { variant } = Astro.props;
             >
               <span aria-hidden="true" style="margin-top: 2px;">↳</span>
               <span>
-                <strong style="font-weight: 600;">By Sunday night:</strong> {w.outcome}
+                <strong style="font-weight: 600;">{variant.curriculum.outcomeLabel ?? "By Sunday night:"}</strong> {w.outcome}
               </span>
             </p>
 

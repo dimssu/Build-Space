@@ -9,17 +9,33 @@ interface Props {
 
 const { variant } = Astro.props;
 
-// Filter by audience. Render-order is then decided by `variant.faqPriority`:
+// Per-variant FAQ override (e.g. Hinglish for class11-hi). When unset,
+// renders the canonical English FAQs from cohort.ts.
+const sourceFaqs: Faq[] = (variant.faqs as Faq[] | undefined) ?? (COHORT.faqs as readonly Faq[] as Faq[]);
+
+// Filter by audience. Render-order is decided by `variant.faqPriority`:
 // the first entry's group comes first, the second's comes second.
-const parentFaqs: Faq[] = COHORT.faqs.filter((f) => f.forParent);
-const studentFaqs: Faq[] = COHORT.faqs.filter((f) => !f.forParent);
+const parentFaqs: Faq[] = sourceFaqs.filter((f) => f.forParent);
+const studentFaqs: Faq[] = sourceFaqs.filter((f) => !f.forParent);
 
 const groups: Record<"parent" | "student", { label: string; items: Faq[] }> = {
-  parent: { label: "For parents", items: parentFaqs },
-  student: { label: "For students", items: studentFaqs },
+  parent: {
+    label: variant.faq?.parentGroupLabel ?? "For parents",
+    items: parentFaqs,
+  },
+  student: {
+    label: variant.faq?.studentGroupLabel ?? "For students",
+    items: studentFaqs,
+  },
 };
 
-const order = variant.faqPriority;
+// Drop any empty group — keeps the layout clean when a variant supplies a
+// fully audience-targeted FAQ list (e.g. class11-hi is student-only).
+const order = variant.faqPriority.filter((key) => groups[key].items.length > 0);
+
+const eyebrow = variant.faq?.eyebrow ?? "Honest answers";
+const headline = variant.faq?.headline ?? "The questions parents actually ask.";
+const supporting = variant.faq?.supporting;
 ---
 
 <section
@@ -31,24 +47,35 @@ const order = variant.faqPriority;
   <div class="container-page">
     <div class="grid items-end gap-10 md:grid-cols-12">
       <div class="md:col-span-5">
-        <p class="eyebrow reveal">Honest answers</p>
+        <p class="eyebrow reveal">{eyebrow}</p>
         <h2
           id="faq-heading"
           class="reveal mt-4"
           style={`font-size: var(--text-3xl); --reveal-delay: 80ms;`}
         >
-          The questions parents actually ask.
+          {headline}
         </h2>
       </div>
       <p
         class="reveal md:col-span-7"
         style={`color: var(--color-ink-soft); font-size: var(--text-lg); --reveal-delay: 140ms;`}
       >
-        If a question is not here, the answer is: write to <a href={`mailto:${COHORT.contact.email}`} style="color: var(--color-accent-deep); text-decoration: underline; text-underline-offset: 4px;">{COHORT.contact.email}</a> and a human replies. We do not have a bot.
+        {supporting ? (
+          <Fragment set:html={supporting} />
+        ) : (
+          <Fragment>
+            If a question is not here, the answer is: write to <a href={`mailto:${COHORT.contact.email}`} style="color: var(--color-accent-deep); text-decoration: underline; text-underline-offset: 4px;">{COHORT.contact.email}</a> and a human replies. We do not have a bot.
+          </Fragment>
+        )}
       </p>
     </div>
 
-    <div class="mt-14 grid gap-12 md:grid-cols-2">
+    <div
+      class:list={[
+        "mt-14 grid gap-12",
+        order.length > 1 ? "md:grid-cols-2" : "md:grid-cols-1",
+      ]}
+    >
       {order.map((key, idx) => (
         <div class="reveal" style={`--reveal-delay: ${200 + idx * 60}ms;`}>
           <p

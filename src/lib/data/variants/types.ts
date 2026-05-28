@@ -44,6 +44,23 @@ export type ValidationBlock = {
   body?: string | string[];
 };
 
+// Optional per-variant overrides for content that normally comes from the
+// factual base in `cohort.ts`. Useful when an audience needs the factual
+// content delivered in their own voice — e.g. class11-hi needs the four
+// curriculum weeks and the student FAQs in Hinglish, while every other
+// variant continues to read from COHORT.weeks / COHORT.faqs.
+export type WeekCard = {
+  label: string;
+  title: string;
+  desc: string;
+  outcome: string;
+};
+export type FaqItem = {
+  q: string;
+  a: string;
+  forParent: boolean;
+};
+
 // All sections rendered inside <main>, between the (always-first) Hero and the
 // (always-last) ClosingCTA. When a variant sets `sectionOrder`, these are
 // rendered in that order — useful for warm/cool flow tuning (e.g. an emotional
@@ -95,6 +112,9 @@ export type Variant = {
     eyebrow: string;
     headline: string;
     lead: string;
+    // Label shown above each week's outcome pill (default: "By Sunday night:").
+    // Configurable so a Hinglish variant can swap it to "Sunday raat tak:".
+    outcomeLabel?: string;
   };
   instructor: {
     eyebrow: string;
@@ -123,10 +143,24 @@ export type Variant = {
     ogImage?: string;
   };
   faqPriority: ("parent" | "student")[];
+  // Optional copy override for the FAQ section header + group labels. When
+  // unset, the page uses the canonical English defaults.
+  faq?: {
+    eyebrow?: string;        // default: "Honest answers"
+    headline?: string;       // default: "The questions parents actually ask."
+    supporting?: string;     // default: "If a question is not here…"
+    parentGroupLabel?: string; // default: "For parents"
+    studentGroupLabel?: string; // default: "For students"
+  };
   // Optional section ordering for everything between Hero and ClosingCTA.
   // Sections not listed are omitted. When unset, the page uses DEFAULT_ORDER
   // from src/pages/index.astro (mirrors the original rendering order).
   sectionOrder?: SectionKey[];
+  // Optional content overrides — see types above. Each falls back to
+  // COHORT.weeks / COHORT.faqs when unset, so the default and other variants
+  // are untouched.
+  weeks?: WeekCard[];
+  faqs?: FaqItem[];
 };
 
 export type PartialVariant = Omit<Partial<Variant>, "slug"> & { slug: AdSlug };
