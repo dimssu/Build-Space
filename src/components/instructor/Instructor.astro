@@ -85,6 +85,31 @@ const points = [
             </li>
           ))}
         </ul>
+
+        {variant.instructor.showLinks && COHORT.instructor.links && COHORT.instructor.links.length > 0 && (
+          <ul
+            class="mt-4 flex flex-wrap gap-2"
+            style="list-style: none; padding: 0;"
+            aria-label="Instructor social links"
+          >
+            {COHORT.instructor.links.map((link) => (
+              <li>
+                <a
+                  href={link.href}
+                  target="_blank"
+                  rel="noopener noreferrer me"
+                  class="inline-flex items-center gap-1.5"
+                  style={`padding: 0.4rem 0.8rem; border-radius: var(--radius-pill); border: 1px solid var(--color-accent); color: var(--color-accent-deep); font-size: var(--text-2xs); font-weight: 600; letter-spacing: 0.04em; text-decoration: none; transition: background 200ms var(--ease-out-quart);`}
+                  onmouseover="this.style.background='color-mix(in oklch, var(--color-accent) 12%, transparent)'"
+                  onmouseout="this.style.background='transparent'"
+                >
+                  {link.label}
+                  <span aria-hidden="true" style="font-size: 0.85em;">↗</span>
+                </a>
+              </li>
+            ))}
+          </ul>
+        )}
       </figure>
 
       <div class="md:col-span-7">

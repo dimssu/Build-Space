@@ -4,6 +4,7 @@ export const prerender = false;
 import Base from "@layouts/Base.astro";
 import Nav from "@components/nav/Nav.astro";
 import Hero from "@components/hero/Hero.astro";
+import Validation from "@components/validation/Validation.astro";
 import Promise from "@components/promise/Promise.astro";
 import Compare from "@components/compare/Compare.astro";
 import Curriculum from "@components/curriculum/Curriculum.astro";
@@ -36,6 +37,7 @@ Astro.response.headers.set("Vary", "Accept-Encoding");
 
   <main id="main">
     <Hero variant={variant} />
+    <Validation variant={variant} />
     <Promise variant={variant} />
     <Compare variant={variant} />
     <Curriculum variant={variant} />

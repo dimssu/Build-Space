@@ -1,0 +1,65 @@
+---
+import type { Variant } from "@lib/data/variants";
+
+interface Props {
+  variant: Variant;
+}
+
+const { variant } = Astro.props;
+
+// Render nothing when the variant has no validation block.
+// This keeps the section purely opt-in per ad.
+const v = variant.validation;
+---
+
+{v && (
+  <section
+    id="validation"
+    aria-label="A note before we go further"
+    class="relative"
+    style="background: var(--color-paper-soft); border-block: 1px solid var(--color-rule); padding-block: clamp(4rem, 3rem + 4vw, 7rem);"
+  >
+    <!-- A single, restrained band of warm tone — visually quieter than the hero,
+         so it feels like a breath before the page resumes selling. -->
+    <div
+      aria-hidden="true"
+      class="pointer-events-none absolute inset-0 -z-0"
+      style="background:
+        radial-gradient(45% 60% at 12% 0%, color-mix(in oklch, var(--color-warn) 10%, transparent) 0%, transparent 65%);"
+    ></div>
+
+    <div class="container-page relative">
+      <div class="max-w-3xl">
+        {v.eyebrow && (
+          <p
+            class="eyebrow reveal"
+            style="color: var(--color-accent-deep);"
+          >
+            <span
+              aria-hidden="true"
+              class="mr-2 inline-block h-1.5 w-1.5 rounded-full align-middle"
+              style="background: var(--color-accent);"
+            ></span>
+            {v.eyebrow}
+          </p>
+        )}
+
+        <p
+          class="reveal mt-5"
+          style={`font-family: var(--font-display); font-size: var(--text-3xl); line-height: 1.15; letter-spacing: -0.02em; color: var(--color-ink); font-weight: 500; --reveal-delay: 80ms;`}
+        >
+          {v.headline}
+        </p>
+
+        {v.body && (
+          <p
+            class="reveal mt-6 max-w-2xl"
+            style={`color: var(--color-ink-soft); font-size: var(--text-lg); line-height: 1.55; --reveal-delay: 180ms;`}
+          >
+            {v.body}
+          </p>
+        )}
+      </div>
+    </div>
+  </section>
+)}

@@ -34,6 +34,13 @@ export const COHORT = {
       "5+ years building",
       "Agentic systems",
     ],
+    // Public social links — surfaced in the Instructor section when a variant
+    // sets `instructor.showLinks = true`. Closes the "trust gap" for audiences
+    // (e.g. tutorial-dropout) that need to see a real face before trying again.
+    links: [
+      { label: "LinkedIn", href: "https://www.linkedin.com/in/" },
+      { label: "GitHub", href: "https://github.com/" },
+    ],
   },
   stats: [
     { value: "5", label: "students per cohort" },

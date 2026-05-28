@@ -50,18 +50,58 @@ const { variant } = Astro.props;
         {variant.eyebrow}
       </p>
 
-      <h1
-        id="hero-headline"
-        class="reveal mt-5"
-        style={`font-family: var(--font-display); font-size: var(--text-hero); line-height: 0.98; letter-spacing: -0.04em; font-weight: 600; --reveal-delay: 80ms;`}
-      >
-        {variant.hero.headline}
+      {variant.cohortBadge && (
         <span
-          style="display: block; color: var(--color-ink-soft); font-weight: 500;"
+          class="reveal mt-4 inline-flex items-center gap-2"
+          style={`--reveal-delay: 60ms; padding: 0.4rem 0.75rem; border-radius: var(--radius-pill); border: 1px solid ${variant.cohortBadge.tone === "accent" ? "var(--color-accent)" : "var(--color-rule-strong)"}; background: var(--color-paper); font-size: var(--text-2xs); letter-spacing: 0.06em; text-transform: uppercase; color: ${variant.cohortBadge.tone === "accent" ? "var(--color-accent-deep)" : "var(--color-ink-soft)"}; font-weight: 600;`}
         >
-          {variant.hero.headlineRest}
+          <span
+            aria-hidden="true"
+            class="inline-block h-1.5 w-1.5 rounded-full"
+            style={`background: ${variant.cohortBadge.tone === "accent" ? "var(--color-accent)" : "var(--color-good)"};`}
+          ></span>
+          {variant.cohortBadge.text}
         </span>
-      </h1>
+      )}
+
+      {variant.hero.lines && variant.hero.lines.length > 0 ? (
+        <h1
+          id="hero-headline"
+          class="mt-5"
+          style={`font-family: var(--font-display); font-size: var(--text-hero); line-height: 1.02; letter-spacing: -0.04em; font-weight: 600;`}
+        >
+          {variant.hero.lines.map((line, i) => (
+            <span
+              class="hero-line reveal"
+              style={`--reveal-delay: ${80 + i * 140}ms; display: block; color: ${line.tone === "accent" ? "var(--color-accent-deep)" : "var(--color-ink)"}; font-weight: ${line.tone === "accent" ? 600 : 500};`}
+            >
+              {line.strikethrough ? (
+                <span
+                  class="hero-strike"
+                  style={`--strike-delay: ${80 + i * 140 + 520}ms;`}
+                >
+                  {line.text}
+                </span>
+              ) : (
+                line.text
+              )}
+            </span>
+          ))}
+        </h1>
+      ) : (
+        <h1
+          id="hero-headline"
+          class="reveal mt-5"
+          style={`font-family: var(--font-display); font-size: var(--text-hero); line-height: 0.98; letter-spacing: -0.04em; font-weight: 600; --reveal-delay: 80ms;`}
+        >
+          {variant.hero.headline}
+          <span
+            style="display: block; color: var(--color-ink-soft); font-weight: 500;"
+          >
+            {variant.hero.headlineRest}
+          </span>
+        </h1>
+      )}
 
       <p
         class="reveal mt-7 max-w-xl"
@@ -213,5 +253,35 @@ const { variant } = Astro.props;
   }
   @media (prefers-reduced-motion: reduce) {
     @keyframes scrollHint { 0%, 100% { transform: none; opacity: 0.6; } }
+  }
+
+  /* Animated strikethrough used inside .hero-line for "closed the tab"-style
+     lines. The line draws across the text after a configurable delay, giving
+     the visceral "this happened to me" beat. */
+  .hero-strike {
+    position: relative;
+    display: inline;
+  }
+  .hero-strike::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 56%;
+    height: 0.12em;
+    background: currentColor;
+    transform-origin: left center;
+    transform: scaleX(0);
+    animation: heroStrike 600ms var(--ease-out-quart) forwards;
+    animation-delay: var(--strike-delay, 700ms);
+    border-radius: 999px;
+    opacity: 0.85;
+  }
+  @keyframes heroStrike {
+    from { transform: scaleX(0); }
+    to   { transform: scaleX(1); }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .hero-strike::after { animation: none; transform: scaleX(1); }
   }
 </style>
