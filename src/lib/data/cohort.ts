@@ -41,6 +41,16 @@ export const COHORT = {
       { label: "LinkedIn", href: "https://www.linkedin.com/in/" },
       { label: "GitHub", href: "https://github.com/" },
     ],
+    // One concrete shipped product surfaced when a variant sets
+    // `instructor.showShippedWork = true`. For high-anxiety audiences
+    // (e.g. class12-parent) it's the proof that the instructor doesn't just
+    // teach AI — they ship it. Update `href` to the real product URL before
+    // launch; the placeholder is fine for staging.
+    shippedWork: {
+      label: "Recur Club",
+      href: "https://recurclub.com",
+      summary: "Agentic AI systems running in production today.",
+    },
   },
   stats: [
     { value: "5", label: "students per cohort" },

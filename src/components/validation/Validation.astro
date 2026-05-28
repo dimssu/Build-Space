@@ -70,12 +70,16 @@ const badge = variant.cohortBadge;
         </p>
 
         {v.body && (
-          <p
-            class="reveal mt-6 max-w-2xl"
-            style={`color: var(--color-ink-soft); font-size: var(--text-lg); line-height: 1.55; --reveal-delay: 180ms;`}
-          >
-            {v.body}
-          </p>
+          <div class="mt-6 max-w-2xl grid gap-4">
+            {(Array.isArray(v.body) ? v.body : [v.body]).map((para, i) => (
+              <p
+                class="reveal"
+                style={`color: var(--color-ink-soft); font-size: var(--text-lg); line-height: 1.55; --reveal-delay: ${180 + i * 80}ms;`}
+              >
+                {para}
+              </p>
+            ))}
+          </div>
         )}
       </div>
     </div>

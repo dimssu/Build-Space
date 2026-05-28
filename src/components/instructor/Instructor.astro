@@ -110,6 +110,40 @@ const points = [
             ))}
           </ul>
         )}
+
+        {variant.instructor.showShippedWork && COHORT.instructor.shippedWork && (
+          <a
+            href={COHORT.instructor.shippedWork.href}
+            target="_blank"
+            rel="noopener noreferrer"
+            class="reveal mt-5 block group"
+            style={`--reveal-delay: 280ms; padding: 0.9rem 1rem; border-radius: var(--radius-md); border: 1px solid var(--color-rule-strong); background: var(--color-paper); text-decoration: none; transition: border-color 200ms var(--ease-out-quart), background 200ms var(--ease-out-quart);`}
+            onmouseover="this.style.borderColor='var(--color-accent)'; this.style.background='color-mix(in oklch, var(--color-accent) 5%, var(--color-paper))'"
+            onmouseout="this.style.borderColor='var(--color-rule-strong)'; this.style.background='var(--color-paper)'"
+          >
+            <div
+              class="flex items-center justify-between gap-3"
+              style="font-size: var(--text-2xs); letter-spacing: 0.08em; text-transform: uppercase; color: var(--color-ink-mute); font-weight: 600;"
+            >
+              <span>Shipped in production</span>
+              <span aria-hidden="true" style="color: var(--color-accent-deep);">↗</span>
+            </div>
+            <div
+              class="mt-2"
+              style={`font-family: var(--font-display); font-size: var(--text-lg); font-weight: 600; color: var(--color-ink); letter-spacing: -0.01em;`}
+            >
+              {COHORT.instructor.shippedWork.label}
+            </div>
+            {COHORT.instructor.shippedWork.summary && (
+              <div
+                class="mt-1"
+                style={`color: var(--color-ink-soft); font-size: var(--text-sm); line-height: 1.45;`}
+              >
+                {COHORT.instructor.shippedWork.summary}
+              </div>
+            )}
+          </a>
+        )}
       </figure>
 
       <div class="md:col-span-7">

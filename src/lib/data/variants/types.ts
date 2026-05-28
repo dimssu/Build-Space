@@ -33,10 +33,15 @@ export type CohortBadge = {
 // as a quiet, full-bleed section with one large statement + optional body.
 // Use it on ads where the audience has a specific prior failure to validate
 // before the page starts selling.
+//
+// `body` can be a single string or an array of strings — when an array, each
+// element renders as its own paragraph with consistent rhythm. Use the array
+// form when the validation moment needs to address multiple concerns at once
+// (e.g. class12-parent: boards + skill gap + cohort honesty + scholarship).
 export type ValidationBlock = {
   eyebrow?: string;
   headline: string;
-  body?: string;
+  body?: string | string[];
 };
 
 // All sections rendered inside <main>, between the (always-first) Hero and the
@@ -96,6 +101,7 @@ export type Variant = {
     headline: string;
     lead: string;
     showLinks?: boolean; // surface COHORT.instructor.links as chip-row
+    showShippedWork?: boolean; // render the COHORT.instructor.shippedWork card
   };
   closing: {
     eyebrow: string;
