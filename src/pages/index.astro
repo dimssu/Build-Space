@@ -16,6 +16,7 @@ import FAQ from "@components/faq/FAQ.astro";
 import ClosingCTA from "@components/cta/ClosingCTA.astro";
 import Footer from "@components/footer/Footer.astro";
 import { getVariant } from "@lib/data/variants";
+import type { SectionKey } from "@lib/data/variants";
 
 // Resolve the variant from the `?ad=` query param. `getVariant()` accepts
 // `string | null | undefined` and falls back to the default variant when the
@@ -30,6 +31,36 @@ const description = variant.seo.description;
 // but the CDN can still cache hot ad URLs for the duration of a campaign burst.
 Astro.response.headers.set("Cache-Control", "public, max-age=0, s-maxage=300, stale-while-revalidate=60");
 Astro.response.headers.set("Vary", "Accept-Encoding");
+
+// Map a SectionKey to the actual component. Hero and ClosingCTA stay outside
+// this map — they are the visual anchors of the page (always first, always
+// last). Everything in between is reorderable per variant.
+const SECTIONS = {
+  validation: Validation,
+  promise: Promise,
+  compare: Compare,
+  curriculum: Curriculum,
+  instructor: Instructor,
+  howItWorks: HowItWorks,
+  compareTable: CompareTable,
+  pricing: Pricing,
+  faq: FAQ,
+} satisfies Record<SectionKey, unknown>;
+
+// Default flow — mirrors the original hand-written order.
+const DEFAULT_ORDER: SectionKey[] = [
+  "validation",
+  "promise",
+  "compare",
+  "curriculum",
+  "instructor",
+  "howItWorks",
+  "compareTable",
+  "pricing",
+  "faq",
+];
+
+const middleOrder = variant.sectionOrder ?? DEFAULT_ORDER;
 ---
 
 <Base {title} {description} variant={variant}>
@@ -37,15 +68,10 @@ Astro.response.headers.set("Vary", "Accept-Encoding");
 
   <main id="main">
     <Hero variant={variant} />
-    <Validation variant={variant} />
-    <Promise variant={variant} />
-    <Compare variant={variant} />
-    <Curriculum variant={variant} />
-    <Instructor variant={variant} />
-    <HowItWorks variant={variant} />
-    <CompareTable variant={variant} />
-    <Pricing variant={variant} />
-    <FAQ variant={variant} />
+    {middleOrder.map((key) => {
+      const Section = SECTIONS[key];
+      return <Section variant={variant} />;
+    })}
     <ClosingCTA variant={variant} />
   </main>
 

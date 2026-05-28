@@ -58,4 +58,4 @@ export function listVariantSlugs(): AdSlug[] {
 }
 
 export { defaultVariant };
-export type { Variant, AdSlug, PartialVariant } from "./types";
+export type { Variant, AdSlug, PartialVariant, SectionKey } from "./types";

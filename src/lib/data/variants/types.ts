@@ -39,6 +39,22 @@ export type ValidationBlock = {
   body?: string;
 };
 
+// All sections rendered inside <main>, between the (always-first) Hero and the
+// (always-last) ClosingCTA. When a variant sets `sectionOrder`, these are
+// rendered in that order — useful for warm/cool flow tuning (e.g. an emotional
+// referral ad wants Curriculum + Instructor immediately, not after a cold
+// comparison table).
+export type SectionKey =
+  | "validation"
+  | "promise"
+  | "compare"
+  | "curriculum"
+  | "instructor"
+  | "howItWorks"
+  | "compareTable"
+  | "pricing"
+  | "faq";
+
 export type Variant = {
   slug: AdSlug;
   audience: "parent" | "student";
@@ -95,6 +111,10 @@ export type Variant = {
     ogImage?: string;
   };
   faqPriority: ("parent" | "student")[];
+  // Optional section ordering for everything between Hero and ClosingCTA.
+  // Sections not listed are omitted. When unset, the page uses DEFAULT_ORDER
+  // from src/pages/index.astro (mirrors the original rendering order).
+  sectionOrder?: SectionKey[];
 };
 
 export type PartialVariant = Omit<Partial<Variant>, "slug"> & { slug: AdSlug };
