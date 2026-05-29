@@ -13,8 +13,7 @@ export const COHORT = {
   scheduleSummary: "Saturdays + Sundays, 2 hours each",
   format: "Online, live, browser-only (Chrome or Safari)",
   batchSize: 5,
-  seatsRemaining: 2,    // update manually as seats fill
-  bookingsClosed: false, // flip to true on June 8 to stop new bookings
+  seatsRemaining: 2, // seats left in current batch — when 0, open a new batch of 5
   classEligibility: "Class 9 to 12",
   country: "India",
   language: "English",
