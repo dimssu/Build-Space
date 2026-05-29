@@ -13,19 +13,23 @@ export const COHORT = {
   scheduleSummary: "Saturdays + Sundays, 2 hours each",
   format: "Online, live, browser-only (Chrome or Safari)",
   batchSize: 5,
+  seatsRemaining: 2,    // update manually as seats fill
+  bookingsClosed: false, // flip to true on June 8 to stop new bookings
   classEligibility: "Class 9 to 12",
   country: "India",
   language: "English",
   priceINR: 19999,
   priceDisplay: "₹19,999",
+  scholarshipPriceINR: 9999,
+  scholarshipPriceDisplay: "₹9,999",
   contact: {
-    email: "hello@buildspace.in",
-    whatsapp: "+91 00000 00000", // placeholder — replace before launch
+    email: "priyanshu_sem@zohomail.in",
+    whatsapp: "+91 9315776817",
   },
-  url: "https://buildspace.in",
+  url: "https://buildspace.dimssu.com",
   ogImage: "/og-cover.png",
   instructor: {
-    name: "The Logic Labs Instructor", // public name TBD
+    name: "Priyanshu Semwal",
     role: "AI Engineer · Currently building agentic systems in production",
     credentials: [
       "Recur Club",
@@ -34,12 +38,9 @@ export const COHORT = {
       "5+ years building",
       "Agentic systems",
     ],
-    // Public social links — surfaced in the Instructor section when a variant
-    // sets `instructor.showLinks = true`. Closes the "trust gap" for audiences
-    // (e.g. tutorial-dropout) that need to see a real face before trying again.
     links: [
-      { label: "LinkedIn", href: "https://www.linkedin.com/in/" },
-      { label: "GitHub", href: "https://github.com/" },
+      { label: "LinkedIn", href: "https://www.linkedin.com/in/semwalpriyanshu/" },
+      { label: "GitHub", href: "https://github.com/Priyanshu2425" },
     ],
     // One concrete shipped product surfaced when a variant sets
     // `instructor.showShippedWork = true`. For high-anxiety audiences
@@ -57,6 +58,75 @@ export const COHORT = {
     { value: "4", label: "weekends, weekends only" },
     { value: "₹99", label: "to attend the demo class" },
     { value: "1", label: "instructor, every session" },
+  ],
+  // Gallery cards for the horizontal projects section. Add a real `image` URL
+  // once screenshots exist; the card renders a terminal preview until then.
+  projects: [
+    {
+      title: "Research assistant",
+      week: "Week 01",
+      description: "Types a question, gets a structured answer with sources. Built in Python, running in the terminal by end of session.",
+      tech: ["Python", "OpenAI API", "Web search"],
+      terminal: [
+        '> search("best CS colleges India 2024")',
+        "",
+        "Searching 8 sources...",
+        "",
+        "IIT Bombay · IIT Delhi · BITS Pilani",
+        "lead on placements (NIRF 2024).",
+        "IISc Bangalore leads on research.",
+        "",
+        "→ 3 sources cited.",
+      ],
+    },
+    {
+      title: "Memory-aware assistant",
+      week: "Week 02",
+      description: "Remembers what was said last session. Multi-tool: web search, notes, calendar. Picks up where it left off.",
+      tech: ["Python", "LangChain", "SQLite"],
+      terminal: [
+        '> "What was my science project about?"',
+        "",
+        "[Memory] Session 3: lemon battery",
+        "vs AA cells. Avg voltage: 0.7V.",
+        "",
+        "Next step: test at 25°C vs 4°C.",
+        "I'll generate the test sheet now.",
+      ],
+    },
+    {
+      title: "Their own idea",
+      week: "Week 03",
+      description: "Week 3 belongs to the student. Every student ships something different — the instructor helps design and build it.",
+      tech: ["Python", "Custom tools"],
+      terminal: [
+        '> build("cricket stats tracker")',
+        "",
+        "3 tools designed:",
+        "  fetch_match_data(match_id)",
+        "  summarise_innings(data)",
+        "  compare_players(p1, p2)",
+        "",
+        "fetch_match_data → connected.",
+        "Building summarise_innings...",
+      ],
+    },
+    {
+      title: "Deployed. Live URL.",
+      week: "Week 04",
+      description: "The finished agent goes live on a public URL with a GitHub repo. Demo day — parents in the audience.",
+      tech: ["Python", "Vercel", "GitHub"],
+      terminal: [
+        "$ vercel deploy",
+        "",
+        "✓  Build complete  (4.1s)",
+        "✓  Environment: production",
+        "✓  URL: agent-abc.vercel.app",
+        "",
+        "Your agent is live.",
+        "Share it with anyone.",
+      ],
+    },
   ],
   weeks: [
     {
@@ -153,58 +223,68 @@ export const COHORT = {
   ],
   pricingIncludes: [
     "8 live sessions, 2 hours each",
-    "One instructor throughout",
-    "Doubt support, any day of the week",
+    "One instructor, every session — not a rotating pool",
+    "Ask doubts any day, not just during class",
     "Session recordings if you miss one",
-    "A deployed AI agent project",
-    "GitHub repository, yours to keep",
-    "Demo day, family invited",
+    "A deployed AI agent on a live URL",
+    "GitHub repository with your child's code",
+    "Demo day — parents in the audience",
     "Completion certificate",
     "WhatsApp contact for parents",
-    "Observer access to any session",
+    "Parent observer access to any session",
   ],
   faqs: [
     {
       q: "Will this take time away from board exams?",
-      a: "It is four weekends, Saturday and Sunday, two hours each. Weekdays are completely untouched. A student who understands what AI actually is often returns to studies more focused, not less.",
+      a: "Four weekends, Saturday and Sunday, two hours each. Weekdays are completely untouched.",
       forParent: true,
     },
     {
       q: "₹19,999 is real money. What is the proof this is different?",
-      a: "The first class is ₹99. Your child attends, builds something small, takes a live test. You see the instructor, the format, the students. If it is not for your child, you have spent ₹99 — not ₹19,999.",
+      a: "The first class is ₹99: your child builds something small, takes a live test, and you see the full format before you spend ₹19,999.",
       forParent: true,
     },
     {
       q: "Is AI even a stable career to bet on?",
-      a: "The specific tools will change. The principles, how an agent reasons, how systems are built, do not. We teach the principles. A student who understands those will adapt when the tools change.",
+      a: "The tools will change. The principles, how an agent reasons, how systems are built, do not. We teach those.",
       forParent: true,
     },
     {
       q: "What if my child has never coded before?",
-      a: "Python basics are covered in class for anyone who needs them. The curriculum assumes Class 9 maths and curiosity. Nothing else.",
+      a: "Python basics are covered in class. The only requirements are Class 9 maths and curiosity.",
       forParent: true,
     },
     {
       q: "Why only 5 students per cohort?",
-      a: "Because in a class of five there is nowhere to hide and no reason to. Every doubt is answered in the same session. Every student gets seen. It is the whole product, not a marketing number.",
+      a: "In a class of five, every doubt is answered in that session. It is the whole product, not a marketing number.",
       forParent: true,
     },
     {
       q: "How is this different from Codingal, CuriousJr, or Scaler?",
-      a: "Codingal and CuriousJr teach younger children with block-based tools and rotating teachers. Scaler is built for college students and working professionals. Build Space is built specifically for Indian Class 9 to 12, by an active AI practitioner.",
+      a: "Codingal and CuriousJr use block tools for younger children; Scaler is for college students. Build Space is for Class 9 to 12, taught by someone building AI professionally today.",
       forParent: true,
     },
     {
       q: "Can my child learn this for free on YouTube?",
-      a: "Yes, and most students who try, stop. The bottleneck for school students is rarely access. It is a person who answers the question the moment it comes up, and a small enough group that asking the question is not scary.",
+      a: "Yes, and most stop. The bottleneck is not access to content — it is someone who answers the question the moment it comes up.",
       forParent: false,
     },
     {
       q: "What is non-refundable, and what is not?",
-      a: "The demo class is ₹99 and is non-refundable, because the instructor's time and the live assessment are committed the moment you book. Once a student enrols in the full cohort, the ₹19,999 fee is also non-refundable — the cost of live instruction, model usage, and content built for that batch is committed. This is stated upfront.",
+      a: "Both fees are non-refundable: the ₹99 demo class and the ₹19,999 cohort fee. This is stated upfront, not in the fine print.",
       forParent: false,
     },
   ],
 } as const;
 
 export type Faq = (typeof COHORT.faqs)[number];
+
+export type Testimonial = {
+  quote: string;
+  name: string;
+  description: string; // e.g. "Parent of a Class 11 student, Mumbai"
+};
+
+// Add real parent or student quotes here. The SocialProof section only renders
+// when this array is non-empty — ship it empty until you have real quotes.
+export const TESTIMONIALS: Testimonial[] = [];

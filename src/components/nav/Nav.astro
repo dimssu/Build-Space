@@ -1,5 +1,6 @@
 ---
 import PayDemoButton from "@components/payment/PayDemoButton";
+import { COHORT } from "@lib/data/cohort";
 import type { Variant } from "@lib/data/variants";
 
 interface Props {
@@ -15,9 +16,26 @@ const links = [
   { href: "#pricing", label: "Pricing" },
   { href: "#faq", label: "FAQ" },
 ];
+
+// Ticker message — repeated for seamless CSS loop
+const tickerMsg = `${COHORT.seatsRemaining} of ${COHORT.batchSize} seats remaining  ·  Logic Labs Cohort 01  ·  Starts ${COHORT.startDateReadable}  ·  5 students, hard limit`;
 ---
 
 <header class="sticky top-0 z-40">
+  <!-- ── Scarcity ticker ─────────────────────────────────── -->
+  <div class="ticker-strip" role="marquee" aria-label={`${COHORT.seatsRemaining} of ${COHORT.batchSize} seats remaining for Logic Labs Cohort 01`}>
+    <div class="ticker-track">
+      <!-- Duplicated 4× so the loop is seamless at any viewport width -->
+      {[0,1,2,3].map(() => (
+        <span class="ticker-segment">
+          <span class="ticker-dot" aria-hidden="true"></span>
+          {tickerMsg}
+        </span>
+      ))}
+    </div>
+  </div>
+
+  <!-- ── Main nav ────────────────────────────────────────── -->
   <div
     class="border-b"
     style="background: color-mix(in oklch, var(--color-paper) 88%, transparent); backdrop-filter: saturate(180%) blur(12px); border-color: var(--color-rule);"
@@ -51,3 +69,60 @@ const links = [
     </nav>
   </div>
 </header>
+
+<style>
+  /* ── Ticker strip ─────────────────────────────────────── */
+  .ticker-strip {
+    background: color-mix(in oklch, var(--color-warn) 11%, var(--color-paper));
+    border-bottom: 1px solid color-mix(in oklch, var(--color-warn) 20%, var(--color-rule));
+    overflow: hidden;
+    height: 28px;
+    display: flex;
+    align-items: center;
+  }
+
+  .ticker-track {
+    display: flex;
+    white-space: nowrap;
+    width: max-content;
+    animation: ticker 28s linear infinite;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .ticker-track { animation: none; }
+  }
+
+  @keyframes ticker {
+    from { transform: translateX(0); }
+    to   { transform: translateX(-50%); }
+  }
+
+  .ticker-segment {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.55rem;
+    font-size: 0.7rem;
+    font-weight: 500;
+    letter-spacing: 0.07em;
+    text-transform: uppercase;
+    color: color-mix(in oklch, var(--color-warn) 60%, var(--color-ink));
+    padding-inline: 3.5rem;
+  }
+
+  .ticker-dot {
+    display: inline-block;
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: color-mix(in oklch, var(--color-warn) 75%, var(--color-ink));
+    flex-shrink: 0;
+    animation: pulse-dot 2s ease-in-out infinite;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .ticker-dot { animation: none; }
+  }
+
+  @keyframes pulse-dot {
+    0%, 100% { opacity: 1;    transform: scale(1);    }
+    50%       { opacity: 0.45; transform: scale(0.75); }
+  }
+</style>

@@ -34,7 +34,7 @@ export const tutorialDropoutVariant: PartialVariant = {
       "That was not a you problem. The bottleneck for almost every student is not ability — it is having no one in the room when the question comes up.",
     primaryCta: "₹99 — try again",
     secondaryCta: "See what you'll actually build",
-    footnote: "Two hours. Saturday, June 13, 2026. If it isn't for you, you've spent nothing.",
+    footnote: "Two hours. Saturday, June 13, 2026. If it isn't for you, you've spent ₹99 — not ₹19,999.",
     outcomes: [
       { label: "A person, not a playlist", note: "Same instructor every weekend, knows your name" },
       { label: "Questions get answered", note: "Tuesday night doubt? Ask. Reply same week." },
@@ -76,9 +76,9 @@ export const tutorialDropoutVariant: PartialVariant = {
   },
 
   pricing: {
-    headline: "One price. Open scholarship.",
+    headline: "₹99 gets you in the room. You decide from there.",
     scholarshipLine:
-      "Scholarships are decided live in the ₹99 demo class on performance, not paperwork. You don't need a prior track record — show up, build, and the scholarship is on the table.",
+      "Scholarships are decided in the demo class on what you build — not on paperwork, not on a prior track record. Show up, build something, and the scholarship is on the table.",
   },
 
   scholarship: {

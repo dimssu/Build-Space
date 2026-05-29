@@ -20,7 +20,7 @@ export const defaultVariant: Variant = {
     headline: "Your child can build AI.",
     headlineRest: "Not just use it.",
     subhead:
-      "Four weekends. Five students. One AI engineer as the instructor. By the end your child has shipped a working agent, with a live URL and a GitHub repo, and presents it to you on demo day.",
+      "Four weekends. Five students. One AI practitioner as the instructor. By the end, your child ships a working agent — a live URL, a GitHub repo — and presents it to you on demo day.",
     primaryCta: "Book the demo class · ₹99",
     secondaryCta: "See what they build",
     footnote: "First class is ₹99. A live look before you commit to ₹19,999.",
@@ -49,27 +49,28 @@ export const defaultVariant: Variant = {
     eyebrow: "The instructor",
     headline: "Not a teacher who learned AI. A practitioner who showed up.",
     lead: "\"I build AI systems for a living. I looked at what was being taught to school students in India and realised nobody was showing them the real thing. So I started Logic Labs.\"",
+    showShippedWork: true,
   },
 
   closing: {
     eyebrow: "Logic Labs · Cohort 01 · Saturday, June 13, 2026",
     headline: "Book the ₹99 demo class.\nDecide after.",
-    body: "Two hours. Your child meets the instructor, builds something small, and takes a short live test. You watch from the next room or join. If it is not for your child, you have spent nothing.",
+    body: "Two hours. Your child meets the instructor, builds something small, and takes a short live test. You watch from the next room or join. If it is not for your child, you have spent ₹99 — not ₹19,999.",
   },
 
   pricing: {
-    headline: "One price. No surprises.",
+    headline: "Before you spend ₹19,999, spend ₹99.",
     scholarshipLine:
-      "Scholarships are decided in the ₹99 demo class, on performance, not financial paperwork. A strong student gets in regardless of full-fee capacity.",
+      "Scholarships are earned in the ₹99 demo class on performance, not paperwork. Strong performers pay as little as ₹9,999 — half the full price.",
   },
 
   scholarship: {
     pill: "Merit scholarships — decided on talent, not money",
-    line: "Scholarships are decided live in the ₹99 demo class — on merit, never on financial paperwork.",
+    line: "Scholarships decided live in the demo class. Strong performers pay as little as ₹9,999.",
     bannerEyebrow: "Logic Labs Scholarships",
     bannerHeadline: "A seat your child earns. Not one you just pay for.",
     bannerBody:
-      "Every Cohort 01 seat is open to a scholarship — and they are decided live in the ₹99 demo class, on how your child performs. No essays, no income proof, no waiting on a committee. A strong student gets in regardless of your capacity to pay the full ₹19,999.",
+      "Every seat is open to a scholarship, decided live in the ₹99 demo class on how your child performs. Strong performers pay as little as ₹9,999. No essays, no income proof, no financial paperwork.",
     bannerCta: "Earn the scholarship · ₹99",
     points: [
       "Decided on merit, not money",

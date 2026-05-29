@@ -80,3 +80,34 @@ const orderId = Astro.url.searchParams.get("order_id") ?? null;
     </div>
   </main>
 </Base>
+
+<script>
+  // Read the variant that was stored before Razorpay redirect wiped the URL params.
+  const adVariant = (() => {
+    try { return sessionStorage.getItem("bs_ad_variant") || "direct"; }
+    catch { return "direct"; }
+  })();
+
+  // ── Google Tag Manager dataLayer (works with any GTM-connected platform) ──
+  (window as unknown as { dataLayer: unknown[] }).dataLayer =
+    (window as unknown as { dataLayer: unknown[] }).dataLayer || [];
+  (window as unknown as { dataLayer: unknown[] }).dataLayer.push({
+    event: "demo_booked",
+    ad_variant: adVariant,
+    currency: "INR",
+    value: 99,
+  });
+
+  // ── Meta Pixel ──
+  if (typeof (window as unknown as { fbq?: Function }).fbq === "function") {
+    const fbq = (window as unknown as { fbq: Function }).fbq;
+    fbq("track", "Purchase", { currency: "INR", value: 99, content_name: "Logic Labs Demo Class" });
+    fbq("trackCustom", "DemoBooked", { ad_variant: adVariant });
+  }
+
+  // ── Google Ads — uncomment once gtag snippet is in <head> ──
+  // gtag("event", "conversion", { send_to: "AW-XXXXX/YYYYY", value: 99, currency: "INR" });
+
+  // Clear after firing — prevents stale variant re-firing on page refresh
+  try { sessionStorage.removeItem("bs_ad_variant"); } catch {}
+</script>

@@ -1,0 +1,57 @@
+---
+import { TESTIMONIALS } from "@lib/data/cohort";
+import type { Variant } from "@lib/data/variants";
+
+interface Props {
+  variant: Variant;
+}
+
+const { variant: _variant } = Astro.props;
+const cols = TESTIMONIALS.length === 1 ? "md:grid-cols-1 max-w-2xl" : "md:grid-cols-2";
+---
+
+{TESTIMONIALS.length > 0 && (
+  <section
+    id="testimonials"
+    aria-labelledby="testimonials-heading"
+    class="section-pad"
+    style="background: var(--color-paper-soft); border-block: 1px solid var(--color-rule);"
+  >
+    <div class="container-page">
+      <p class="eyebrow reveal" id="testimonials-heading">Early feedback</p>
+
+      <div class:list={["mt-10 grid gap-8", cols]}>
+        {TESTIMONIALS.map((t, i) => (
+          <figure
+            class="reveal"
+            style={`--reveal-delay: ${i * 80}ms;`}
+          >
+            <blockquote>
+              <p
+                style={`font-family: var(--font-display); font-size: var(--text-xl); line-height: 1.38; color: var(--color-ink); font-weight: 500;`}
+              >
+                &ldquo;{t.quote}&rdquo;
+              </p>
+            </blockquote>
+            <figcaption
+              class="mt-5 pt-4"
+              style="border-top: 1px solid var(--color-rule);"
+            >
+              <span
+                style="font-weight: 600; color: var(--color-ink); font-size: var(--text-sm);"
+              >
+                {t.name}
+              </span>
+              <span
+                class="mt-0.5 block"
+                style="color: var(--color-ink-mute); font-size: var(--text-xs);"
+              >
+                {t.description}
+              </span>
+            </figcaption>
+          </figure>
+        ))}
+      </div>
+    </div>
+  </section>
+)}

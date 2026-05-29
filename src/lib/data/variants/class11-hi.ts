@@ -111,9 +111,9 @@ export const class11HiVariant: PartialVariant = {
   },
 
   pricing: {
-    headline: "Ek price. Ek scholarship jo tu kama sakta hai.",
+    headline: "₹99 mein aa. Demo class mein decide hoga sab.",
     scholarshipLine:
-      "Scholarship demo class mein decide hoti hai — teri performance pe, kisi form pe nahi. Essays nahi. Financial proof nahi. Aaja, code likh, aur seat ka real chance hai.",
+      "Scholarship demo class mein milti hai — teri performance pe, kisi form pe nahi. Essays nahi. Financial proof nahi. Aaja, code likh, aur seat ka real chance hai.",
   },
 
   scholarship: {
@@ -150,7 +150,7 @@ export const class11HiVariant: PartialVariant = {
     eyebrow: "Seedhi baat",
     headline: "Jo sawaal tere mann mein hain.",
     supporting:
-      "Koi sawaal yahaan nahi hai? <a href=\"mailto:hello@buildspace.in\" style=\"color: var(--color-accent-deep); text-decoration: underline; text-underline-offset: 4px;\">hello@buildspace.in</a> pe likh — ek insaan reply karega. Bot nahi hai.",
+      "Koi sawaal yahaan nahi hai? <a href=\"mailto:priyanshu_sem@zohomail.in\" style=\"color: var(--color-accent-deep); text-decoration: underline; text-underline-offset: 4px;\">priyanshu_sem@zohomail.in</a> pe likh — ek insaan reply karega. Bot nahi hai.",
     studentGroupLabel: "Tere liye",
     parentGroupLabel: "Ghar walon ke liye",
   },
@@ -196,6 +196,7 @@ export const class11HiVariant: PartialVariant = {
   sectionOrder: [
     "validation",
     "curriculum",
+    "projects",
     "instructor",
     "scholarship",
     "promise",

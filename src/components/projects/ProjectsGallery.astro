@@ -1,0 +1,339 @@
+---
+import { COHORT } from "@lib/data/cohort";
+import type { Variant } from "@lib/data/variants";
+
+interface Props {
+  variant: Variant;
+}
+const { variant: _variant } = Astro.props;
+---
+
+<section
+  id="projects"
+  aria-labelledby="projects-heading"
+  class="projects-section"
+>
+  <!-- Header -->
+  <div class="projects-header container-page">
+    <p class="eyebrow reveal">What gets built</p>
+    <h2
+      id="projects-heading"
+      class="reveal mt-3"
+      style="--reveal-delay: 80ms; font-size: var(--text-3xl); line-height: 1.06; letter-spacing: -0.025em; max-width: 22ch;"
+    >
+      Not toy examples. Working agents.
+    </h2>
+  </div>
+
+  <!-- Gallery track -->
+  <div class="projects-outer" role="list" aria-label="Project examples">
+    <div class="projects-track">
+      {COHORT.projects.map((project, i) => (
+        <article
+          class="project-card reveal"
+          role="listitem"
+          style={`--reveal-delay: ${140 + i * 55}ms;`}
+        >
+          <!-- Terminal — the full visual card -->
+          <div class="pcard-win">
+            <!-- Traffic lights only; week chip floats in corner -->
+            <div class="pcard-bar" aria-hidden="true">
+              <span class="dot" style="background:oklch(0.60 0.20 25);"></span>
+              <span class="dot" style="background:oklch(0.70 0.16 72);"></span>
+              <span class="dot" style="background:oklch(0.60 0.18 142);"></span>
+            </div>
+
+            <div class="pcard-body" aria-hidden="true">
+              {project.terminal.map((line) => (
+                <div
+                  class:list={[
+                    "tl",
+                    (line.startsWith(">") || line.startsWith("$")) && "tl-cmd",
+                    line.startsWith("✓") && "tl-ok",
+                    line.startsWith("[") && "tl-sys",
+                  ]}
+                >
+                  {line || "​"}
+                </div>
+              ))}
+            </div>
+
+            <!-- Week badge — absolute overlay -->
+            <span class="week-chip" aria-hidden="true">{project.week}</span>
+          </div>
+
+          <!-- Label beneath the visual — Dribbble style -->
+          <div class="pcard-label">
+            <h3 class="pcard-title">{project.title}</h3>
+            <ul class="pcard-tags" aria-label="Technologies">
+              {project.tech.map((t) => <li>{t}</li>)}
+            </ul>
+          </div>
+        </article>
+      ))}
+
+      <div class="track-end" aria-hidden="true"></div>
+    </div>
+  </div>
+
+  <!-- Scroll hint -->
+  <p class="scroll-hint-row" aria-hidden="true">
+    <span>
+      <svg width="12" height="12" viewBox="0 0 12 12" fill="none">
+        <path d="M1.5 6h9M7 2.5l3.5 3.5L7 9.5" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+      Drag or scroll to explore
+    </span>
+  </p>
+</section>
+
+<style>
+  /* ── Section ──────────────────────────────────────────── */
+  .projects-section {
+    background: var(--color-paper);
+    border-top: 1px solid var(--color-rule);
+    border-bottom: 1px solid var(--color-rule);
+    overflow-x: clip;
+  }
+
+  .projects-header {
+    padding-block: var(--s-9) var(--s-8);
+  }
+
+  /* ── Track ────────────────────────────────────────────── */
+  .projects-outer {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+    cursor: grab;
+    padding-block: var(--s-3) var(--s-5);
+  }
+  .projects-outer::-webkit-scrollbar { display: none; }
+  .projects-outer.is-dragging { cursor: grabbing; user-select: none; }
+
+  .projects-track {
+    display: flex;
+    gap: clamp(1.75rem, 3vw, 2.75rem);
+    align-items: flex-start;
+    padding-inline: calc(max(1.5rem, (100vw - 1120px) / 2 + 1.5rem));
+    width: max-content;
+    will-change: transform;
+  }
+
+  .track-end {
+    flex-shrink: 0;
+    width: calc(max(1.5rem, (100vw - 1120px) / 2 + 1.5rem) - clamp(1.75rem, 3vw, 2.75rem));
+  }
+
+  /* ── Card ─────────────────────────────────────────────── */
+  .project-card {
+    flex-shrink: 0;
+    width: clamp(190px, 15vw, 230px);
+    display: flex;
+    flex-direction: column;
+    gap: var(--s-2);
+  }
+
+  /* The dark terminal window IS the visual card */
+  .pcard-win {
+    width: 100%;
+    /* 4:3 aspect ratio */
+    aspect-ratio: 4 / 3;
+    background: oklch(0.13 0.022 255);
+    border-radius: var(--radius-lg);
+    border: 1px solid oklch(0.24 0.014 260);
+    overflow: hidden;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    transition:
+      border-color 180ms var(--ease-out-quart),
+      box-shadow   180ms var(--ease-out-quart),
+      transform    180ms var(--ease-out-quart);
+  }
+  .project-card:hover .pcard-win {
+    border-color: color-mix(in oklch, var(--color-accent) 55%, oklch(0.24 0.014 260));
+    box-shadow:
+      0 0 0 2px color-mix(in oklch, var(--color-accent) 22%, transparent),
+      0 12px 36px -12px color-mix(in oklch, var(--color-ink) 22%, transparent);
+    transform: translateY(-3px);
+  }
+
+  /* Traffic lights bar */
+  .pcard-bar {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    padding: 10px 13px 8px;
+    border-bottom: 1px solid oklch(0.20 0.012 260);
+    flex-shrink: 0;
+  }
+  .dot {
+    width: 9px;
+    height: 9px;
+    border-radius: 50%;
+    flex-shrink: 0;
+  }
+
+  /* Week chip — floating badge top-right */
+  .week-chip {
+    position: absolute;
+    top: 8px;
+    right: 10px;
+    background: color-mix(in oklch, var(--color-accent) 25%, oklch(0.13 0.022 255));
+    color: oklch(0.72 0.12 245);
+    border: 1px solid color-mix(in oklch, var(--color-accent) 40%, transparent);
+    padding: 0.15rem 0.5rem;
+    border-radius: var(--radius-pill);
+    font-family: ui-monospace, monospace;
+    font-size: 0.62rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    font-weight: 500;
+    pointer-events: none;
+  }
+
+  /* Terminal output */
+  .pcard-body {
+    padding: 12px 14px 14px;
+    flex: 1;
+    overflow: hidden;
+  }
+  .tl {
+    font-family: ui-monospace, "SFMono-Regular", "Cascadia Mono", monospace;
+    font-size: 0.78rem;
+    line-height: 1.65;
+    color: oklch(0.83 0.015 78);
+    white-space: pre;
+    letter-spacing: 0.008em;
+  }
+  .tl-cmd { color: oklch(0.70 0.14 245); font-weight: 600; }
+  .tl-ok  { color: oklch(0.67 0.17 145); }
+  .tl-sys { color: oklch(0.48 0.012 260); }
+
+  /* ── Label (Dribbble-style below-card caption) ────────── */
+  .pcard-label {
+    padding-inline: 2px;
+  }
+  .pcard-title {
+    font-family: var(--font-display);
+    font-size: var(--text-base);
+    font-weight: 600;
+    color: var(--color-ink);
+    line-height: 1.2;
+    letter-spacing: -0.005em;
+  }
+  .pcard-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.35rem 0.6rem;
+    list-style: none;
+    padding: 0;
+    margin-top: var(--s-2);
+  }
+  .pcard-tags li {
+    font-size: var(--text-xs);
+    color: var(--color-ink-mute);
+  }
+  /* bullet separator between tags */
+  .pcard-tags li + li::before {
+    content: "·";
+    margin-right: 0.6rem;
+    color: var(--color-rule-strong);
+  }
+
+  /* ── Scroll hint ──────────────────────────────────────── */
+  .scroll-hint-row {
+    padding-inline: calc(max(1.5rem, (100vw - 1120px) / 2 + 1.5rem));
+    padding-block: var(--s-5) var(--s-8);
+  }
+  .scroll-hint-row span {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--s-2);
+    font-size: var(--text-xs);
+    color: var(--color-ink-mute);
+    letter-spacing: 0.05em;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .scroll-hint-row { display: none; }
+  }
+</style>
+
+<script>
+  import gsap from "gsap";
+  import ScrollTrigger from "gsap/ScrollTrigger";
+
+  gsap.registerPlugin(ScrollTrigger);
+
+  const section = document.querySelector<HTMLElement>(".projects-section");
+  const outer   = document.querySelector<HTMLElement>(".projects-outer");
+  const track   = document.querySelector<HTMLElement>(".projects-track");
+
+  if (!section || !outer || !track) throw new Error("ProjectsGallery: missing elements");
+
+  // ── Drag ───────────────────────────────────────────────
+  let dragging = false, pX = 0, startLeft = 0;
+
+  outer.addEventListener("pointerdown", (e) => {
+    dragging = true;
+    pX = e.clientX;
+    startLeft = outer.scrollLeft;
+    outer.classList.add("is-dragging");
+    outer.setPointerCapture(e.pointerId);
+  });
+  const endDrag = () => { dragging = false; outer.classList.remove("is-dragging"); };
+  outer.addEventListener("pointerup",     endDrag);
+  outer.addEventListener("pointercancel", endDrag);
+
+  // ── GSAP pin — desktop only, no reduced-motion ─────────
+  const usePin = window.matchMedia(
+    "(min-width: 900px) and (prefers-reduced-motion: no-preference)"
+  ).matches;
+
+  if (usePin) {
+    outer.style.overflow = "hidden";
+    const totalScroll = () => track.scrollWidth - outer.offsetWidth;
+
+    gsap.to(track, {
+      x: () => -totalScroll(),
+      ease: "none",
+      scrollTrigger: {
+        id: "pg",
+        trigger: section,
+        pin: true,
+        anticipatePin: 1,
+        scrub: 1.2,
+        start: "top top",
+        end: () => `+=${totalScroll()}`,
+        invalidateOnRefresh: true,
+      },
+    });
+
+    // Lenis intercepts scroll events — wire it to ScrollTrigger so the pin
+    // receives the smoothed scroll position instead of raw window events.
+    const connectLenis = () => {
+      const lenis = (window as unknown as { lenis?: { on: (e: string, cb: () => void) => void } }).lenis;
+      if (lenis) lenis.on("scroll", () => ScrollTrigger.update());
+    };
+    // Lenis is initialized in Base.astro — may not exist yet on this tick
+    if ((window as unknown as { lenis?: unknown }).lenis) {
+      connectLenis();
+    } else {
+      window.addEventListener("load", connectLenis, { once: true });
+    }
+
+    // drag → page scroll in pin mode
+    outer.addEventListener("pointermove", (e) => {
+      if (!dragging) return;
+      const dx = pX - e.clientX;
+      pX = e.clientX;
+      window.scrollBy(0, dx * 0.65);
+    });
+  } else {
+    outer.addEventListener("pointermove", (e) => {
+      if (!dragging) return;
+      outer.scrollLeft = startLeft + (pX - e.clientX);
+    });
+  }
+</script>

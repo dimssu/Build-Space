@@ -78,9 +78,9 @@ export const class12ParentVariant: PartialVariant = {
   },
 
   pricing: {
-    headline: "One price. A real scholarship.",
+    headline: "Before you spend ₹19,999, spend ₹99.",
     scholarshipLine:
-      "Scholarships are decided live in the ₹99 demo class — on how your child performs, not on a financial form. A strong student gets in regardless of full-fee capacity.",
+      "Scholarships are earned live in the ₹99 demo class — on how your child performs, not on a financial form. A strong student gets in regardless of full-fee capacity.",
   },
 
   scholarship: {
@@ -121,6 +121,7 @@ export const class12ParentVariant: PartialVariant = {
     "validation",
     "instructor",
     "curriculum",
+    "projects",
     "scholarship",
     "promise",
     "howItWorks",

@@ -73,9 +73,9 @@ export const class10CuriousVariant: PartialVariant = {
   },
 
   pricing: {
-    headline: "One price. A scholarship you can earn.",
+    headline: "₹99 to try. The scholarship is decided in the room.",
     scholarshipLine:
-      "Scholarships are decided live inside the ₹99 demo class — based on how you perform, nothing else. No essays. No financial form. Show up curious, build, and you have a real shot.",
+      "Scholarships are decided live in the ₹99 demo class — on how you perform, nothing else. No essays. No financial form. Show up curious, build something, and you have a real shot.",
   },
 
   scholarship: {
@@ -114,6 +114,7 @@ export const class10CuriousVariant: PartialVariant = {
   sectionOrder: [
     "validation",
     "curriculum",
+    "projects",
     "instructor",
     "scholarship",
     "promise",

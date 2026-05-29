@@ -67,6 +67,9 @@ const { variant } = Astro.props;
             <PayDemoButton client:idle label="Book the demo class · ₹99" kind="primary" variant={variant.slug} />
             <a href="#faq" class="btn btn-secondary">Read the FAQ first</a>
           </div>
+          <p class="mt-4 text-xs" style="color: var(--color-ink-mute);">
+            {COHORT.seatsRemaining} of {COHORT.batchSize} seats remaining · Hard limit, not marketing
+          </p>
 
           <p
             class="flex items-start gap-3 rounded-[var(--radius-md)] p-4"

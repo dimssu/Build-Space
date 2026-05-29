@@ -72,43 +72,78 @@ const s = variant.scholarship;
           </ul>
         </div>
 
-        <!-- RIGHT: the ₹99 entry card -->
+        <!-- RIGHT: pricing card — full price visible first, then ₹99 entry -->
         <div class="md:col-span-5">
           <div
-            class="rounded-[var(--radius-lg)] border p-7 text-center"
+            class="overflow-hidden rounded-[var(--radius-lg)] border"
             style="background: var(--color-paper); border-color: var(--color-rule);"
           >
-            <p
-              class="text-xs uppercase tracking-[0.14em]"
-              style="color: var(--color-ink-mute);"
+            <!-- Price range — full price to scholarship floor -->
+            <div
+              class="px-7 py-5 text-center"
+              style="background: var(--color-paper-soft); border-bottom: 1px solid var(--color-rule);"
             >
-              The only entry fee
-            </p>
-            <div class="mt-2 flex items-baseline justify-center gap-2">
-              <span
-                style={`font-family: var(--font-display); font-size: var(--text-4xl); letter-spacing: -0.04em; font-weight: 600; color: var(--color-ink);`}
+              <p
+                class="text-xs uppercase tracking-[0.14em]"
+                style="color: var(--color-ink-mute);"
               >
-                ₹99
-              </span>
-              <span style={`color: var(--color-ink-mute); font-size: var(--text-base);`}>demo class</span>
+                Full cohort
+              </p>
+              <div class="mt-1.5 flex items-center justify-center gap-3">
+                <span
+                  style={`font-family: var(--font-display); font-size: var(--text-3xl); letter-spacing: -0.03em; font-weight: 600; color: var(--color-ink);`}
+                >
+                  {COHORT.priceDisplay}
+                </span>
+                <span aria-hidden="true" style="color: var(--color-ink-mute); font-size: var(--text-sm);">→</span>
+                <span
+                  style={`font-family: var(--font-display); font-size: var(--text-3xl); letter-spacing: -0.03em; font-weight: 600; color: var(--color-good);`}
+                >
+                  {COHORT.scholarshipPriceDisplay}
+                </span>
+              </div>
+              <p
+                class="mt-1"
+                style={`color: var(--color-ink-mute); font-size: var(--text-xs);`}
+              >
+                for strong performers in the demo class
+              </p>
             </div>
-            <p
-              class="mt-3"
-              style={`color: var(--color-ink-soft); font-size: var(--text-sm); line-height: 1.5;`}
-            >
-              {s.line}
-            </p>
 
-            <div class="mt-6 flex justify-center">
-              <PayDemoButton client:visible label={s.bannerCta} kind="accent" variant={variant.slug} />
+            <!-- ₹99 entry -->
+            <div class="p-7 text-center">
+              <p
+                class="text-xs uppercase tracking-[0.14em]"
+                style="color: var(--color-ink-mute);"
+              >
+                Your entry
+              </p>
+              <div class="mt-2 flex items-baseline justify-center gap-2">
+                <span
+                  style={`font-family: var(--font-display); font-size: var(--text-4xl); letter-spacing: -0.04em; font-weight: 600; color: var(--color-ink);`}
+                >
+                  ₹99
+                </span>
+                <span style={`color: var(--color-ink-mute); font-size: var(--text-base);`}>demo class</span>
+              </div>
+              <p
+                class="mt-3"
+                style={`color: var(--color-ink-soft); font-size: var(--text-sm); line-height: 1.5;`}
+              >
+                {s.line}
+              </p>
+
+              <div class="mt-6 flex justify-center">
+                <PayDemoButton client:visible label={s.bannerCta} kind="accent" variant={variant.slug} />
+              </div>
+
+              <p
+                class="mt-5 text-xs"
+                style="color: var(--color-ink-mute);"
+              >
+                {COHORT.seatsRemaining} of {COHORT.batchSize} seats remaining
+              </p>
             </div>
-
-            <p
-              class="mt-5 text-xs"
-              style="color: var(--color-ink-mute);"
-            >
-              {COHORT.cohort} · {COHORT.batchSize} seats, hard limit
-            </p>
           </div>
         </div>
       </div>
