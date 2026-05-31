@@ -26,7 +26,17 @@ const { variant: _variant } = Astro.props;
   </div>
 
   <!-- Gallery track -->
-  <div class="projects-outer" role="list" aria-label="Project examples">
+  <!-- IMPORTANT: no `data-lenis-prevent*` here. We need Lenis to keep
+       receiving wheel events so the page can keep scrolling vertically when
+       the user wheels over the gallery (e.g. at the horizontal edges). The
+       wheel handler below only `preventDefault()`s when it is actually
+       converting wheel→horizontal; otherwise the event bubbles to Lenis. -->
+  <div
+    class="projects-outer"
+    role="list"
+    aria-label="Project examples"
+    tabindex="0"
+  >
     <div class="projects-track">
       {COHORT.projects.map((project, i) => (
         <article
@@ -94,10 +104,13 @@ const { variant: _variant } = Astro.props;
     border-top: 1px solid var(--color-rule);
     border-bottom: 1px solid var(--color-rule);
     overflow-x: clip;
+    /* Inter-section breathing room so the gallery has air around it relative
+       to the section above and below. */
+    padding-block: clamp(3rem, 2rem + 3vw, 5rem);
   }
 
   .projects-header {
-    padding-block: var(--s-9) var(--s-8);
+    padding-block: 0 2.5rem;
   }
 
   /* ── Track ────────────────────────────────────────────── */
@@ -106,7 +119,10 @@ const { variant: _variant } = Astro.props;
     -webkit-overflow-scrolling: touch;
     scrollbar-width: none;
     cursor: grab;
-    padding-block: var(--s-3) var(--s-5);
+    padding-block: 0.5rem 1.25rem;
+    /* Native smooth scroll for keyboard/programmatic scrolls. Drag still uses
+       direct scrollLeft updates so it stays 1:1 with the pointer. */
+    scroll-behavior: smooth;
   }
   .projects-outer::-webkit-scrollbar { display: none; }
   .projects-outer.is-dragging { cursor: grabbing; user-select: none; }
@@ -128,10 +144,13 @@ const { variant: _variant } = Astro.props;
   /* ── Card ─────────────────────────────────────────────── */
   .project-card {
     flex-shrink: 0;
-    width: clamp(190px, 15vw, 230px);
+    /* Wide enough that the longest terminal line (~40 chars at 0.8rem mono)
+       fits without truncating. Caps at 380px so 3 cards comfortably show on
+       a typical desktop. */
+    width: clamp(300px, 26vw, 380px);
     display: flex;
     flex-direction: column;
-    gap: var(--s-2);
+    gap: 0.75rem;
   }
 
   /* The dark terminal window IS the visual card */
@@ -229,7 +248,7 @@ const { variant: _variant } = Astro.props;
     gap: 0.35rem 0.6rem;
     list-style: none;
     padding: 0;
-    margin-top: var(--s-2);
+    margin-top: 0.5rem;
   }
   .pcard-tags li {
     font-size: var(--text-xs);
@@ -245,12 +264,12 @@ const { variant: _variant } = Astro.props;
   /* ── Scroll hint ──────────────────────────────────────── */
   .scroll-hint-row {
     padding-inline: calc(max(1.5rem, (100vw - 1120px) / 2 + 1.5rem));
-    padding-block: var(--s-5) var(--s-8);
+    padding-block: 1.25rem 0;
   }
   .scroll-hint-row span {
     display: inline-flex;
     align-items: center;
-    gap: var(--s-2);
+    gap: 0.5rem;
     font-size: var(--text-xs);
     color: var(--color-ink-mute);
     letter-spacing: 0.05em;
@@ -270,70 +289,189 @@ const { variant: _variant } = Astro.props;
   const outer   = document.querySelector<HTMLElement>(".projects-outer");
   const track   = document.querySelector<HTMLElement>(".projects-track");
 
-  if (!section || !outer || !track) throw new Error("ProjectsGallery: missing elements");
+  if (!section || !outer || !track) {
+    throw new Error("ProjectsGallery: missing elements");
+  }
 
-  // ── Drag ───────────────────────────────────────────────
-  let dragging = false, pX = 0, startLeft = 0;
-
-  outer.addEventListener("pointerdown", (e) => {
-    dragging = true;
-    pX = e.clientX;
-    startLeft = outer.scrollLeft;
-    outer.classList.add("is-dragging");
-    outer.setPointerCapture(e.pointerId);
-  });
-  const endDrag = () => { dragging = false; outer.classList.remove("is-dragging"); };
-  outer.addEventListener("pointerup",     endDrag);
-  outer.addEventListener("pointercancel", endDrag);
-
-  // ── GSAP pin — desktop only, no reduced-motion ─────────
-  const usePin = window.matchMedia(
+  const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  const usePin  = window.matchMedia(
     "(min-width: 900px) and (prefers-reduced-motion: no-preference)"
   ).matches;
 
+  type LenisLike = {
+    on: (event: string, cb: () => void) => void;
+    scrollTo: (target: number, opts?: { immediate?: boolean; duration?: number }) => void;
+    scroll: number;
+  };
+
+  // Wire Lenis → ScrollTrigger. Lenis updates `window.scrollY` on every tick,
+  // and ScrollTrigger reads from that — so this hookup makes the pin animation
+  // respond to Lenis's smoothed scroll position. Without it the pin can feel
+  // laggy because ScrollTrigger only refreshes on native scroll events that
+  // Lenis has swallowed.
+  const attachLenis = () => {
+    const lenis = (window as unknown as { lenis?: LenisLike }).lenis;
+    if (lenis) {
+      lenis.on("scroll", ScrollTrigger.update);
+      return lenis;
+    }
+    return null;
+  };
+  let lenis: LenisLike | null = attachLenis();
+  if (!lenis) {
+    window.addEventListener(
+      "load",
+      () => { lenis = attachLenis(); },
+      { once: true }
+    );
+  }
+
+  // ── Pin mode (desktop) ───────────────────────────────────
+  // Vertical scroll inside the section becomes horizontal movement of the
+  // track. The page itself pauses while the gallery scrolls, then resumes
+  // once the user has wheeled past the last card.
   if (usePin) {
+    // When pinned, the outer must not have its own horizontal scroll — the
+    // track's `x` transform drives everything.
     outer.style.overflow = "hidden";
-    const totalScroll = () => track.scrollWidth - outer.offsetWidth;
+    outer.style.cursor = "grab";
+
+    const totalScroll = () => Math.max(0, track.scrollWidth - outer.clientWidth);
 
     gsap.to(track, {
       x: () => -totalScroll(),
       ease: "none",
       scrollTrigger: {
-        id: "pg",
+        id: "projects-pin",
         trigger: section,
-        pin: true,
-        anticipatePin: 1,
-        scrub: 1.2,
         start: "top top",
         end: () => `+=${totalScroll()}`,
+        pin: true,
+        // `scrub: true` = direct 1:1 mapping. Lenis already smooths the
+        // underlying scroll position, so adding GSAP smoothing on top
+        // (e.g. scrub: 1.2) introduces visible lag.
+        scrub: true,
+        anticipatePin: 1,
         invalidateOnRefresh: true,
       },
     });
 
-    // Lenis intercepts scroll events — wire it to ScrollTrigger so the pin
-    // receives the smoothed scroll position instead of raw window events.
-    const connectLenis = () => {
-      const lenis = (window as unknown as { lenis?: { on: (e: string, cb: () => void) => void } }).lenis;
-      if (lenis) lenis.on("scroll", () => ScrollTrigger.update());
-    };
-    // Lenis is initialized in Base.astro — may not exist yet on this tick
-    if ((window as unknown as { lenis?: unknown }).lenis) {
-      connectLenis();
-    } else {
-      window.addEventListener("load", connectLenis, { once: true });
-    }
+    // Drag inside the pinned gallery → advance the page scroll. The pin
+    // animation then translates that into horizontal track movement.
+    let dragging = false;
+    let lastX = 0;
 
-    // drag → page scroll in pin mode
+    outer.addEventListener("pointerdown", (e) => {
+      if (e.button !== undefined && e.button !== 0) return;
+      dragging = true;
+      lastX = e.clientX;
+      outer.classList.add("is-dragging");
+      outer.setPointerCapture(e.pointerId);
+    });
+
     outer.addEventListener("pointermove", (e) => {
       if (!dragging) return;
-      const dx = pX - e.clientX;
-      pX = e.clientX;
-      window.scrollBy(0, dx * 0.65);
+      const dx = e.clientX - lastX;
+      lastX = e.clientX;
+      // Drag right by 1px ⇒ scroll page up by 1px (track moves right).
+      if (lenis) {
+        lenis.scrollTo(lenis.scroll - dx, { immediate: true });
+      } else {
+        window.scrollBy(0, -dx);
+      }
+    });
+
+    const endDrag = () => {
+      dragging = false;
+      outer.classList.remove("is-dragging");
+    };
+    outer.addEventListener("pointerup", endDrag);
+    outer.addEventListener("pointercancel", endDrag);
+    outer.addEventListener("pointerleave", endDrag);
+
+    // Keyboard: step the page scroll by a card-width's worth of pin range.
+    outer.addEventListener("keydown", (e) => {
+      const step = outer.clientWidth * 0.7;
+      if (e.key === "ArrowRight" || e.key === "ArrowDown") {
+        e.preventDefault();
+        if (lenis) lenis.scrollTo(lenis.scroll + step);
+        else window.scrollBy({ top: step, behavior: "smooth" });
+      } else if (e.key === "ArrowLeft" || e.key === "ArrowUp") {
+        e.preventDefault();
+        if (lenis) lenis.scrollTo(lenis.scroll - step);
+        else window.scrollBy({ top: -step, behavior: "smooth" });
+      }
     });
   } else {
+    // ── Mobile / reduced-motion fallback ───────────────────
+    // Plain native overflow-x scroll with drag + momentum.
+    let dragging = false;
+    let startX = 0;
+    let startLeft = 0;
+    let lastX = 0;
+    let lastT = 0;
+    let velocity = 0;
+    let rafId = 0;
+
+    outer.addEventListener("pointerdown", (e) => {
+      if (e.button !== undefined && e.button !== 0) return;
+      dragging = true;
+      startX = e.clientX;
+      lastX = e.clientX;
+      lastT = performance.now();
+      startLeft = outer.scrollLeft;
+      velocity = 0;
+      if (rafId) {
+        cancelAnimationFrame(rafId);
+        rafId = 0;
+      }
+      outer.classList.add("is-dragging");
+      outer.setPointerCapture(e.pointerId);
+    });
+
     outer.addEventListener("pointermove", (e) => {
       if (!dragging) return;
-      outer.scrollLeft = startLeft + (pX - e.clientX);
+      const now = performance.now();
+      const dx = e.clientX - lastX;
+      const dt = Math.max(1, now - lastT);
+      velocity = dx / dt;
+      lastX = e.clientX;
+      lastT = now;
+      outer.scrollLeft = startLeft - (e.clientX - startX);
+    });
+
+    const endDrag = () => {
+      if (!dragging) return;
+      dragging = false;
+      outer.classList.remove("is-dragging");
+      if (reduced || Math.abs(velocity) < 0.05) return;
+
+      let v = -velocity * 16;
+      const friction = 0.94;
+      const step = () => {
+        outer.scrollLeft += v;
+        v *= friction;
+        if (Math.abs(v) > 0.5) {
+          rafId = requestAnimationFrame(step);
+        } else {
+          rafId = 0;
+        }
+      };
+      rafId = requestAnimationFrame(step);
+    };
+    outer.addEventListener("pointerup", endDrag);
+    outer.addEventListener("pointercancel", endDrag);
+    outer.addEventListener("pointerleave", endDrag);
+
+    outer.addEventListener("keydown", (e) => {
+      const step = outer.clientWidth * 0.8;
+      if (e.key === "ArrowRight") {
+        e.preventDefault();
+        outer.scrollBy({ left: step, behavior: "smooth" });
+      } else if (e.key === "ArrowLeft") {
+        e.preventDefault();
+        outer.scrollBy({ left: -step, behavior: "smooth" });
+      }
     });
   }
 </script>
