@@ -14,7 +14,7 @@ export const defaultVariant: Variant = {
   language: "en",
   brandTag: { text: "Build Space", mark: "buildspace" },
 
-  eyebrow: "Logic Labs · Cohort 01 · Starts Saturday, June 13, 2026",
+  eyebrow: "Logic Labs · Cohort 01 · Starts Saturday, June 20, 2026",
 
   hero: {
     headline: "Your child can build AI.",
@@ -53,7 +53,7 @@ export const defaultVariant: Variant = {
   },
 
   closing: {
-    eyebrow: "Logic Labs · Cohort 01 · Saturday, June 13, 2026",
+    eyebrow: "Logic Labs · Cohort 01 · Saturday, June 20, 2026",
     headline: "Book the ₹99 demo class.\nDecide after.",
     body: "Two hours. Your child meets the instructor, builds something small, and takes a short live test. You watch from the next room or join. If it is not for your child, you have spent ₹99 — not ₹19,999.",
   },
@@ -88,7 +88,7 @@ export const defaultVariant: Variant = {
   seo: {
     title: "Build Space — Live AI Cohort for Class 9 to 12 Students in India",
     description:
-      "A four-week live cohort for Indian Class 9 to 12 students. Build and deploy a working AI agent in Python. Five students per batch, one practitioner instructor. Cohort 01 starts June 13, 2026.",
+      "A four-week live cohort for Indian Class 9 to 12 students. Build and deploy a working AI agent in Python. Five students per batch, one practitioner instructor. Cohort 01 starts June 20, 2026.",
     ogImage: "/og-cover.png",
   },
 

@@ -3,8 +3,8 @@
 export const COHORT = {
   brand: "Build Space",
   cohort: "Logic Labs · Cohort 01",
-  startDate: "2026-06-13",
-  startDateReadable: "Saturday, June 13, 2026",
+  startDate: "2026-06-20",
+  startDateReadable: "Saturday, June 20, 2026",
   endDate: "2026-07-12",
   durationWeeks: 4,
   sessionsPerWeek: 2,
@@ -181,7 +181,7 @@ export const COHORT = {
     },
   ],
   logistics: [
-    { label: "Start", value: "13 June 2026", note: "Saturday · 8 sessions over 4 weeks" },
+    { label: "Start", value: "20 June 2026", note: "Saturday · 8 sessions over 4 weeks" },
     { label: "Schedule", value: "Sat + Sun", note: "2 hours per session, weekends only" },
     { label: "Format", value: "Online, live", note: "Chrome or Safari, no software to install" },
     { label: "Batch size", value: "5 students", note: "A hard limit, not a promise" },

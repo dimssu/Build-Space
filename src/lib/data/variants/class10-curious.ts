@@ -31,7 +31,7 @@ export const class10CuriousVariant: PartialVariant = {
       "Four weekends. Five students. By the end you have a deployed AI agent on the internet — built by you, in Python, with a URL you can send anyone.",
     primaryCta: "₹99 — first class",
     secondaryCta: "See what you'll build",
-    footnote: "Saturday, June 13, 2026 · Two hours. If it's not for you, you've spent ₹99.",
+    footnote: "Saturday, June 20, 2026 · Two hours. If it's not for you, you've spent ₹99.",
     outcomes: [
       { label: "An AI agent you built", note: "Python, from scratch — no copy-paste" },
       { label: "A real URL", note: "Send the link to anyone, they can use it" },
@@ -67,7 +67,7 @@ export const class10CuriousVariant: PartialVariant = {
   },
 
   closing: {
-    eyebrow: "Cohort 01 · Saturday, June 13, 2026",
+    eyebrow: "Cohort 01 · Saturday, June 20, 2026",
     headline: "₹99.\nCome and see.",
     body: "Two hours. You meet the instructor, build something small, take a short live test. If it isn't for you, you've spent ₹99. If it is, you finally have somewhere your curiosity goes.",
   },
@@ -102,7 +102,7 @@ export const class10CuriousVariant: PartialVariant = {
   seo: {
     title: "Class 10? Curious about AI? Try a live cohort — Logic Labs",
     description:
-      "A live four-week AI cohort for class 9–12 students in India who are curious about building. Five students, one instructor, ₹99 demo class on June 13. No alumni yet — everyone starts here.",
+      "A live four-week AI cohort for class 9–12 students in India who are curious about building. Five students, one instructor, ₹99 demo class on June 20. No alumni yet — everyone starts here.",
   },
 
   faqPriority: ["student", "parent"],

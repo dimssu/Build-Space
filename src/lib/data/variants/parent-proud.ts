@@ -27,7 +27,7 @@ export const parentProudVariant: PartialVariant = {
       "A live AI cohort. Four weekends. Five students. One instructor who does this for a living.",
     primaryCta: "Book the ₹99 demo class",
     secondaryCta: "See what they'll build",
-    footnote: "Saturday, June 13, 2026 · Two hours. ₹99 if it's not for them.",
+    footnote: "Saturday, June 20, 2026 · Two hours. ₹99 if it's not for them.",
     outcomes: [
       { label: "A live AI agent", note: "On a real URL, anyone can visit" },
       { label: "A GitHub repo", note: "Their code, with their name on it" },
@@ -63,7 +63,7 @@ export const parentProudVariant: PartialVariant = {
   },
 
   closing: {
-    eyebrow: "Cohort 01 · Saturday, June 13, 2026",
+    eyebrow: "Cohort 01 · Saturday, June 20, 2026",
     headline: "Book the ₹99 demo class.\nDecide after.",
     body: "Two hours. Your child meets the instructor, builds something small, takes a short live test. You watch from the next room or join in. If it isn't for your child, you've spent ₹99 — not ₹19,999.",
   },
@@ -98,7 +98,7 @@ export const parentProudVariant: PartialVariant = {
   seo: {
     title: "My Child Built an AI Agent — Logic Labs Cohort for Class 9–12",
     description:
-      "A four-week live AI cohort for class 9–12 students in India. Your child ships a deployed agent — a link, something that runs. Cohort 01 starts June 13, 2026.",
+      "A four-week live AI cohort for class 9–12 students in India. Your child ships a deployed agent — a link, something that runs. Cohort 01 starts June 20, 2026.",
   },
 
   faqPriority: ["parent", "student"],

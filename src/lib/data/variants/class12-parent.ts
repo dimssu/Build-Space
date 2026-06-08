@@ -31,7 +31,7 @@ export const class12ParentVariant: PartialVariant = {
       "Class 12 students who build AI agents arrive at college with a deployed project, a GitHub repo, and a skill the admissions committee will not have seen before.",
     primaryCta: "Book the ₹99 demo class",
     secondaryCta: "See what they'll build",
-    footnote: "Saturday, June 13, 2026 · Two hours. If it's not for your child, you've spent ₹99.",
+    footnote: "Saturday, June 20, 2026 · Two hours. If it's not for your child, you've spent ₹99.",
     outcomes: [
       { label: "A deployed AI agent", note: "On a real URL, anyone can visit" },
       { label: "A GitHub repo", note: "Their code, with their name on it" },
@@ -72,7 +72,7 @@ export const class12ParentVariant: PartialVariant = {
   },
 
   closing: {
-    eyebrow: "Cohort 01 · Saturday, June 13, 2026",
+    eyebrow: "Cohort 01 · Saturday, June 20, 2026",
     headline: "Book the ₹99 demo class.\nDecide after.",
     body: "Two hours. Your child meets the instructor, builds something small, takes a short live test. You watch from the next room or join in. If it isn't for your child, you've spent ₹99 — not ₹19,999.",
   },
@@ -107,7 +107,7 @@ export const class12ParentVariant: PartialVariant = {
   seo: {
     title: "Class 12. Boards Untouched. Build an AI Agent — Logic Labs",
     description:
-      "Four weekends. Zero weekdays. Boards stay untouched. Class 12 students who build AI agents arrive at college with a deployed project and a GitHub repo. Cohort 01 starts June 13, 2026.",
+      "Four weekends. Zero weekdays. Boards stay untouched. Class 12 students who build AI agents arrive at college with a deployed project and a GitHub repo. Cohort 01 starts June 20, 2026.",
   },
 
   faqPriority: ["parent", "student"],

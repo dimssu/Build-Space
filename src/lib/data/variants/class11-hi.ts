@@ -35,7 +35,7 @@ export const class11HiVariant: PartialVariant = {
       "Class 11 ke liye. Char weekends. Paanch students. Ek banda jo roz production mein AI banata hai. Char hafte mein tu ek deployed AI agent banayega — tera apna, live URL pe, GitHub mein.",
     primaryCta: "₹99 mein pehli class book kar",
     secondaryCta: "Dekh tu kya banayega",
-    footnote: "Saturday, 13 June 2026 · Do ghante. Tere liye nahi hai toh ₹99 gaya, ₹19,999 nahi.",
+    footnote: "Saturday, 20 June 2026 · Do ghante. Tere liye nahi hai toh ₹99 gaya, ₹19,999 nahi.",
     outcomes: [
       { label: "Banaya hua AI agent", note: "Python mein, scratch se, copy-paste nahi" },
       { label: "Real URL", note: "Link kisi ko bhi bhej, woh use kar sakta hai" },
@@ -105,7 +105,7 @@ export const class11HiVariant: PartialVariant = {
   },
 
   closing: {
-    eyebrow: "Cohort 01 · Saturday, 13 June 2026",
+    eyebrow: "Cohort 01 · Saturday, 20 June 2026",
     headline: "₹99.\nPehle aa, phir dekh.",
     body: "Do ghante. Tu instructor se milta hai, kuch chhota banata hai, ek short live test deta hai. Agar tere liye nahi hai, tu ₹99 mein bachega — ₹19,999 mein nahi. Agar hai, toh tujhe finally ek aisa rasta milega jo YouTube tab band karne pe khatam nahi hota.",
   },
@@ -140,7 +140,7 @@ export const class11HiVariant: PartialVariant = {
   seo: {
     title: "Class 11? Tera phone mein AI hai, tune banaya nahi — Logic Labs",
     description:
-      "Class 11 ke liye live AI cohort — char weekends, paanch students, ek practitioner instructor. Char hafte mein deployed AI agent. 13 June 2026 se shuru.",
+      "Class 11 ke liye live AI cohort — char weekends, paanch students, ek practitioner instructor. Char hafte mein deployed AI agent. 20 June 2026 se shuru.",
   },
 
   faqPriority: ["student", "parent"],

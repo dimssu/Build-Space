@@ -34,7 +34,7 @@ export const tutorialDropoutVariant: PartialVariant = {
       "That was not a you problem. The bottleneck for almost every student is not ability — it is having no one in the room when the question comes up.",
     primaryCta: "₹99 — try again",
     secondaryCta: "See what you'll actually build",
-    footnote: "Two hours. Saturday, June 13, 2026. If it isn't for you, you've spent ₹99 — not ₹19,999.",
+    footnote: "Two hours. Saturday, June 20, 2026. If it isn't for you, you've spent ₹99 — not ₹19,999.",
     outcomes: [
       { label: "A person, not a playlist", note: "Same instructor every weekend, knows your name" },
       { label: "Questions get answered", note: "Tuesday night doubt? Ask. Reply same week." },
@@ -70,7 +70,7 @@ export const tutorialDropoutVariant: PartialVariant = {
   },
 
   closing: {
-    eyebrow: "Cohort 01 · Saturday, June 13, 2026",
+    eyebrow: "Cohort 01 · Saturday, June 20, 2026",
     headline: "₹99.\nTry again.",
     body: "Two hours. You meet the instructor, build something small, take a short live test. If it isn't for you, you've spent ₹99. If it is, you finally have a path that doesn't end with a closed tab.",
   },
@@ -105,7 +105,7 @@ export const tutorialDropoutVariant: PartialVariant = {
   seo: {
     title: "Closed another Python tutorial? Try a live AI cohort — Logic Labs",
     description:
-      "Got stuck on an AI tutorial and closed the tab? Logic Labs is the re-entry: five students, one instructor in the room, ₹99 demo class on June 13. No alumni yet — everyone starts here.",
+      "Got stuck on an AI tutorial and closed the tab? Logic Labs is the re-entry: five students, one instructor in the room, ₹99 demo class on June 20. No alumni yet — everyone starts here.",
   },
 
   faqPriority: ["student", "parent"],
