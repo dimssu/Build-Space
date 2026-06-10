@@ -1,0 +1,128 @@
+---
+import Base from "@layouts/Base.astro";
+
+interface Props {
+  title: string;
+  description: string;
+  heading: string;
+  lastUpdated: string;
+}
+
+const { title, description, heading, lastUpdated } = Astro.props;
+---
+
+<Base {title} {description}>
+  <main id="main" class="container-page section-pad-lg">
+    <div class="legal-doc">
+      <p class="eyebrow">Legal</p>
+      <h1>{heading}</h1>
+      <p class="legal-updated">Last updated: {lastUpdated}</p>
+
+      <div class="legal-body">
+        <slot />
+      </div>
+
+      <div class="legal-foot">
+        <a href="/" class="btn btn-secondary">Back to home</a>
+      </div>
+    </div>
+  </main>
+</Base>
+
+<style>
+  .legal-doc {
+    max-width: 46rem;
+    margin-inline: auto;
+  }
+
+  .legal-doc h1 {
+    margin-top: 0.75rem;
+    font-family: var(--font-display);
+    font-size: var(--text-4xl);
+    line-height: 1.05;
+    letter-spacing: -0.03em;
+    font-weight: 600;
+  }
+
+  .legal-updated {
+    margin-top: 1rem;
+    color: var(--color-ink-mute);
+    font-size: var(--text-sm);
+    font-family: var(--font-mono, ui-monospace, monospace);
+  }
+
+  .legal-body {
+    margin-top: 3rem;
+    color: var(--color-ink-soft);
+    font-size: var(--text-base);
+    line-height: 1.65;
+  }
+
+  /* Section headings inside the slotted content */
+  .legal-body :global(h2) {
+    margin-top: 2.75rem;
+    margin-bottom: 0.85rem;
+    color: var(--color-ink);
+    font-family: var(--font-display);
+    font-size: var(--text-xl);
+    font-weight: 600;
+    letter-spacing: -0.01em;
+    scroll-margin-top: 5rem;
+  }
+
+  .legal-body :global(h2:first-child) {
+    margin-top: 0;
+  }
+
+  .legal-body :global(h3) {
+    margin-top: 1.75rem;
+    margin-bottom: 0.5rem;
+    color: var(--color-ink);
+    font-family: var(--font-display);
+    font-size: var(--text-base);
+    font-weight: 600;
+  }
+
+  .legal-body :global(p) {
+    margin-block: 0.85rem;
+    max-width: 42rem;
+  }
+
+  .legal-body :global(ul),
+  .legal-body :global(ol) {
+    margin-block: 0.85rem;
+    padding-left: 1.25rem;
+    display: grid;
+    gap: 0.5rem;
+  }
+
+  .legal-body :global(li) {
+    max-width: 40rem;
+  }
+
+  .legal-body :global(a) {
+    color: var(--color-accent-deep);
+    text-decoration: underline;
+    text-underline-offset: 2px;
+  }
+
+  .legal-body :global(strong) {
+    color: var(--color-ink);
+    font-weight: 600;
+  }
+
+  .legal-body :global(.legal-callout) {
+    margin-block: 1.5rem;
+    padding: 1.1rem 1.25rem;
+    border: 1px solid var(--color-rule);
+    border-radius: var(--radius-md);
+    background: var(--color-paper-card);
+    font-size: var(--text-sm);
+  }
+
+  .legal-foot {
+    margin-top: 3.5rem;
+    padding-top: 2rem;
+    border-top: 1px solid var(--color-rule);
+  }
+</style>

@@ -67,9 +67,13 @@ const year = new Date().getFullYear();
     </div>
   </div>
 
-  <div class="container-page mt-10 border-t pt-6" style="border-color: var(--color-rule);">
+  <div class="container-page mt-10 flex flex-wrap items-center justify-between gap-4 border-t pt-6" style="border-color: var(--color-rule);">
     <p style={`color: var(--color-ink-mute); font-size: var(--text-xs);`}>
-      © {year} Build Space LLP. Registered in India. All rights reserved.
+      © {year} Build Space. All rights reserved.
     </p>
+    <nav class="flex items-center gap-5" aria-label="Legal">
+      <a href="/privacy" class="hover:underline" style="color: var(--color-ink-mute); font-size: var(--text-xs);">Privacy Policy</a>
+      <a href="/terms" class="hover:underline" style="color: var(--color-ink-mute); font-size: var(--text-xs);">Terms &amp; Conditions</a>
+    </nav>
   </div>
 </footer>

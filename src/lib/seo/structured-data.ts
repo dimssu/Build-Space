@@ -22,7 +22,6 @@ export function buildLandingJsonLd(siteUrl: string, variant?: Variant) {
     "@type": "EducationalOrganization",
     "@id": orgId,
     name: "Build Space",
-    legalName: "Build Space LLP",
     url: siteUrl,
     logo: `${siteUrl}/logo.svg`,
     description:

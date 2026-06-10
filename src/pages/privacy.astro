@@ -1,0 +1,149 @@
+---
+import LegalDoc from "@layouts/LegalDoc.astro";
+import { COHORT } from "@lib/data/cohort";
+---
+
+<LegalDoc
+  title="Privacy Policy · Build Space"
+  description="How Build Space collects, uses, and protects the personal information of parents and students, in line with India's data protection law."
+  heading="Privacy Policy"
+  lastUpdated="10 June 2026"
+>
+  <p>
+    This Privacy Policy explains how <strong>Build Space</strong> ("Build Space",
+    "we", "us", or "our") collects, uses, shares, and protects personal
+    information when you visit <a href={COHORT.url}>{COHORT.url}</a> (the "Site") or
+    enrol in our Logic Labs cohort (the "Programme"). We operate in India and
+    follow the Digital Personal Data Protection Act, 2023 (the "DPDP Act") and the
+    Information Technology Act, 2000 and its rules.
+  </p>
+
+  <div class="legal-callout">
+    Our Programme is for students in Class 9 to 12, many of whom are under 18.
+    Accounts are created and payments are made by a parent or legal guardian. By
+    using this Site or enrolling a child, you confirm you are the parent or legal
+    guardian and you consent to this Policy on your child's behalf.
+  </div>
+
+  <h2>1. Information we collect</h2>
+  <p>We collect only what we need to run the Programme and the Site:</p>
+  <ul>
+    <li>
+      <strong>Information you give us.</strong> When you apply, book the ₹99 demo
+      class, or enrol, we collect the parent's name, email address, phone or
+      WhatsApp number, the student's first name, the student's school class, and
+      what the student already knows or wants to build.
+    </li>
+    <li>
+      <strong>Payment information.</strong> Payments are processed by our payment
+      gateway, Razorpay. We do not see or store your full card number, UPI PIN, or
+      bank credentials. We receive only a transaction reference, the amount, and
+      the payment status.
+    </li>
+    <li>
+      <strong>Information collected automatically.</strong> Like most websites, we
+      collect device and usage data — IP address, browser type, pages viewed,
+      and how you interact with the Site — through cookies and similar tools.
+    </li>
+    <li>
+      <strong>Communications.</strong> If you email or message us, we keep that
+      correspondence so we can respond and keep a record.
+    </li>
+  </ul>
+
+  <h2>2. How we use your information</h2>
+  <ul>
+    <li>To process the ₹99 demo class booking and cohort enrolment.</li>
+    <li>To deliver the Programme — sending join links, schedules, and recordings.</li>
+    <li>To contact parents about the class, scholarships, and logistics.</li>
+    <li>To take payments and keep accounting and tax records.</li>
+    <li>To understand how the Site is used and improve it.</li>
+    <li>To meet our legal and regulatory obligations.</li>
+  </ul>
+
+  <h2>3. Cookies and analytics</h2>
+  <p>
+    We use cookies and third-party analytics to understand how visitors use the
+    Site so we can improve it. These tools may record pages viewed, clicks, and
+    anonymised session activity (such as heatmaps). The services we use include:
+  </p>
+  <ul>
+    <li><strong>Hotjar / Contentsquare</strong> — heatmaps and aggregated session analytics.</li>
+    <li><strong>Meta Pixel</strong> — measuring the performance of our advertising.</li>
+    <li><strong>Google</strong> — analytics and conversion measurement.</li>
+  </ul>
+  <p>
+    You can block or delete cookies in your browser settings. Some parts of the
+    Site may not work as well if you do. We do not use these tools to build a
+    profile of any individual student.
+  </p>
+
+  <h2>4. How we share information</h2>
+  <p>
+    We do not sell your personal information. We share it only with service
+    providers who help us run the Programme, and only as far as needed:
+  </p>
+  <ul>
+    <li><strong>Razorpay</strong> — to process payments.</li>
+    <li><strong>Communication tools</strong> — email and WhatsApp, to reach you.</li>
+    <li><strong>Hosting, analytics, and video platforms</strong> — to run the Site and the live classes.</li>
+    <li><strong>Authorities</strong> — where we are required to by law.</li>
+  </ul>
+
+  <h2>5. Children's data</h2>
+  <p>
+    We take extra care with the personal data of children. We collect a student's
+    data only with the consent of their parent or legal guardian, we keep it to
+    the minimum needed to run the class, and we do not use it for advertising or
+    behavioural tracking directed at the child. A parent can ask us to access,
+    correct, or delete their child's data at any time using the contact details
+    below.
+  </p>
+
+  <h2>6. How long we keep data</h2>
+  <p>
+    We keep personal data only as long as needed for the purposes above, or as
+    required by law (for example, payment and tax records must be kept for several
+    years). When data is no longer needed, we delete or anonymise it.
+  </p>
+
+  <h2>7. Your rights</h2>
+  <p>Subject to the DPDP Act, you may ask us to:</p>
+  <ul>
+    <li>Access the personal data we hold about you or your child.</li>
+    <li>Correct data that is inaccurate or incomplete.</li>
+    <li>Delete data we no longer need to keep.</li>
+    <li>Withdraw a consent you previously gave.</li>
+  </ul>
+  <p>
+    To make a request, email us at
+    <a href={`mailto:${COHORT.contact.email}`}>{COHORT.contact.email}</a>. We may
+    need to verify your identity before acting on a request.
+  </p>
+
+  <h2>8. Data security</h2>
+  <p>
+    We use reasonable technical and organisational measures to protect personal
+    data against loss, misuse, and unauthorised access. No method of transmission
+    over the internet is completely secure, so we cannot guarantee absolute
+    security.
+  </p>
+
+  <h2>9. Changes to this Policy</h2>
+  <p>
+    We may update this Policy from time to time. When we do, we will revise the
+    "Last updated" date at the top of this page. Significant changes will be
+    communicated to enrolled parents directly.
+  </p>
+
+  <h2>10. Contact us</h2>
+  <p>
+    For any privacy question or request, including grievances about how your data
+    is handled, contact our grievance officer:
+  </p>
+  <ul>
+    <li>Email: <a href={`mailto:${COHORT.contact.email}`}>{COHORT.contact.email}</a></li>
+    <li>WhatsApp: {COHORT.contact.whatsapp}</li>
+    <li>Build Space, India.</li>
+  </ul>
+</LegalDoc>

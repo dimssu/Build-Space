@@ -1,0 +1,136 @@
+---
+import LegalDoc from "@layouts/LegalDoc.astro";
+import { COHORT } from "@lib/data/cohort";
+---
+
+<LegalDoc
+  title="Terms & Conditions · Build Space"
+  description="The terms that govern enrolment in the Build Space Logic Labs cohort, including fees, refunds, eligibility, and code ownership."
+  heading="Terms & Conditions"
+  lastUpdated="10 June 2026"
+>
+  <p>
+    These Terms & Conditions ("Terms") govern your use of
+    <a href={COHORT.url}>{COHORT.url}</a> (the "Site") and your enrolment in the
+    Build Space Logic Labs cohort (the "Programme"), operated by
+    <strong>Build Space</strong> ("Build Space", "we", "us", or "our"). By
+    booking the demo class or enrolling, you agree to these Terms.
+  </p>
+
+  <h2>1. Who can enrol</h2>
+  <p>
+    The Programme is designed for students in Class 9 to 12 in India. Because many
+    students are under 18, enrolment must be completed by a parent or legal
+    guardian, who accepts these Terms on the student's behalf and is responsible
+    for payment.
+  </p>
+
+  <h2>2. The demo class and the cohort</h2>
+  <ul>
+    <li>
+      <strong>Demo class.</strong> The first class costs <strong>₹99</strong>.
+      Your child builds something small, meets the instructor, and takes a short
+      live assessment. Scholarships, where offered, are decided here on merit.
+    </li>
+    <li>
+      <strong>Full cohort.</strong> The cohort fee is
+      <strong>{COHORT.priceDisplay}</strong>, paid once. Where a merit scholarship
+      applies, the fee is <strong>{COHORT.scholarshipPriceDisplay}</strong>. The
+      Programme runs over {COHORT.durationWeeks} weekends — {COHORT.totalSessions}
+      live sessions of {COHORT.sessionHours} hours each.
+    </li>
+  </ul>
+
+  <h2>3. Fees, payment, and refunds</h2>
+  <div class="legal-callout">
+    <strong>Both fees are non-refundable.</strong> The ₹99 demo class fee and the
+    {COHORT.priceDisplay} cohort fee are non-refundable once paid. We state this
+    upfront rather than in fine print.
+  </div>
+  <p>
+    Payments are made over UPI and processed securely by Razorpay. There is no
+    EMI option and no hidden charges. If a session is cancelled by us, we will
+    reschedule it or provide a recording; this does not create a right to a refund.
+  </p>
+
+  <h2>4. Scholarships</h2>
+  <p>
+    Scholarships are awarded at our discretion, based on a student's performance
+    in the demo class and live assessment. A scholarship reduces the cohort fee as
+    described at the time it is offered. Scholarships are not transferable and have
+    no cash value.
+  </p>
+
+  <h2>5. What we provide</h2>
+  <ul>
+    <li>{COHORT.totalSessions} live online sessions, {COHORT.sessionHours} hours each.</li>
+    <li>One instructor across the whole cohort.</li>
+    <li>Session recordings if a class is missed.</li>
+    <li>Support for questions between sessions, via the channels we provide.</li>
+    <li>A completion certificate and parent observer access to sessions.</li>
+  </ul>
+  <p>
+    Sessions run online over Chrome or Safari. You are responsible for a working
+    internet connection and a suitable device.
+  </p>
+
+  <h2>6. Ownership of student work</h2>
+  <p>
+    Code and projects your child writes during the Programme belong to your child.
+    They keep their GitHub repository and any agent they deploy. We may, with your
+    consent, showcase student work (for example on a demo day or in marketing); we
+    will ask before doing so.
+  </p>
+  <p>
+    The Programme's teaching materials, curriculum, and Site content are owned by
+    Build Space and may not be copied, resold, or redistributed without our
+    written permission.
+  </p>
+
+  <h2>7. Acceptable use</h2>
+  <p>You agree not to:</p>
+  <ul>
+    <li>Share class join links, recordings, or materials with people outside your enrolment.</li>
+    <li>Disrupt sessions or behave abusively toward the instructor or other students.</li>
+    <li>Use the Site or Programme for any unlawful purpose.</li>
+  </ul>
+  <p>
+    We may remove a participant who breaches these Terms, without a refund.
+  </p>
+
+  <h2>8. No guarantee of outcomes</h2>
+  <p>
+    We teach the principles behind building AI agents and help every student ship
+    a working project. We cannot, however, guarantee any particular academic,
+    admission, or career outcome, as those depend on many factors outside our
+    control.
+  </p>
+
+  <h2>9. Limitation of liability</h2>
+  <p>
+    To the extent permitted by law, Build Space is not liable for any
+    indirect or consequential loss arising from the use of the Site or the
+    Programme. Our total liability for any claim is limited to the amount you paid
+    us for the Programme.
+  </p>
+
+  <h2>10. Changes to these Terms</h2>
+  <p>
+    We may update these Terms from time to time. The "Last updated" date at the
+    top shows the current version. Continued use of the Site or Programme after a
+    change means you accept the updated Terms.
+  </p>
+
+  <h2>11. Governing law</h2>
+  <p>
+    These Terms are governed by the laws of India. Any dispute is subject to the
+    exclusive jurisdiction of the courts of India.
+  </p>
+
+  <h2>12. Contact us</h2>
+  <ul>
+    <li>Email: <a href={`mailto:${COHORT.contact.email}`}>{COHORT.contact.email}</a></li>
+    <li>WhatsApp: {COHORT.contact.whatsapp}</li>
+    <li>Build Space, India.</li>
+  </ul>
+</LegalDoc>
